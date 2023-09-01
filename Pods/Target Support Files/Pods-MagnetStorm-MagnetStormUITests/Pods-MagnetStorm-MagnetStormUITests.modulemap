@@ -1,0 +1,6 @@
+framework module Pods_MagnetStorm_MagnetStormUITests {
+  umbrella header "Pods-MagnetStorm-MagnetStormUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
