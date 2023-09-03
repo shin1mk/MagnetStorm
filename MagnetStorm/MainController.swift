@@ -14,6 +14,9 @@ final class MainController: UIViewController {
     //MARK: Properties
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
+    private var descriptionText = ""
+    private var currentCharacterIndex = 0
+
     
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
@@ -42,10 +45,11 @@ final class MainController: UIViewController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .black
         setupConstraints()
         setupLocationManager()
         fetchMagneticDataAndUpdateUI()
+
     }
     //MARK: Constraints
     private func setupConstraints() {
@@ -63,7 +67,7 @@ final class MainController: UIViewController {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(15)
             make.leading.equalToSuperview().offset(15)
-            make.width.lessThanOrEqualTo(300)
+            make.width.lessThanOrEqualTo(320)
         }
     }
     //MARK: Location Manager
@@ -107,7 +111,33 @@ final class MainController: UIViewController {
                 }
                 self?.geomagneticActivityLabel.text = state.labelText
                 self?.geomagneticActivityLabel.textColor = state.labelColor
-                self?.descriptionLabel.text = state.descriptionText
+//                self?.descriptionLabel.text = state.descriptionText
+                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
+
+            }
+        }
+    }
+    
+    private func animateDescriptionLabelAppearance(withText text: String) {
+        descriptionText = text
+        currentCharacterIndex = 0
+        descriptionLabel.text = ""
+
+        // Запускаем таймер, чтобы добавлять буквы каждые 0.1 секунды
+        Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+
+            if self.currentCharacterIndex < self.descriptionText.count {
+                let index = self.descriptionText.index(self.descriptionText.startIndex, offsetBy: self.currentCharacterIndex)
+                let character = self.descriptionText[index]
+                self.descriptionLabel.text?.append(character)
+                self.currentCharacterIndex += 1
+            } else {
+                // Весь текст добавлен, останавливаем таймер
+                timer.invalidate()
             }
         }
     }
@@ -173,25 +203,25 @@ extension MainController {
         var descriptionText: String {
             switch self {
             case .noStorm:
-                return "Отсутствие бури: Нет активности магнитных бурь, магнитное поле Земли стабильно."
+                return "Отсутствие бури:\nНет активности магнитных бурь, магнитное поле Земли стабильно."
             case .minorStorm:
-                return "Слабая буря: Небольшое возмущение магнитного поля. Возможны слабые влияния на системы связи и навигации."
+                return "Слабая буря:\nНебольшое возмущение магнитного поля. Возможны слабые влияния на системы связи и навигации."
             case .weakStorm:
-                return "Умеренная буря: Умеренное возмущение магнитного поля. Может вызывать более серьезные сбои в работе систем связи и навигации, особенно на высоких широтах."
+                return "Умеренная буря:\nУмеренное возмущение магнитного поля. Может вызывать более серьезные сбои в работе систем связи и навигации, особенно на высоких широтах."
             case .moderateStorm:
-                return "Сильная буря: Сильное возмущение магнитного поля. Может вызывать проблемы с работой спутников и систем связи, а также создавать опасность для космических аппаратов."
+                return "Сильная буря:\nСильное возмущение магнитного поля. Может вызывать проблемы с работой спутников и систем связи, а также создавать опасность для космических аппаратов."
             case .strongStorm:
-                return "Очень сильная буря: Очень сильное возмущение магнитного поля. Этот уровень может вызвать серьезные проблемы для спутниковых систем и сетей электропередачи."
+                return "Очень сильная буря:\nОчень сильное возмущение магнитного поля. Этот уровень может вызвать серьезные проблемы для спутниковых систем и сетей электропередачи."
             case .severeStorm:
-                return "Сильнейшая буря: Самый высокий уровень активности. Может вызывать критические сбои в работе спутников и технических систем, а также повышенные риски для космических аппаратов."
+                return "Сильнейшая буря:\nСамый высокий уровень активности. Может вызывать критические сбои в работе спутников и технических систем, а также повышенные риски для космических аппаратов."
             case .extremeStorm:
-                return "Буря выдающегося масштаба: Это экстремально сильная магнитная буря, которая может вызвать массовые отключения электроэнергии, повреждение спутников и серьезные технические проблемы."
+                return "Буря выдающегося масштаба:\nЭто экстремально сильная магнитная буря, которая может вызвать массовые отключения электроэнергии, повреждение спутников и серьезные технические проблемы."
             case .outstandingStorm:
-                return "Буря исключительного масштаба: Наивысший уровень активности магнитных бурь. Может создавать катастрофические последствия для систем связи, навигации и электропередачи."
+                return "Буря исключительного масштаба:\nНаивысший уровень активности магнитных бурь. Может создавать катастрофические последствия для систем связи, навигации и электропередачи."
             case .exceptionalStorm:
-                return "Сверхбуря: Этот уровень обозначает сверхбурю масштаба апокалипсиса, которая имеет потенциал разрушить множество технических систем и причинить значительный ущерб."
+                return "Сверхбуря:\nЭтот уровень обозначает сверхбурю масштаба апокалипсиса, которая имеет потенциал разрушить множество технических систем и причинить значительный ущерб."
             case .superstorm:
-                return "Супербуря: Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего технического оборудования и систем связи."
+                return "Супербуря:\nСамый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего технического оборудования и систем связи."
             case .unknown:
                 return "Неизвестно"
             }
@@ -245,3 +275,22 @@ extension MainController {
 //    }
 // Теперь добавляем слой для видеофона прям в констрейнты вниз
 //        setupVideoBackground()
+
+//анимация плавного появления
+// это во вью дид лоад
+//descriptionLabel.alpha = 0.0 // Начально скрываем label
+//
+//private func animateDescriptionLabelAppearance(withText text: String) {
+//    descriptionLabel.text = "" // Очищаем текст перед анимацией
+//    descriptionLabel.alpha = 0.0 // Начинаем с нулевой прозрачности
+//
+//    // Создаем анимацию появления текста по буквам
+//    UIView.animate(withDuration: 5.0, delay: 0.0, options: [.curveLinear], animations: { [weak self] in
+//        text.forEach { char in
+//            self?.descriptionLabel.text?.append(char)
+//            self?.descriptionLabel.alpha = 1.0
+//        }
+//    }, completion: nil)
+//}
+//self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
+
