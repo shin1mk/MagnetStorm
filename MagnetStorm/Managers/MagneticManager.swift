@@ -16,12 +16,10 @@ func fetchMagneticData(completion: @escaping (String?) -> Void) {
             print("Ошибка при выполнении запроса: \(error)")
             return
         }
-        
         guard let data = data else {
             print("Данные не получены.")
             return
         }
-        
         do {
             if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String]] {
                 // Пропускаем первую строку с заголовками
@@ -34,17 +32,14 @@ func fetchMagneticData(completion: @escaping (String?) -> Void) {
                         geomagneticDataArray.append(geomagneticData)
                     }
                 }
-                if let firstGeomagneticData = geomagneticDataArray.first {
-                    // Предположим, что вы хотите использовать значение Kp из первой записи
-                    if let kpDouble = Double(firstGeomagneticData.kp) {
+                if let lastGeomagneticData = geomagneticDataArray.last {
+                    if let kpDouble = Double(lastGeomagneticData.kp) {
                         let roundedKp = Int(round(kpDouble))
                         let currentKpValue = "\(roundedKp)"
-                        print("currentValue-double: \(kpDouble)")
-                        // Вызываем замыкание с полученным значением Kp
                         completion(currentKpValue)
                     }
                 }
-//                print(geomagneticDataArray)
+                print(geomagneticDataArray)
             } else {
                 print("Данные не соответствуют ожидаемому формату JSON.")
                 completion(nil)

@@ -18,6 +18,7 @@
 		13449AD42AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */; };
 		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
+		136A757A2AA4B8F900BA3A3B /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136A75792AA4B8F900BA3A3B /* DescriptionView.swift */; };
 		921C885F0D7ECE75770D50E5 /* Pods_MagnetStorm_MagnetStormUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B386282E1553463722EF87A1 /* Pods_MagnetStorm_MagnetStormUITests.framework */; };
 		B8041CF5FDD322B41C1282F8 /* Pods_MagnetStormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6EFA7D8B6AF4A8E78CBC25D /* Pods_MagnetStormTests.framework */; };
 		D5BE40A3755523CAA47C3A5A /* Pods_MagnetStorm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E059D9BEDB1AF6AEA6D035D /* Pods_MagnetStorm.framework */; };
@@ -56,6 +57,7 @@
 		13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
+		136A75792AA4B8F900BA3A3B /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		2EF260427245B0423096C949 /* Pods-MagnetStorm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStorm.debug.xcconfig"; path = "Target Support Files/Pods-MagnetStorm/Pods-MagnetStorm.debug.xcconfig"; sourceTree = "<group>"; };
 		5F19980199D342412AA42408 /* Pods-MagnetStorm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStorm.release.xcconfig"; path = "Target Support Files/Pods-MagnetStorm/Pods-MagnetStorm.release.xcconfig"; sourceTree = "<group>"; };
 		81D6D7EED3B736B46BD6D3EC /* Pods-MagnetStormTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStormTests.debug.xcconfig"; path = "Target Support Files/Pods-MagnetStormTests/Pods-MagnetStormTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		13449AE42AA296F200C858BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				136A75792AA4B8F900BA3A3B /* DescriptionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13449AB22AA2965000C858BF /* MainController.swift in Sources */,
+				136A757A2AA4B8F900BA3A3B /* DescriptionView.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
