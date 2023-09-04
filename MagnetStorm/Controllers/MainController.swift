@@ -8,6 +8,9 @@
  Dnepr
  48,4647
  35,0462
+ разобраться с жестами
+ добавить кнопку i
+ придумать автоперевод на 3 языка
  */
 import UIKit
 import SnapKit
@@ -17,23 +20,20 @@ import AVKit
 final class MainController: UIViewController {
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
-
+    private var isAnimating = false
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
-    // для текста описания
-    private var descriptionText = ""
-    private var currentCharacterIndex = 0
     
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
-        locationLabel.text = "-----"
+        locationLabel.text = ""
         locationLabel.font = UIFont.SFUITextHeavy(ofSize: 30 )
         locationLabel.textColor = .white
         return locationLabel
     }()
     private let geomagneticActivityLabel: UILabel = {
         let geomagneticActivityLabel = UILabel()
-        geomagneticActivityLabel.text = "G0"
+        geomagneticActivityLabel.text = ""
         geomagneticActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 30)
         geomagneticActivityLabel.textColor = .white
         return geomagneticActivityLabel
@@ -50,7 +50,6 @@ final class MainController: UIViewController {
         let button = UIButton()
         let customImage = UIImage(named: "arrowUp.png")
         button.setBackgroundImage(customImage, for: .normal)
-        button.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         return button
     }()
     private let swipeUpLabel: UILabel = {
@@ -58,14 +57,12 @@ final class MainController: UIViewController {
         label.text = "Проведи вверх"
         label.font = UIFont.SFUITextHeavy(ofSize: 14)
         label.textColor = .white
-        label.textAlignment = .center
         return label
     }()
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 10 // Adjust spacing as needed
         return stackView
     }()
     //MARK: Lifecycle
@@ -75,6 +72,12 @@ final class MainController: UIViewController {
         setupConstraints()
         setupLocationManager()
         setupSwipeGesture()
+        setupVideoBackground()
+        setupTarget()
+    }
+    //MARK: Target
+    private func setupTarget() {
+        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
     }
     //MARK: Constraints
     private func setupConstraints() {
@@ -94,11 +97,10 @@ final class MainController: UIViewController {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(2)
             make.leading.equalToSuperview().offset(15)
-            make.width.lessThanOrEqualTo(320)
+            make.trailing.lessThanOrEqualToSuperview().offset(-40)
         }
         buttonStackView.addArrangedSubview(chevronButton)
         buttonStackView.addArrangedSubview(swipeUpLabel)
-        
         view.addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -106,30 +108,62 @@ final class MainController: UIViewController {
             make.width.equalTo(150)
             make.height.equalTo(65)
         }
-
-        setupVideoBackground()
     }
-    
+    //    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+    //          if gesture.state == .ended {
+    //              print("swipe up")
+    //              chevronButtonTapped()
+    //              animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
+    //          }
+    //      }
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
-        // Действия, которые должны выполняться при нажатии на кнопку
-        // Например, прокрутка к верху экрана или открытие другого экрана
     }
-    
     private func setupSwipeGesture() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeUpGesture.direction = .up
         view.addGestureRecognizer(swipeUpGesture)
+        
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
+        swipeDownGesture.direction = .down
+        view.addGestureRecognizer(swipeDownGesture)
+        // Устанавливаем зависимость между жестами
+        swipeUpGesture.require(toFail: swipeDownGesture)
     }
-
-    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
-          if gesture.state == .ended {
-              print("swipe up")
-              chevronButtonTapped()
-              animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
-          }
-      }
     
+    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            print("swipe up")
+            if isAnimating {
+                // Выполнить анимацию сворачивания текста
+                animateDescriptionLabelDisappearance()
+            } else {
+                // Выполнить анимацию раскрытия текста
+                animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
+            }
+            isAnimating.toggle()
+        }
+    }
+    
+    @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            print("swipe down")
+            if isAnimating {
+                // Выполнить анимацию сворачивания текста
+                animateDescriptionLabelDisappearance()
+            }
+        }
+    }
+    
+    func animateDescriptionLabelDisappearance() {
+        UIView.animate(withDuration: 0.3) {
+            self.descriptionLabel.alpha = 0 // Установка альфа-канала на 0 для скрытия метки
+        } completion: { _ in
+            self.isAnimating = false // Снимаем флаг анимации после завершения анимации
+        }
+    }
+    
+    //MARK: Video Background
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
             print("Failed to locate video file.")
@@ -150,7 +184,6 @@ final class MainController: UIViewController {
         }
         videoPlayer.play()
     }
-
     //MARK: Fetch Data
     private func fetchMagneticDataAndUpdateUI() {
         fetchMagneticData { [weak self] currentKpValue in
@@ -183,34 +216,73 @@ final class MainController: UIViewController {
                         state = .unknown
                     }
                 }
-//                self?.geomagneticActivityLabel.text = state.labelText
-//                self?.geomagneticActivityLabel.textColor = state.labelColor
-//                //                self?.descriptionLabel.text = state.descriptionText
-////                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
+                //                self?.geomagneticActivityLabel.text = state.labelText
+                //                self?.geomagneticActivityLabel.textColor = state.labelColor
+                //                self?.descriptionLabel.text = state.descriptionText
+                //                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
                 self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
                 self?.geomagneticActivityLabel.text = state.labelText
                 self?.geomagneticActivityLabel.textColor = state.labelColor
+                // Вызываем анимацию текста в geomagneticActivityLabel
+                self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
+                
             }
         }
     }
     //MARK: Animate Description
     private func animateDescriptionLabelAppearance(withText text: String) {
-        descriptionText = text
-        currentCharacterIndex = 0
         descriptionLabel.text = ""
-        // Запускаем таймер, чтобы добавлять буквы каждые 0.1 секунды
+        var currentCharacterIndex = 0
         Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
                 return
             }
-            if self.currentCharacterIndex < self.descriptionText.count {
-                let index = self.descriptionText.index(self.descriptionText.startIndex, offsetBy: self.currentCharacterIndex)
-                let character = self.descriptionText[index]
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
                 self.descriptionLabel.text?.append(character)
-                self.currentCharacterIndex += 1
+                currentCharacterIndex += 1
             } else {
-                timer.invalidate() // Весь текст добавлен, останавливаем таймер
+                timer.invalidate()
+            }
+        }
+    }
+    //MARK: Animate Location
+    private func animateLocationLabelAppearance(withText text: String) {
+        locationLabel.text = ""
+        var currentCharacterIndex = 0
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.locationLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+    //MARK: Animate Geomagnitic
+    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
+        geomagneticActivityLabel.text = ""
+        var currentCharacterIndex = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.geomagneticActivityLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
             }
         }
     }
@@ -222,16 +294,17 @@ extension MainController: CLLocationManagerDelegate {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if let placemark = placemarks?.first {
                     if let city = placemark.locality {
-//                        if let city = placemark.locality, let country = placemark.country
-//                        self?.locationLabel.text = "\(city), \(country)" // Обновите ваш locationLabel
-                        self?.locationLabel.text = "\(city)" // Обновите ваш locationLabel
+                        //                        if let city = placemark.locality, let country = placemark.country
+                        //                        self?.locationLabel.text = "\(city), \(country)" // Обновите ваш locationLabel
+                        //                        self?.locationLabel.text = "\(city)" // Обновите ваш locationLabel
+                        self?.animateLocationLabelAppearance(withText: city)
                         self?.fetchMagneticDataAndUpdateUI() // запустится только после разрешения геолокации
                     }
                 }
             }
         }
     }
-    
+    // didChangeAuthorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
