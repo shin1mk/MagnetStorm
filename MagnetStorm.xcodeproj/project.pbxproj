@@ -136,13 +136,12 @@
 		13449AAC2AA2965000C858BF /* MagnetStorm */ = {
 			isa = PBXGroup;
 			children = (
-				13449AE52AA296FA00C858BF /* Resources */,
+				13449AE02AA296B800C858BF /* Controllers */,
 				13449AE42AA296F200C858BF /* Views */,
 				13449AE32AA296E900C858BF /* Models */,
 				13449AE22AA296E100C858BF /* Managers */,
 				13449AE12AA296C700C858BF /* Application */,
-				13449AE02AA296B800C858BF /* Controllers */,
-				13449AB12AA2965000C858BF /* MainController.swift */,
+				13449AE52AA296FA00C858BF /* Resources */,
 			);
 			path = MagnetStorm;
 			sourceTree = "<group>";
@@ -167,6 +166,7 @@
 		13449AE02AA296B800C858BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				13449AB12AA2965000C858BF /* MainController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

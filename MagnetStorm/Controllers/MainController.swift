@@ -5,50 +5,68 @@
 //  Created by SHIN MIKHAIL on 02.09.2023.
 //
 /*
-Dnepr
-48,4647
-35,0462
-*/
-
+ Dnepr
+ 48,4647
+ 35,0462
+ */
 import UIKit
 import SnapKit
 import CoreLocation
 import AVKit
-import CoreImage
 
 final class MainController: UIViewController {
     //MARK: Properties
+    private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
+
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     // для текста описания
     private var descriptionText = ""
     private var currentCharacterIndex = 0
     
- 
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.text = "-----"
-        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 25)
+        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 30 )
         locationLabel.textColor = .white
-        locationLabel.textAlignment = .left
         return locationLabel
     }()
     private let geomagneticActivityLabel: UILabel = {
         let geomagneticActivityLabel = UILabel()
-        geomagneticActivityLabel.text = "G-"
-        geomagneticActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 50)
+        geomagneticActivityLabel.text = "G0"
+        geomagneticActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 30)
         geomagneticActivityLabel.textColor = .white
-        geomagneticActivityLabel.textAlignment = .left
         return geomagneticActivityLabel
     }()
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "----"
-        descriptionLabel.font = UIFont.SFUITextHeavy(ofSize: 25)
+        descriptionLabel.text = ""
+        descriptionLabel.font = UIFont.SFUITextHeavy(ofSize: 30)
         descriptionLabel.textColor = .white
-        descriptionLabel.textAlignment = .left
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
+    }()
+    private let chevronButton: UIButton = {
+        let button = UIButton()
+        let customImage = UIImage(named: "arrowUp.png")
+        button.setBackgroundImage(customImage, for: .normal)
+        button.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    private let swipeUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Проведи вверх"
+        label.font = UIFont.SFUITextHeavy(ofSize: 14)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 10 // Adjust spacing as needed
+        return stackView
     }()
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -56,27 +74,61 @@ final class MainController: UIViewController {
         view.backgroundColor = .black
         setupConstraints()
         setupLocationManager()
+        setupSwipeGesture()
     }
     //MARK: Constraints
     private func setupConstraints() {
         view.addSubview(locationLabel)
         locationLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
+//            make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
         }
         view.addSubview(geomagneticActivityLabel)
         geomagneticActivityLabel.snp.makeConstraints { make in
-            make.top.equalTo(locationLabel.snp.bottom).offset(15)
+            make.top.equalTo(locationLabel.snp.bottom).offset(2)
+//            make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
         }
         view.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(15)
+            make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(2)
             make.leading.equalToSuperview().offset(15)
             make.width.lessThanOrEqualTo(320)
         }
+        buttonStackView.addArrangedSubview(chevronButton)
+        buttonStackView.addArrangedSubview(swipeUpLabel)
+        
+        view.addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-40)
+            make.width.equalTo(150)
+            make.height.equalTo(65)
+        }
+
         setupVideoBackground()
     }
+    
+    @objc private func chevronButtonTapped() {
+        print("chevronButtonTapped")
+        // Действия, которые должны выполняться при нажатии на кнопку
+        // Например, прокрутка к верху экрана или открытие другого экрана
+    }
+    
+    private func setupSwipeGesture() {
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeUpGesture.direction = .up
+        view.addGestureRecognizer(swipeUpGesture)
+    }
+
+    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+          if gesture.state == .ended {
+              print("swipe up")
+              chevronButtonTapped()
+              animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
+          }
+      }
     
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
@@ -91,26 +143,20 @@ final class MainController: UIViewController {
         videoLayer.frame = view.bounds
         // Добавляем видеослой как нижний слой
         view.layer.insertSublayer(videoLayer, at: 0)
-         // Зацикливаем видео
+        // Зацикливаем видео
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem, queue: nil) { _ in
             videoPlayer.seek(to: CMTime.zero)
             videoPlayer.play()
         }
         videoPlayer.play()
     }
-    //MARK: Location Manager
-    private func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-    }
+
     //MARK: Fetch Data
     private func fetchMagneticDataAndUpdateUI() {
         fetchMagneticData { [weak self] currentKpValue in
             DispatchQueue.main.async {
                 var state: GeomagneticActivityState = .unknown
-
+                
                 if let kpValue = currentKpValue, let intValue = Int(kpValue) {
                     switch intValue {
                     case 0:
@@ -137,10 +183,13 @@ final class MainController: UIViewController {
                         state = .unknown
                     }
                 }
+//                self?.geomagneticActivityLabel.text = state.labelText
+//                self?.geomagneticActivityLabel.textColor = state.labelColor
+//                //                self?.descriptionLabel.text = state.descriptionText
+////                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
+                self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
                 self?.geomagneticActivityLabel.text = state.labelText
                 self?.geomagneticActivityLabel.textColor = state.labelColor
-//                self?.descriptionLabel.text = state.descriptionText
-                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
             }
         }
     }
@@ -150,7 +199,7 @@ final class MainController: UIViewController {
         currentCharacterIndex = 0
         descriptionLabel.text = ""
         // Запускаем таймер, чтобы добавлять буквы каждые 0.1 секунды
-        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] timer in
+        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
                 return
@@ -172,8 +221,10 @@ extension MainController: CLLocationManagerDelegate {
         if let location = locations.last {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if let placemark = placemarks?.first {
-                    if let city = placemark.locality, let country = placemark.country {
-                        self?.locationLabel.text = "\(city), \(country)" // Обновите ваш locationLabel
+                    if let city = placemark.locality {
+//                        if let city = placemark.locality, let country = placemark.country
+//                        self?.locationLabel.text = "\(city), \(country)" // Обновите ваш locationLabel
+                        self?.locationLabel.text = "\(city)" // Обновите ваш locationLabel
                         self?.fetchMagneticDataAndUpdateUI() // запустится только после разрешения геолокации
                     }
                 }
@@ -194,6 +245,13 @@ extension MainController: CLLocationManagerDelegate {
         default:
             break
         }
+    }
+    //MARK: Location Manager
+    private func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
 }
 //MARK: State
@@ -268,25 +326,25 @@ extension MainController {
         var labelColor: UIColor {
             switch self {
             case .noStorm:
-                return UIColor.systemGreen // 0
+                return UIColor.white // 0
             case .minorStorm:
-                return UIColor.systemGreen // 1
+                return UIColor.white // 1
             case .weakStorm:
-                return UIColor.systemGreen // 2
+                return UIColor.white // 2
             case .moderateStorm:
-                return UIColor.systemYellow // 3
+                return UIColor.white // 3
             case .strongStorm:
-                return UIColor.systemRed // 4
+                return UIColor.white // 4
             case .severeStorm:
-                return UIColor.systemRed // 5
+                return UIColor.white // 5
             case .extremeStorm:
-                return UIColor.systemBlue // 6
+                return UIColor.white // 6
             case .outstandingStorm:
-                return UIColor.systemRed // 7
+                return UIColor.white // 7
             case .exceptionalStorm:
-                return UIColor.systemRed // 8
+                return UIColor.white // 8
             case .superstorm:
-                return UIColor.systemRed // 9
+                return UIColor.white // 9
             case .unknown:
                 return UIColor.white // 0
             }
