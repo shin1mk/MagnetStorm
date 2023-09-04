@@ -4,11 +4,17 @@
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
 //
+/*
+Dnepr
+48,4647
+35,0462
+*/
 
 import UIKit
 import SnapKit
 import CoreLocation
 import AVKit
+import CoreImage
 
 final class MainController: UIViewController {
     //MARK: Properties
@@ -17,11 +23,12 @@ final class MainController: UIViewController {
     // для текста описания
     private var descriptionText = ""
     private var currentCharacterIndex = 0
-
+    
+ 
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.text = "-----"
-        locationLabel.font = UIFont.systemFont(ofSize: 30)
+        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 25)
         locationLabel.textColor = .white
         locationLabel.textAlignment = .left
         return locationLabel
@@ -29,7 +36,7 @@ final class MainController: UIViewController {
     private let geomagneticActivityLabel: UILabel = {
         let geomagneticActivityLabel = UILabel()
         geomagneticActivityLabel.text = "G-"
-        geomagneticActivityLabel.font = UIFont.systemFont(ofSize: 45)
+        geomagneticActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 50)
         geomagneticActivityLabel.textColor = .white
         geomagneticActivityLabel.textAlignment = .left
         return geomagneticActivityLabel
@@ -37,7 +44,7 @@ final class MainController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "----"
-        descriptionLabel.font = UIFont.systemFont(ofSize: 30)
+        descriptionLabel.font = UIFont.SFUITextHeavy(ofSize: 25)
         descriptionLabel.textColor = .white
         descriptionLabel.textAlignment = .left
         descriptionLabel.numberOfLines = 0
@@ -68,6 +75,28 @@ final class MainController: UIViewController {
             make.leading.equalToSuperview().offset(15)
             make.width.lessThanOrEqualTo(320)
         }
+        setupVideoBackground()
+    }
+    
+    private func setupVideoBackground() {
+        guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
+            print("Failed to locate video file.")
+            return
+        }
+        
+        let videoPlayer = AVPlayer(url: videoURL)
+        let videoLayer = AVPlayerLayer(player: videoPlayer)
+        
+        videoLayer.videoGravity = .resizeAspectFill
+        videoLayer.frame = view.bounds
+        // Добавляем видеослой как нижний слой
+        view.layer.insertSublayer(videoLayer, at: 0)
+         // Зацикливаем видео
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem, queue: nil) { _ in
+            videoPlayer.seek(to: CMTime.zero)
+            videoPlayer.play()
+        }
+        videoPlayer.play()
     }
     //MARK: Location Manager
     private func setupLocationManager() {
@@ -121,7 +150,7 @@ final class MainController: UIViewController {
         currentCharacterIndex = 0
         descriptionLabel.text = ""
         // Запускаем таймер, чтобы добавлять буквы каждые 0.1 секунды
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
+        Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
                 return

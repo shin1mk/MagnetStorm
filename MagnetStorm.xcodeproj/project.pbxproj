@@ -19,6 +19,13 @@
 		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
 		136A757A2AA4B8F900BA3A3B /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136A75792AA4B8F900BA3A3B /* text.swift */; };
+		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
+		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
+		13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */; };
+		13AA21502AA5C629006DAB56 /* SFUIText-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214B2AA5C629006DAB56 /* SFUIText-Heavy.ttf */; };
+		13AA21512AA5C629006DAB56 /* SFUIText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214C2AA5C629006DAB56 /* SFUIText-Medium.ttf */; };
+		13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AA21522AA5D130006DAB56 /* CustomFonts.swift */; };
+		13AA21562AA5D34E006DAB56 /* video_background2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21552AA5D34E006DAB56 /* video_background2.mp4 */; };
 		921C885F0D7ECE75770D50E5 /* Pods_MagnetStorm_MagnetStormUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B386282E1553463722EF87A1 /* Pods_MagnetStorm_MagnetStormUITests.framework */; };
 		B8041CF5FDD322B41C1282F8 /* Pods_MagnetStormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6EFA7D8B6AF4A8E78CBC25D /* Pods_MagnetStormTests.framework */; };
 		D5BE40A3755523CAA47C3A5A /* Pods_MagnetStorm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E059D9BEDB1AF6AEA6D035D /* Pods_MagnetStorm.framework */; };
@@ -58,6 +65,13 @@
 		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
 		136A75792AA4B8F900BA3A3B /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
+		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
+		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
+		13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Light.ttf"; sourceTree = "<group>"; };
+		13AA214B2AA5C629006DAB56 /* SFUIText-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Heavy.ttf"; sourceTree = "<group>"; };
+		13AA214C2AA5C629006DAB56 /* SFUIText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Medium.ttf"; sourceTree = "<group>"; };
+		13AA21522AA5D130006DAB56 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		13AA21552AA5D34E006DAB56 /* video_background2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video_background2.mp4; sourceTree = "<group>"; };
 		2EF260427245B0423096C949 /* Pods-MagnetStorm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStorm.debug.xcconfig"; path = "Target Support Files/Pods-MagnetStorm/Pods-MagnetStorm.debug.xcconfig"; sourceTree = "<group>"; };
 		5F19980199D342412AA42408 /* Pods-MagnetStorm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStorm.release.xcconfig"; path = "Target Support Files/Pods-MagnetStorm/Pods-MagnetStorm.release.xcconfig"; sourceTree = "<group>"; };
 		81D6D7EED3B736B46BD6D3EC /* Pods-MagnetStormTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MagnetStormTests.debug.xcconfig"; path = "Target Support Files/Pods-MagnetStormTests/Pods-MagnetStormTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,12 +207,35 @@
 		13449AE52AA296FA00C858BF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				13AA21542AA5D1CF006DAB56 /* Video */,
+				13AA21472AA5C609006DAB56 /* Fonts */,
 				13449AB92AA2965100C858BF /* Assets.xcassets */,
 				13449ABB2AA2965100C858BF /* LaunchScreen.storyboard */,
 				13449ABE2AA2965100C858BF /* Info.plist */,
 				13449AB62AA2965000C858BF /* MagnetStorm.xcdatamodeld */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		13AA21472AA5C609006DAB56 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */,
+				13AA214B2AA5C629006DAB56 /* SFUIText-Heavy.ttf */,
+				13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */,
+				13AA214C2AA5C629006DAB56 /* SFUIText-Medium.ttf */,
+				13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */,
+				13AA21522AA5D130006DAB56 /* CustomFonts.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		13AA21542AA5D1CF006DAB56 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				13AA21552AA5D34E006DAB56 /* video_background2.mp4 */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		2DEBA554ACE0125C44F09EB0 /* Frameworks */ = {
@@ -333,8 +370,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13AA21512AA5C629006DAB56 /* SFUIText-Medium.ttf in Resources */,
+				13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */,
 				13449ABD2AA2965100C858BF /* LaunchScreen.storyboard in Resources */,
+				13AA21502AA5C629006DAB56 /* SFUIText-Heavy.ttf in Resources */,
+				13AA21562AA5D34E006DAB56 /* video_background2.mp4 in Resources */,
 				13449ABA2AA2965100C858BF /* Assets.xcassets in Resources */,
+				13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */,
+				13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +506,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13449AB22AA2965000C858BF /* MainController.swift in Sources */,
+				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				136A757A2AA4B8F900BA3A3B /* text.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
