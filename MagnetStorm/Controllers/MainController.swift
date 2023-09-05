@@ -8,7 +8,6 @@
  Dnepr
  48,4647
  35,0462
- разобраться с жестами
  добавить кнопку i
  придумать автоперевод на 3 языка
  */
@@ -21,8 +20,14 @@ final class MainController: UIViewController {
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
     private var isAnimating = false
+    private var isLabelAnimating = false // Флаг для отслеживания анимации текста
+    private var isButtonUp = true
+
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
+    private var currentCharacterIndex = 0
+    private var videoPlayer: AVPlayer?
+    
     
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
@@ -52,19 +57,6 @@ final class MainController: UIViewController {
         button.setBackgroundImage(customImage, for: .normal)
         return button
     }()
-    private let swipeUpLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Проведи вверх"
-        label.font = UIFont.SFUITextHeavy(ofSize: 14)
-        label.textColor = .white
-        return label
-    }()
-    private let buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        return stackView
-    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,18 +71,20 @@ final class MainController: UIViewController {
     private func setupTarget() {
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
     }
+    
+    @objc private func chevronButtonTapped() {
+        print("chevronButtonTapped")
+    }
     //MARK: Constraints
     private func setupConstraints() {
         view.addSubview(locationLabel)
         locationLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
-//            make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
         }
         view.addSubview(geomagneticActivityLabel)
         geomagneticActivityLabel.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(2)
-//            make.centerX.equalToSuperview()
             make.leading.equalToSuperview().offset(15)
         }
         view.addSubview(descriptionLabel)
@@ -99,70 +93,14 @@ final class MainController: UIViewController {
             make.leading.equalToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-40)
         }
-        buttonStackView.addArrangedSubview(chevronButton)
-        buttonStackView.addArrangedSubview(swipeUpLabel)
-        view.addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
+        view.addSubview(chevronButton)
+        chevronButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-40)
+            make.bottom.equalToSuperview().offset(-20)
             make.width.equalTo(150)
             make.height.equalTo(65)
         }
     }
-    //    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
-    //          if gesture.state == .ended {
-    //              print("swipe up")
-    //              chevronButtonTapped()
-    //              animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
-    //          }
-    //      }
-    @objc private func chevronButtonTapped() {
-        print("chevronButtonTapped")
-    }
-    private func setupSwipeGesture() {
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeUpGesture.direction = .up
-        view.addGestureRecognizer(swipeUpGesture)
-        
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
-        swipeDownGesture.direction = .down
-        view.addGestureRecognizer(swipeDownGesture)
-        // Устанавливаем зависимость между жестами
-        swipeUpGesture.require(toFail: swipeDownGesture)
-    }
-    
-    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.state == .ended {
-            print("swipe up")
-            if isAnimating {
-                // Выполнить анимацию сворачивания текста
-                animateDescriptionLabelDisappearance()
-            } else {
-                // Выполнить анимацию раскрытия текста
-                animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
-            }
-            isAnimating.toggle()
-        }
-    }
-    
-    @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.state == .ended {
-            print("swipe down")
-            if isAnimating {
-                // Выполнить анимацию сворачивания текста
-                animateDescriptionLabelDisappearance()
-            }
-        }
-    }
-    
-    func animateDescriptionLabelDisappearance() {
-        UIView.animate(withDuration: 0.3) {
-            self.descriptionLabel.alpha = 0 // Установка альфа-канала на 0 для скрытия метки
-        } completion: { _ in
-            self.isAnimating = false // Снимаем флаг анимации после завершения анимации
-        }
-    }
-    
     //MARK: Video Background
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
@@ -233,6 +171,7 @@ final class MainController: UIViewController {
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.text = ""
         var currentCharacterIndex = 0
+        isLabelAnimating = true // Устанавливаем флаг в true при начале анимации
         Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
@@ -245,6 +184,8 @@ final class MainController: UIViewController {
                 currentCharacterIndex += 1
             } else {
                 timer.invalidate()
+                self.isLabelAnimating = false
+                self.toggleChevronButtonImage()
             }
         }
     }
@@ -422,5 +363,65 @@ extension MainController {
                 return UIColor.white // 0
             }
         }
+    }
+}
+//MARK: Animation
+extension MainController {
+    private func setupSwipeGesture() {
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeUpGesture.direction = .up
+        view.addGestureRecognizer(swipeUpGesture)
+        
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
+        swipeDownGesture.direction = .down
+        view.addGestureRecognizer(swipeDownGesture)
+        // Устанавливаем зависимость между жестами
+        swipeUpGesture.require(toFail: swipeDownGesture)
+    }
+    
+    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            switch (isAnimating, isLabelAnimating) {
+            case (false, _):
+                descriptionLabel.alpha = 1
+                if !isLabelAnimating {
+                    animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
+                }
+            default:
+                break
+            }
+            isAnimating.toggle()
+        }
+    }
+
+    @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            switch (isAnimating, isLabelAnimating) {
+            case (true, false):
+                animateDescriptionLabelDisappearance()
+            default:
+                break
+            }
+        }
+    }
+
+    private func animateDescriptionLabelDisappearance() {
+        isLabelAnimating = true
+        UIView.animate(withDuration: 0.3) {
+            self.descriptionLabel.alpha = 0
+        } completion: { _ in
+            self.isLabelAnimating = false
+            self.isAnimating = false
+            
+            // После завершения анимации скрытия текста, вызываем функцию для изменения изображения кнопки
+            self.toggleChevronButtonImage()
+        }
+    }
+
+    private func toggleChevronButtonImage() {
+        isButtonUp.toggle()
+        let imageName = isButtonUp ? "arrowUp.png" : "arrowDown.png"
+        let customImage = UIImage(named: imageName)
+        chevronButton.setBackgroundImage(customImage, for: .normal)
     }
 }
