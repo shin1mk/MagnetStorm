@@ -20,14 +20,13 @@ final class MainController: UIViewController {
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
     private var isAnimating = false
-    private var isLabelAnimating = false // Флаг для отслеживания анимации текста
+    private var isLabelAnimating = false
     private var isButtonUp = true
-
+    
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var currentCharacterIndex = 0
     private var videoPlayer: AVPlayer?
-    
     
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
@@ -51,15 +50,9 @@ final class MainController: UIViewController {
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
     }()
-//    private let chevronButton: UIButton = {
-//        let button = UIButton()
-//        let customImage = UIImage(named: "arrowUp.png")
-//        button.setBackgroundImage(customImage, for: .normal)
-//        return button
-//    }()
     private let chevronButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "chevron.up.circle")
+        let chevronImage = UIImage(systemName: "chevron.up.circle.fill")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -73,14 +66,6 @@ final class MainController: UIViewController {
         setupSwipeGesture()
         setupVideoBackground()
         setupTarget()
-    }
-    //MARK: Target
-    private func setupTarget() {
-        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func chevronButtonTapped() {
-        print("chevronButtonTapped")
     }
     //MARK: Constraints
     private func setupConstraints() {
@@ -114,7 +99,7 @@ final class MainController: UIViewController {
             print("Failed to locate video file.")
             return
         }
-        
+
         let videoPlayer = AVPlayer(url: videoURL)
         let videoLayer = AVPlayerLayer(player: videoPlayer)
         
@@ -161,16 +146,10 @@ final class MainController: UIViewController {
                         state = .unknown
                     }
                 }
-                //                self?.geomagneticActivityLabel.text = state.labelText
-                //                self?.geomagneticActivityLabel.textColor = state.labelColor
-                //                self?.descriptionLabel.text = state.descriptionText
-                //                self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
                 self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
                 self?.geomagneticActivityLabel.text = state.labelText
                 self?.geomagneticActivityLabel.textColor = state.labelColor
-                // Вызываем анимацию текста в geomagneticActivityLabel
                 self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
-                
             }
         }
     }
@@ -242,11 +221,8 @@ extension MainController: CLLocationManagerDelegate {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if let placemark = placemarks?.first {
                     if let city = placemark.locality {
-                        //                        if let city = placemark.locality, let country = placemark.country
-                        //                        self?.locationLabel.text = "\(city), \(country)" // Обновите ваш locationLabel
-                        //                        self?.locationLabel.text = "\(city)" // Обновите ваш locationLabel
                         self?.animateLocationLabelAppearance(withText: city)
-                        self?.fetchMagneticDataAndUpdateUI() // запустится только после разрешения геолокации
+                        self?.fetchMagneticDataAndUpdateUI()
                     }
                 }
             }
@@ -384,11 +360,13 @@ extension MainController {
         swipeDownGesture.direction = .down
         swipeDownGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(swipeDownGesture)
-        // Устанавливаем зависимость между жестами
-        swipeUpGesture.require(toFail: swipeDownGesture)
+        swipeUpGesture.require(toFail: swipeDownGesture) // Устанавливаем зависимость между жестами
     }
-    
+
     @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        guard !isAnimating else {
+            return // Если текст полностью отображен вверх не свайпаем
+        }
         if gesture.state == .ended {
             switch (isAnimating, isLabelAnimating) {
             case (false, _):
@@ -422,24 +400,31 @@ extension MainController {
             self.isLabelAnimating = false
             self.isAnimating = false
             
-            // После завершения анимации скрытия текста, вызываем функцию для изменения изображения кнопки
             self.toggleChevronButtonImage()
         }
     }
+    
     private func toggleChevronButtonImage() {
         isButtonUp.toggle()
-        let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
+        let imageName = isButtonUp ? "chevron.up.circle.fill" : "chevron.down.circle.fill"
         let chevronImage = UIImage(systemName: imageName)
         chevronButton.setImage(chevronImage, for: .normal)
-        
-        animateChevronButtonImageChange(withImage: chevronImage)
-        
         chevronButton.tintColor = UIColor.white
+
+        animateChevronButtonImageChange(withImage: chevronImage)
     }
 
     private func animateChevronButtonImageChange(withImage image: UIImage?) {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
         }, completion: nil)
+    }
+    //MARK: Target
+    private func setupTarget() {
+        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func chevronButtonTapped() {
+        print("chevronButtonTapped")
     }
 }
