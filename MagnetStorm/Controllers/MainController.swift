@@ -51,10 +51,17 @@ final class MainController: UIViewController {
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
     }()
+//    private let chevronButton: UIButton = {
+//        let button = UIButton()
+//        let customImage = UIImage(named: "arrowUp.png")
+//        button.setBackgroundImage(customImage, for: .normal)
+//        return button
+//    }()
     private let chevronButton: UIButton = {
         let button = UIButton()
-        let customImage = UIImage(named: "arrowUp.png")
-        button.setBackgroundImage(customImage, for: .normal)
+        let chevronImage = UIImage(systemName: "chevron.up.circle")
+        button.setImage(chevronImage, for: .normal)
+        button.tintColor = UIColor.white
         return button
     }()
     //MARK: Lifecycle
@@ -97,8 +104,8 @@ final class MainController: UIViewController {
         chevronButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-20)
-            make.width.equalTo(150)
-            make.height.equalTo(65)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
         }
     }
     //MARK: Video Background
@@ -370,10 +377,12 @@ extension MainController {
     private func setupSwipeGesture() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeUpGesture.direction = .up
+        swipeUpGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(swipeUpGesture)
         
         let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
         swipeDownGesture.direction = .down
+        swipeDownGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(swipeDownGesture)
         // Устанавливаем зависимость между жестами
         swipeUpGesture.require(toFail: swipeDownGesture)
@@ -417,11 +426,20 @@ extension MainController {
             self.toggleChevronButtonImage()
         }
     }
-
     private func toggleChevronButtonImage() {
         isButtonUp.toggle()
-        let imageName = isButtonUp ? "arrowUp.png" : "arrowDown.png"
-        let customImage = UIImage(named: imageName)
-        chevronButton.setBackgroundImage(customImage, for: .normal)
+        let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
+        let chevronImage = UIImage(systemName: imageName)
+        chevronButton.setImage(chevronImage, for: .normal)
+        
+        animateChevronButtonImageChange(withImage: chevronImage)
+        
+        chevronButton.tintColor = UIColor.white
+    }
+
+    private func animateChevronButtonImageChange(withImage image: UIImage?) {
+        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.chevronButton.setImage(image, for: .normal)
+        }, completion: nil)
     }
 }
