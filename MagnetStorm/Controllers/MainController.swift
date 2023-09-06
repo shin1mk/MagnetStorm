@@ -22,7 +22,7 @@ final class MainController: UIViewController {
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
-    
+
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var currentCharacterIndex = 0
@@ -53,6 +53,13 @@ final class MainController: UIViewController {
     private let chevronButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "chevron.up.circle.fill")
+        button.setImage(chevronImage, for: .normal)
+        button.tintColor = UIColor.white
+        return button
+    }()
+    private let refreshButton: UIButton = {
+        let button = UIButton()
+        let chevronImage = UIImage(systemName: "arrow.clockwise")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -88,11 +95,22 @@ final class MainController: UIViewController {
         view.addSubview(chevronButton)
         chevronButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-10)
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
+        view.addSubview(refreshButton)
+        refreshButton.snp.makeConstraints { make in
+            make.centerY.equalTo(chevronButton) // Расположение кнопки по вертикали по центру метки locationLabel
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        }
+
+ 
     }
+
     //MARK: Video Background
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
@@ -148,7 +166,6 @@ final class MainController: UIViewController {
                 }
                 self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
                 self?.geomagneticActivityLabel.text = state.labelText
-                self?.geomagneticActivityLabel.textColor = state.labelColor
                 self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
             }
         }
@@ -319,33 +336,6 @@ extension MainController {
                 return "Неизвестно"
             }
         }
-        
-        var labelColor: UIColor {
-            switch self {
-            case .noStorm:
-                return UIColor.white // 0
-            case .minorStorm:
-                return UIColor.white // 1
-            case .weakStorm:
-                return UIColor.white // 2
-            case .moderateStorm:
-                return UIColor.white // 3
-            case .strongStorm:
-                return UIColor.white // 4
-            case .severeStorm:
-                return UIColor.white // 5
-            case .extremeStorm:
-                return UIColor.white // 6
-            case .outstandingStorm:
-                return UIColor.white // 7
-            case .exceptionalStorm:
-                return UIColor.white // 8
-            case .superstorm:
-                return UIColor.white // 9
-            case .unknown:
-                return UIColor.white // 0
-            }
-        }
     }
 }
 //MARK: Animation
@@ -413,7 +403,7 @@ extension MainController {
 
         animateChevronButtonImageChange(withImage: chevronImage)
     }
-
+    //
     private func animateChevronButtonImageChange(withImage image: UIImage?) {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
@@ -422,9 +412,26 @@ extension MainController {
     //MARK: Target
     private func setupTarget() {
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
+        refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
+
     }
-    
+    // chevronButtonTapped
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
+    }
+    
+    
+    @objc private func refreshButtonTapped() {
+        print("refresh")
+        guard !isLabelAnimating else { return }
+        if isAnimating {
+            animateDescriptionLabelDisappearance()
+            // Запускаем обновление данных с задержкой в 1 секунду
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.fetchMagneticDataAndUpdateUI()
+            }
+        } else {
+            fetchMagneticDataAndUpdateUI()
+        }
     }
 }
