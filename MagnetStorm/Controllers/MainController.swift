@@ -8,7 +8,6 @@
  Dnepr
  48,4647
  35,0462
- добавить кнопку i
  придумать автоперевод на 3 языка
  */
 import UIKit
@@ -19,6 +18,7 @@ import AVKit
 final class MainController: UIViewController {
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
+    
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
@@ -78,7 +78,7 @@ final class MainController: UIViewController {
         setupConstraints()
         setupLocationManager()
         setupSwipeGesture()
-        setupVideoBackground()
+//        setupVideoBackground()
         setupTarget()
     }
     //MARK: Constraints
@@ -177,66 +177,6 @@ final class MainController: UIViewController {
                 self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
                 self?.geomagneticActivityLabel.text = state.labelText
                 self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
-            }
-        }
-    }
-    //MARK: Animate Description
-    private func animateDescriptionLabelAppearance(withText text: String) {
-        descriptionLabel.text = ""
-        var currentCharacterIndex = 0
-        isLabelAnimating = true // Устанавливаем флаг в true при начале анимации
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.descriptionLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-                self.isLabelAnimating = false
-                self.toggleChevronButtonImage()
-            }
-        }
-    }
-    //MARK: Animate Location
-    private func animateLocationLabelAppearance(withText text: String) {
-        locationLabel.text = ""
-        var currentCharacterIndex = 0
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.locationLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
-    //MARK: Animate Geomagnitic
-    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
-        geomagneticActivityLabel.text = ""
-        var currentCharacterIndex = 0
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.geomagneticActivityLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
             }
         }
     }
@@ -348,8 +288,9 @@ extension MainController {
         }
     }
 }
-//MARK: Animation
+//MARK: Swipe
 extension MainController {
+    //MARK: Swipe gestures and buttons
     private func setupSwipeGesture() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeUpGesture.direction = .up
@@ -362,7 +303,7 @@ extension MainController {
         view.addGestureRecognizer(swipeDownGesture)
         swipeUpGesture.require(toFail: swipeDownGesture) // Устанавливаем зависимость между жестами
     }
-
+    // swipe up
     @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         guard !isAnimating else {
             return // Если текст полностью отображен вверх не свайпаем
@@ -380,7 +321,7 @@ extension MainController {
             isAnimating.toggle()
         }
     }
-
+    // swipe down
     @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
         if gesture.state == .ended {
             switch (isAnimating, isLabelAnimating) {
@@ -391,19 +332,7 @@ extension MainController {
             }
         }
     }
-
-    private func animateDescriptionLabelDisappearance() {
-        isLabelAnimating = true
-        UIView.animate(withDuration: 0.3) {
-            self.descriptionLabel.alpha = 0
-        } completion: { _ in
-            self.isLabelAnimating = false
-            self.isAnimating = false
-            
-            self.toggleChevronButtonImage()
-        }
-    }
-    
+    // toggle chevron button
     private func toggleChevronButtonImage() {
         isButtonUp.toggle()
         let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
@@ -413,19 +342,13 @@ extension MainController {
 
         animateChevronButtonImageChange(withImage: chevronImage)
     }
-
-    private func animateChevronButtonImageChange(withImage image: UIImage?) {
-        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.chevronButton.setImage(image, for: .normal)
-        }, completion: nil)
-    }
     //MARK: Target
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
     }
-
+    // refresh
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
@@ -439,12 +362,93 @@ extension MainController {
             fetchMagneticDataAndUpdateUI()
         }
     }
-    // chevronButtonTapped
+    // chevron
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
     }
-    // chevronButtonTapped
+    // info
     @objc private func infoButtonTapped() {
         print("infoButtonTapped")
+    }
+}
+//MARK: Animations
+extension MainController {
+    //MARK: Animate Description
+    private func animateDescriptionLabelAppearance(withText text: String) {
+        descriptionLabel.text = ""
+        var currentCharacterIndex = 0
+        isLabelAnimating = true // Устанавливаем флаг в true при начале анимации
+        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.descriptionLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+                self.isLabelAnimating = false
+                self.toggleChevronButtonImage()
+            }
+        }
+    }
+    //MARK: Animate Location
+    private func animateLocationLabelAppearance(withText text: String) {
+        locationLabel.text = ""
+        var currentCharacterIndex = 0
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.locationLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+    //MARK: Animate Geomagnitic
+    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
+        geomagneticActivityLabel.text = ""
+        var currentCharacterIndex = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.geomagneticActivityLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+    //MARK: Animate description label
+    private func animateDescriptionLabelDisappearance() {
+        isLabelAnimating = true
+        UIView.animate(withDuration: 0.3) {
+            self.descriptionLabel.alpha = 0
+        } completion: { _ in
+            self.isLabelAnimating = false
+            self.isAnimating = false
+            
+            self.toggleChevronButtonImage()
+        }
+    }
+    //MARK: Animate chevron button
+    private func animateChevronButtonImageChange(withImage image: UIImage?) {
+        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.chevronButton.setImage(image, for: .normal)
+        }, completion: nil)
     }
 }
