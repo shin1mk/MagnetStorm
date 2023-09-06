@@ -50,16 +50,23 @@ final class MainController: UIViewController {
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
     }()
-    private let chevronButton: UIButton = {
+    private let refreshButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "chevron.up.circle.fill")
+        let chevronImage = UIImage(systemName: "arrow.clockwise")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
     }()
-    private let refreshButton: UIButton = {
+    private let chevronButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise")
+        let chevronImage = UIImage(systemName: "chevron.up.circle")
+        button.setImage(chevronImage, for: .normal)
+        button.tintColor = UIColor.white
+        return button
+    }()
+    private let infoButton: UIButton = {
+        let button = UIButton()
+        let chevronImage = UIImage(systemName: "info.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -92,25 +99,28 @@ final class MainController: UIViewController {
             make.leading.equalToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-40)
         }
+        view.addSubview(refreshButton)
+        refreshButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-15)
+            make.width.equalTo(80)
+            make.height.equalTo(80)
+        }
         view.addSubview(chevronButton)
         chevronButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-15)
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-        view.addSubview(refreshButton)
-        refreshButton.snp.makeConstraints { make in
-            make.centerY.equalTo(chevronButton) // Расположение кнопки по вертикали по центру метки locationLabel
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-10)
+        view.addSubview(infoButton)
+        infoButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-15)
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-
- 
     }
-
     //MARK: Video Background
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
@@ -396,14 +406,14 @@ extension MainController {
     
     private func toggleChevronButtonImage() {
         isButtonUp.toggle()
-        let imageName = isButtonUp ? "chevron.up.circle.fill" : "chevron.down.circle.fill"
+        let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
         let chevronImage = UIImage(systemName: imageName)
         chevronButton.setImage(chevronImage, for: .normal)
         chevronButton.tintColor = UIColor.white
 
         animateChevronButtonImageChange(withImage: chevronImage)
     }
-    //
+
     private func animateChevronButtonImageChange(withImage image: UIImage?) {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
@@ -411,16 +421,11 @@ extension MainController {
     }
     //MARK: Target
     private func setupTarget() {
-        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
+        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+    }
 
-    }
-    // chevronButtonTapped
-    @objc private func chevronButtonTapped() {
-        print("chevronButtonTapped")
-    }
-    
-    
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
@@ -433,5 +438,13 @@ extension MainController {
         } else {
             fetchMagneticDataAndUpdateUI()
         }
+    }
+    // chevronButtonTapped
+    @objc private func chevronButtonTapped() {
+        print("chevronButtonTapped")
+    }
+    // chevronButtonTapped
+    @objc private func infoButtonTapped() {
+        print("infoButtonTapped")
     }
 }
