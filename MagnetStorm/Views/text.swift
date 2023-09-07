@@ -79,7 +79,26 @@
  //}
  //self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
 
-
+ //MARK: Video Background
+ private func setupVideoBackground() {
+     guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
+         print("Failed to locate video file.")
+         return
+     }
+     let videoPlayer = AVPlayer(url: videoURL)
+     let videoLayer = AVPlayerLayer(player: videoPlayer)
+     
+     videoLayer.videoGravity = .resizeAspectFill
+     videoLayer.frame = view.bounds
+     // Добавляем видеослой как нижний слой
+     view.layer.insertSublayer(videoLayer, at: 0)
+     // Зацикливаем видео
+     NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem, queue: nil) { _ in
+         videoPlayer.seek(to: CMTime.zero)
+         videoPlayer.play()
+     }
+     videoPlayer.play()
+ }
  
  
  

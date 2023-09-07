@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		134196062AA8D0E900F22BE9 /* background_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 134196052AA8D0E900F22BE9 /* background_gif.gif */; };
 		13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAD2AA2965000C858BF /* AppDelegate.swift */; };
 		13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAF2AA2965000C858BF /* SceneDelegate.swift */; };
 		13449AB22AA2965000C858BF /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainController.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		134196052AA8D0E900F22BE9 /* background_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background_gif.gif; sourceTree = "<group>"; };
 		13449AAA2AA2965000C858BF /* MagnetStorm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagnetStorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AAD2AA2965000C858BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13449AAF2AA2965000C858BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 		13AA21542AA5D1CF006DAB56 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				134196052AA8D0E900F22BE9 /* background_gif.gif */,
 				13AA21552AA5D34E006DAB56 /* video_background2.mp4 */,
 			);
 			path = Video;
@@ -354,6 +357,8 @@
 				Base,
 			);
 			mainGroup = 13449AA12AA2965000C858BF;
+			packageReferences = (
+			);
 			productRefGroup = 13449AAB2AA2965000C858BF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -377,6 +382,7 @@
 				13AA21562AA5D34E006DAB56 /* video_background2.mp4 in Resources */,
 				13449ABA2AA2965100C858BF /* Assets.xcassets in Resources */,
 				13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */,
+				134196062AA8D0E900F22BE9 /* background_gif.gif in Resources */,
 				13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

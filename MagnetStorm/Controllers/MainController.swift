@@ -14,6 +14,7 @@ import UIKit
 import SnapKit
 import CoreLocation
 import AVKit
+import SDWebImage
 
 final class MainController: UIViewController {
     //MARK: Properties
@@ -22,6 +23,10 @@ final class MainController: UIViewController {
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
+    private var locationLabelTimer: Timer?
+    private var geomagneticActivityLabelTimer: Timer?
+    private var currentCity: String? // Add this property at the class level
+
 
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
@@ -79,7 +84,23 @@ final class MainController: UIViewController {
         setupLocationManager()
         setupSwipeGesture()
 //        setupVideoBackground()
+        setupAnimatedGIFBackground()
         setupTarget()
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    @objc private func appDidEnterBackground() {
+        // Приложение свернуто
+        // Запустите анимацию здесь
+        animateDescriptionLabelDisappearance()
+    }
+
+    @objc private func appWillEnterForeground() {
+        // Приложение будет восстановлено
+        // Можете выполнить какие-либо действия при восстановлении приложения, если это необходимо
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     //MARK: Constraints
     private func setupConstraints() {
@@ -87,11 +108,13 @@ final class MainController: UIViewController {
         locationLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(100)
             make.leading.equalToSuperview().offset(15)
+            make.height.greaterThanOrEqualTo(40)
         }
         view.addSubview(geomagneticActivityLabel)
         geomagneticActivityLabel.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(2)
             make.leading.equalToSuperview().offset(15)
+            make.height.greaterThanOrEqualTo(40)
         }
         view.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
@@ -121,13 +144,22 @@ final class MainController: UIViewController {
             make.height.equalTo(80)
         }
     }
+    //MARK: GIF Background
+    private func setupAnimatedGIFBackground() {
+        // Создаем SDAnimatedImageView
+        let gifImageView = SDAnimatedImageView(frame: view.bounds)
+        if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
+            gifImageView.sd_setImage(with: gifURL)
+        }
+        view.addSubview(gifImageView) // Добавляем imageView на ваш экран
+        view.sendSubviewToBack(gifImageView) // Отправляем его на задний план
+    }
     //MARK: Video Background
     private func setupVideoBackground() {
         guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
             print("Failed to locate video file.")
             return
         }
-
         let videoPlayer = AVPlayer(url: videoURL)
         let videoLayer = AVPlayerLayer(player: videoPlayer)
         
@@ -188,6 +220,7 @@ extension MainController: CLLocationManagerDelegate {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
                 if let placemark = placemarks?.first {
                     if let city = placemark.locality {
+                        self?.currentCity = city // Set the currentCity property
                         self?.animateLocationLabelAppearance(withText: city)
                         self?.fetchMagneticDataAndUpdateUI()
                     }
@@ -195,6 +228,7 @@ extension MainController: CLLocationManagerDelegate {
             }
         }
     }
+
     // didChangeAuthorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -339,29 +373,52 @@ extension MainController {
         let chevronImage = UIImage(systemName: imageName)
         chevronButton.setImage(chevronImage, for: .normal)
         chevronButton.tintColor = UIColor.white
-
+        
         animateChevronButtonImageChange(withImage: chevronImage)
     }
-    //MARK: Target
+    //MARK: Targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
     }
     // refresh
+//    @objc private func refreshButtonTapped() {
+//        print("refresh")
+//        guard !isLabelAnimating else { return }
+//        if isAnimating {
+//            animateDescriptionLabelDisappearance()
+//            // Запускаем обновление данных с задержкой в 1 секунду
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                self.fetchMagneticDataAndUpdateUI()
+//            }
+//        } else {
+//            fetchMagneticDataAndUpdateUI()
+//        }
+//    }
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
+
         if isAnimating {
-            animateDescriptionLabelDisappearance()
-            // Запускаем обновление данных с задержкой в 1 секунду
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.fetchMagneticDataAndUpdateUI()
+            if let city = currentCity { // Use the captured city value
+                animateDescriptionLabelDisappearance()
+                // Delay the restart of locationLabel animation
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.animateLocationLabelAppearance(withText: city)
+                    self.fetchMagneticDataAndUpdateUI()
+                }
             }
         } else {
-            fetchMagneticDataAndUpdateUI()
+            if let city = currentCity { // Use the captured city value
+                // Restart the locationLabel animation immediately
+                animateLocationLabelAppearance(withText: city)
+                fetchMagneticDataAndUpdateUI()
+            }
         }
     }
+
+
     // chevron
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
@@ -373,6 +430,46 @@ extension MainController {
 }
 //MARK: Animations
 extension MainController {
+    //MARK: Animate Location
+    private func animateLocationLabelAppearance(withText text: String) {
+        locationLabel.text = ""
+        var currentCharacterIndex = 0
+        locationLabelTimer?.invalidate() // Остановить предыдущий таймер
+        locationLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.locationLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+    //MARK: Animate GeomagneticActivityLabel
+    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
+        geomagneticActivityLabel.text = ""
+        var currentCharacterIndex = 0
+        geomagneticActivityLabelTimer?.invalidate() // Остановить предыдущий таймер
+        geomagneticActivityLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                self.geomagneticActivityLabel.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
     //MARK: Animate Description
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.text = ""
@@ -395,45 +492,7 @@ extension MainController {
             }
         }
     }
-    //MARK: Animate Location
-    private func animateLocationLabelAppearance(withText text: String) {
-        locationLabel.text = ""
-        var currentCharacterIndex = 0
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.locationLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
-    //MARK: Animate Geomagnitic
-    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
-        geomagneticActivityLabel.text = ""
-        var currentCharacterIndex = 0
-        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.geomagneticActivityLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
-    //MARK: Animate description label
+    //MARK: Animate Description Label swipe down
     private func animateDescriptionLabelDisappearance() {
         isLabelAnimating = true
         UIView.animate(withDuration: 0.3) {
