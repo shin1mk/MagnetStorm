@@ -78,16 +78,19 @@ final class MainController: UIViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
         setupConstraints()
         setupLocationManager()
         setupSwipeGesture()
-//        setupVideoBackground()
         setupAnimatedGIFBackground()
         setupTarget()
+        setupNotificationObservers()
+    }
+    
+    private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
+    
     @objc private func appDidEnterBackground() {
         // Приложение свернуто
         animateDescriptionLabelDisappearance()
@@ -95,7 +98,9 @@ final class MainController: UIViewController {
 
     @objc private func appWillEnterForeground() {
         // Приложение будет восстановлено
+        toggleChevronButtonImage()
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -150,26 +155,6 @@ final class MainController: UIViewController {
         }
         view.addSubview(gifImageView) // Добавляем imageView на ваш экран
         view.sendSubviewToBack(gifImageView) // Отправляем его на задний план
-    }
-    //MARK: Video Background
-    private func setupVideoBackground() {
-        guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
-            print("Failed to locate video file.")
-            return
-        }
-        let videoPlayer = AVPlayer(url: videoURL)
-        let videoLayer = AVPlayerLayer(player: videoPlayer)
-        
-        videoLayer.videoGravity = .resizeAspectFill
-        videoLayer.frame = view.bounds
-        // Добавляем видеослой как нижний слой
-        view.layer.insertSublayer(videoLayer, at: 0)
-        // Зацикливаем видео
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer.currentItem, queue: nil) { _ in
-            videoPlayer.seek(to: CMTime.zero)
-            videoPlayer.play()
-        }
-        videoPlayer.play()
     }
     //MARK: Fetch Data
     private func fetchMagneticDataAndUpdateUI() {
@@ -318,6 +303,65 @@ extension MainController {
         }
     }
 }
+//MARK: Animations
+extension MainController {
+    private func animateLabel(_ label: UILabel, withText text: String, interval: TimeInterval, completion: (() -> Void)?) {
+        label.text = ""
+        var currentCharacterIndex = 0
+        var timer: Timer?
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] (_) in
+            guard let self = self else {
+                timer?.invalidate()
+                return
+            }
+            if currentCharacterIndex < text.count {
+                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
+                let character = text[index]
+                label.text?.append(character)
+                currentCharacterIndex += 1
+            } else {
+                timer?.invalidate()
+                completion?()
+            }
+        }
+    }
+    
+    //MARK: Animate Location
+    private func animateLocationLabelAppearance(withText text: String) {
+        animateLabel(locationLabel, withText: text, interval: 0.1, completion: nil)
+    }
+    
+    //MARK: Animate GeomagneticActivityLabel
+    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
+        animateLabel(geomagneticActivityLabel, withText: text, interval: 0.5, completion: nil)
+    }
+    
+    //MARK: Animate Description
+    private func animateDescriptionLabelAppearance(withText text: String) {
+        animateLabel(descriptionLabel, withText: text, interval: 0.02) {
+            self.isLabelAnimating = false
+            self.toggleChevronButtonImage()
+        }
+    }
+    //MARK: Animate Description Label swipe down
+    private func animateDescriptionLabelDisappearance() {
+        isLabelAnimating = true
+        UIView.animate(withDuration: 0.3) {
+            self.descriptionLabel.alpha = 0
+        } completion: { _ in
+            self.isLabelAnimating = false
+            self.isAnimating = false
+            
+            self.toggleChevronButtonImage()
+        }
+    }
+    //MARK: Animate chevron button
+    private func animateChevronButtonImageChange(withImage image: UIImage?) {
+        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.chevronButton.setImage(image, for: .normal)
+        }, completion: nil)
+    }
+}
 //MARK: Swipe
 extension MainController {
     //MARK: Swipe gestures and buttons
@@ -407,88 +451,5 @@ extension MainController {
     // info
     @objc private func infoButtonTapped() {
         print("infoButtonTapped")
-    }
-}
-//MARK: Animations
-extension MainController {
-    //MARK: Animate Location
-    private func animateLocationLabelAppearance(withText text: String) {
-        locationLabel.text = ""
-        var currentCharacterIndex = 0
-        locationLabelTimer?.invalidate() // Остановить предыдущий таймер
-        locationLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.locationLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
-    //MARK: Animate GeomagneticActivityLabel
-    private func animateGeomagneticActivityLabelAppearance(withText text: String) {
-        geomagneticActivityLabel.text = ""
-        var currentCharacterIndex = 0
-        geomagneticActivityLabelTimer?.invalidate() // Остановить предыдущий таймер
-        geomagneticActivityLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.geomagneticActivityLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-            }
-        }
-    }
-    //MARK: Animate Description
-    private func animateDescriptionLabelAppearance(withText text: String) {
-        descriptionLabel.text = ""
-        var currentCharacterIndex = 0
-        isLabelAnimating = true // Устанавливаем флаг в true при начале анимации
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.descriptionLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-                self.isLabelAnimating = false
-                self.toggleChevronButtonImage()
-            }
-        }
-    }
-    //MARK: Animate Description Label swipe down
-    private func animateDescriptionLabelDisappearance() {
-        isLabelAnimating = true
-        UIView.animate(withDuration: 0.3) {
-            self.descriptionLabel.alpha = 0
-        } completion: { _ in
-            self.isLabelAnimating = false
-            self.isAnimating = false
-            
-            self.toggleChevronButtonImage()
-        }
-    }
-    //MARK: Animate chevron button
-    private func animateChevronButtonImageChange(withImage image: UIImage?) {
-        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.chevronButton.setImage(image, for: .normal)
-        }, completion: nil)
     }
 }
