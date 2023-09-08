@@ -25,9 +25,8 @@ final class MainController: UIViewController {
     private var isButtonUp = true
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
-    private var currentCity: String? // Add this property at the class level
-
-
+    private var currentCity: String?
+    
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var currentCharacterIndex = 0
@@ -87,17 +86,15 @@ final class MainController: UIViewController {
         setupAnimatedGIFBackground()
         setupTarget()
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-           NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     @objc private func appDidEnterBackground() {
         // Приложение свернуто
-        // Запустите анимацию здесь
         animateDescriptionLabelDisappearance()
     }
 
     @objc private func appWillEnterForeground() {
         // Приложение будет восстановлено
-        // Можете выполнить какие-либо действия при восстановлении приложения, если это необходимо
     }
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -228,7 +225,6 @@ extension MainController: CLLocationManagerDelegate {
             }
         }
     }
-
     // didChangeAuthorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -383,19 +379,6 @@ extension MainController {
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
     }
     // refresh
-//    @objc private func refreshButtonTapped() {
-//        print("refresh")
-//        guard !isLabelAnimating else { return }
-//        if isAnimating {
-//            animateDescriptionLabelDisappearance()
-//            // Запускаем обновление данных с задержкой в 1 секунду
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                self.fetchMagneticDataAndUpdateUI()
-//            }
-//        } else {
-//            fetchMagneticDataAndUpdateUI()
-//        }
-//    }
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
@@ -417,8 +400,6 @@ extension MainController {
             }
         }
     }
-
-
     // chevron
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
