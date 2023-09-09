@@ -13,24 +13,20 @@
 import UIKit
 import SnapKit
 import CoreLocation
-import AVKit
 import SDWebImage
 
 final class MainController: UIViewController {
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
-    
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
-    
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     private var currentCharacterIndex = 0
-    private var videoPlayer: AVPlayer?
     
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
@@ -82,27 +78,21 @@ final class MainController: UIViewController {
         setupConstraints()
         setupLocationManager()
         setupSwipeGesture()
-        setupVideoBackground()
+        setupAnimatedGIFBackground()
         setupTarget()
     }
-    
+    // Notification observer
     private func setupAppLifecycleObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-    
+    // Приложение свернуто
     @objc private func appDidEnterBackground() {
-        // Приложение свернуто
-        print("App did enter background")
-        videoPlayer?.pause()
         animateDescriptionLabelDisappearance()
     }
-    
+    // Приложение будет восстановлено
     @objc private func appWillEnterForeground() {
-        // Приложение будет восстановлено
-        print("App will enter foreground")
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
-        videoPlayer?.play()
     }
     
     deinit {
@@ -150,27 +140,15 @@ final class MainController: UIViewController {
             make.height.equalTo(80)
         }
     }
-    //MARK: Video Background
-    private func setupVideoBackground() {
-        guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
-            print("Failed to locate video file.")
-            return
+    //MARK: GIF Background
+    private func setupAnimatedGIFBackground() {
+        // Создаем SDAnimatedImageView
+        let gifImageView = SDAnimatedImageView(frame: view.bounds)
+        if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
+            gifImageView.sd_setImage(with: gifURL)
         }
-        // Initialize the class property videoPlayer
-        videoPlayer = AVPlayer(url: videoURL)
-        
-        let videoLayer = AVPlayerLayer(player: videoPlayer)
-        videoLayer.videoGravity = .resizeAspectFill
-        videoLayer.frame = view.bounds
-        // Add the videoLayer as the bottom layer of your view
-        view.layer.insertSublayer(videoLayer, at: 0)
-        // Loop the video
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: videoPlayer?.currentItem, queue: nil) { [weak self] _ in
-            self?.videoPlayer?.seek(to: CMTime.zero)
-            self?.videoPlayer?.play()
-        }
-        // Play the video
-        videoPlayer?.play()
+        view.addSubview(gifImageView) // Добавляем imageView на экран
+        view.sendSubviewToBack(gifImageView) // Отправляем на задний план
     }
     //MARK: Fetch Data
     private func fetchMagneticDataAndUpdateUI() {
@@ -379,7 +357,7 @@ extension MainController {
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
     }
-    // refresh
+    // refresh button action
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
@@ -401,10 +379,8 @@ extension MainController {
             }
         }
     }
-    // chevron
+    // chevron button action
     @objc private func chevronButtonTapped() {
-        print("chevronButtonTapped")
-        
         // Создаем фиктивные жесты
         let fakeSwipeUpGesture = UISwipeGestureRecognizer()
         fakeSwipeUpGesture.direction = .up
@@ -414,14 +390,13 @@ extension MainController {
         fakeSwipeDownGesture.direction = .down
         fakeSwipeDownGesture.state = .ended
         
-        // Вызываем функции с фиктивными жестами
         if isButtonUp {
             handleSwipe(fakeSwipeUpGesture)
         } else {
             handleSwipeDown(fakeSwipeDownGesture)
         }
     }
-    // info
+    // info button action
     @objc private func infoButtonTapped() {
         print("infoButtonTapped")
     }

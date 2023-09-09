@@ -83,6 +83,19 @@
  
  
  //MARK: Video Background
+ //import AVKit
+
+ //    private var videoPlayer: AVPlayer?
+
+ @objc private func appDidEnterBackground() {
+     // Приложение свернуто
+      videoPlayer?.pause()
+ }
+ @objc private func appWillEnterForeground() {
+     // Приложение будет восстановлено
+      videoPlayer?.play()
+ }
+ 
  private func setupVideoBackground() {
      guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
          print("Failed to locate video file.")
