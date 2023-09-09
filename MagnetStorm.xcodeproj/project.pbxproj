@@ -17,6 +17,7 @@
 		13449AC82AA2965100C858BF /* MagnetStormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AC72AA2965100C858BF /* MagnetStormTests.swift */; };
 		13449AD22AA2965100C858BF /* MagnetStormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD12AA2965100C858BF /* MagnetStormUITests.swift */; };
 		13449AD42AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */; };
+		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
 		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
 		136A757A2AA4B8F900BA3A3B /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136A75792AA4B8F900BA3A3B /* text.swift */; };
@@ -64,6 +65,7 @@
 		13449ACD2AA2965100C858BF /* MagnetStormUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagnetStormUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AD12AA2965100C858BF /* MagnetStormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITests.swift; sourceTree = "<group>"; };
 		13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
 		136A75792AA4B8F900BA3A3B /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				136A75792AA4B8F900BA3A3B /* text.swift */,
+				1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
 				13449AB22AA2965000C858BF /* MainController.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				136A757A2AA4B8F900BA3A3B /* text.swift in Sources */,
