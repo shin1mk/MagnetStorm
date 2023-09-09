@@ -19,11 +19,19 @@ final class InfoViewController: UIViewController {
     private let contentView = UIView()
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.textColor = .white
+        titleLabel.textColor = .green
         titleLabel.font = UIFont.SFUITextBold(ofSize: 24)
-        titleLabel.text = "Описание каждой бури"
+        titleLabel.text = "Отсутствие бури"
         titleLabel.numberOfLines = 0
         return titleLabel
+    }()
+    private let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.textColor = .white
+        descriptionLabel.font = UIFont.SFUITextRegular(ofSize: 18) // Установите желаемый шрифт и размер текста
+        descriptionLabel.text = "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь."
+        descriptionLabel.numberOfLines = 0
+        return descriptionLabel
     }()
     //MARK: Lifecycle
     override func viewDidLoad() {
@@ -31,13 +39,13 @@ final class InfoViewController: UIViewController {
         setupBackgroundView()
         setupConstraints()
     }
-    
+
     private func setupBackgroundView() {
         let backgroundView = UIView(frame: view.bounds)
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         view.addSubview(backgroundView)
     }
-    
+
     private func setupConstraints() {
         // scroll view
         view.addSubview(scrollView)
@@ -57,6 +65,14 @@ final class InfoViewController: UIViewController {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(contentView).offset(20)
             make.horizontalEdges.equalTo(contentView).offset(15) // Прижимаем к левой стороне с отступом 15
+        }
+        // Добавляем описание к
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10) // Размещаем описание под заголовком с отступом
+            make.leading.equalTo(contentView).offset(15) // Прижимаем к левой стороне с отступом 15
+            make.trailing.equalTo(contentView).offset(-15) // Прижимаем к левой стороне с отступом 15
+            make.bottom.lessThanOrEqualTo(contentView).offset(-20) // Устанавливаем нижний отступ (можете настроить его по вашему усмотрению)
         }
     }
 }
