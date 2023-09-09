@@ -90,21 +90,21 @@ final class MainController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-
+    
     @objc private func appDidEnterBackground() {
         // Приложение свернуто
         print("App did enter background")
         videoPlayer?.pause()
         animateDescriptionLabelDisappearance()
     }
-
+    
     @objc private func appWillEnterForeground() {
         // Приложение будет восстановлено
         print("App will enter foreground")
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
         videoPlayer?.play()
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -383,8 +383,7 @@ extension MainController {
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
-        chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
-
+        
         if isAnimating {
             if let city = currentCity { // Use the captured city value
                 animateDescriptionLabelDisappearance()
@@ -405,6 +404,22 @@ extension MainController {
     // chevron
     @objc private func chevronButtonTapped() {
         print("chevronButtonTapped")
+        
+        // Создаем фиктивные жесты
+        let fakeSwipeUpGesture = UISwipeGestureRecognizer()
+        fakeSwipeUpGesture.direction = .up
+        fakeSwipeUpGesture.state = .ended
+        
+        let fakeSwipeDownGesture = UISwipeGestureRecognizer()
+        fakeSwipeDownGesture.direction = .down
+        fakeSwipeDownGesture.state = .ended
+        
+        // Вызываем функции с фиктивными жестами
+        if isButtonUp {
+            handleSwipe(fakeSwipeUpGesture)
+        } else {
+            handleSwipeDown(fakeSwipeDownGesture)
+        }
     }
     // info
     @objc private func infoButtonTapped() {
