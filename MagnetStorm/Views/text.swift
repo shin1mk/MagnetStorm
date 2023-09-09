@@ -79,6 +79,9 @@
  //}
  //self?.animateDescriptionLabelAppearance(withText: state.descriptionText)
 
+ 
+ 
+ 
  //MARK: Video Background
  private func setupVideoBackground() {
      guard let videoURL = Bundle.main.url(forResource: "video_background2", withExtension: "mp4") else {
@@ -103,7 +106,16 @@
  
  
  
- 
+ //MARK: GIF Background
+ private func setupAnimatedGIFBackground() {
+     // Создаем SDAnimatedImageView
+     let gifImageView = SDAnimatedImageView(frame: view.bounds)
+     if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
+         gifImageView.sd_setImage(with: gifURL)
+     }
+     view.addSubview(gifImageView) // Добавляем imageView на ваш экран
+     view.sendSubviewToBack(gifImageView) // Отправляем его на задний план
+ }
  
  
  

@@ -78,12 +78,11 @@ final class MainController: UIViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        setupAppLifecycleObservers()
         setupConstraints()
         setupLocationManager()
         setupSwipeGesture()
         setupVideoBackground()
-//        setupAnimatedGIFBackground()
         setupTarget()
     }
     
@@ -94,17 +93,18 @@ final class MainController: UIViewController {
 
     @objc private func appDidEnterBackground() {
         // Приложение свернуто
+        print("App did enter background")
         videoPlayer?.pause()
         animateDescriptionLabelDisappearance()
-        chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
-    
     }
 
     @objc private func appWillEnterForeground() {
         // Приложение будет восстановлено
+        print("App will enter foreground")
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
         videoPlayer?.play()
     }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -149,16 +149,6 @@ final class MainController: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-    }
-    //MARK: GIF Background
-    private func setupAnimatedGIFBackground() {
-        // Создаем SDAnimatedImageView
-        let gifImageView = SDAnimatedImageView(frame: view.bounds)
-        if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
-            gifImageView.sd_setImage(with: gifURL)
-        }
-        view.addSubview(gifImageView) // Добавляем imageView на ваш экран
-        view.sendSubviewToBack(gifImageView) // Отправляем его на задний план
     }
     //MARK: Video Background
     private func setupVideoBackground() {
@@ -448,7 +438,7 @@ extension MainController {
         geomagneticActivityLabel.text = ""
         var currentCharacterIndex = 0
         geomagneticActivityLabelTimer?.invalidate() // Остановить предыдущий таймер
-        geomagneticActivityLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak self] timer in
+        geomagneticActivityLabelTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] timer in
             guard let self = self else {
                 timer.invalidate()
                 return
