@@ -1,5 +1,5 @@
 //
-//  MainController.swift
+//  MainViewController.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
@@ -15,10 +15,9 @@ import SnapKit
 import CoreLocation
 import SDWebImage
 
-final class MainController: UIViewController {
+final class MainViewController: UIViewController {
     //MARK: Properties
-    private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown
-    private let geomagneticActivityState: GeomagneticActivityState = .noStorm
+    private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown // текущий стейт
     private var currentCharacterIndex = 0
     
     private let locationManager = CLLocationManager()
@@ -27,11 +26,11 @@ final class MainController: UIViewController {
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
-    
+    // анимация и кнопка
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
-    
+    // создаем элементы
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.text = ""
@@ -194,7 +193,7 @@ final class MainController: UIViewController {
     }
 } // end
 //MARK: - Location Manager Delegate
-extension MainController: CLLocationManagerDelegate {
+extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
@@ -232,8 +231,8 @@ extension MainController: CLLocationManagerDelegate {
     }
 }
 //MARK: Swipe
-extension MainController {
-    //MARK: Swipe gestures and buttons
+extension MainViewController {
+    // Swipe gestures and buttons
     private func setupSwipeGesture() {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeUpGesture.direction = .up
@@ -285,7 +284,7 @@ extension MainController {
         
         animateChevronButtonImageChange(withImage: chevronImage)
     }
-    //MARK: Targets
+    // Targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
@@ -333,10 +332,13 @@ extension MainController {
     // info button action
     @objc private func infoButtonTapped() {
         print("infoButtonTapped")
+        let infoViewController = InfoViewController()
+        infoViewController.modalPresentationStyle = .popover
+        present(infoViewController, animated: true, completion: nil)
     }
 }
 //MARK: Animations
-extension MainController {
+extension MainViewController {
     //MARK: Animate Location
     private func animateLocationLabelAppearance(withText text: String) {
         locationLabel.text = ""

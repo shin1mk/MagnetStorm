@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1325298E2AACEF260002CE93 /* background_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* background_gif.gif */; };
+		132E1D042AAD1237005DBF27 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132E1D032AAD1237005DBF27 /* CustomTableViewCell.swift */; };
 		13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAD2AA2965000C858BF /* AppDelegate.swift */; };
 		13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAF2AA2965000C858BF /* SceneDelegate.swift */; };
-		13449AB22AA2965000C858BF /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainController.swift */; };
+		13449AB22AA2965000C858BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainViewController.swift */; };
 		13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB62AA2965000C858BF /* MagnetStorm.xcdatamodeld */; };
 		13449ABA2AA2965100C858BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13449AB92AA2965100C858BF /* Assets.xcassets */; };
 		13449ABD2AA2965100C858BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13449ABB2AA2965100C858BF /* LaunchScreen.storyboard */; };
@@ -21,6 +22,7 @@
 		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
 		136A757A2AA4B8F900BA3A3B /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136A75792AA4B8F900BA3A3B /* text.swift */; };
+		139A9A722AAD083D00FBB3A8 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
 		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
 		13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */; };
@@ -52,10 +54,11 @@
 
 /* Begin PBXFileReference section */
 		1325298D2AACEF260002CE93 /* background_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background_gif.gif; sourceTree = "<group>"; };
+		132E1D032AAD1237005DBF27 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		13449AAA2AA2965000C858BF /* MagnetStorm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagnetStorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AAD2AA2965000C858BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13449AAF2AA2965000C858BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		13449AB12AA2965000C858BF /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		13449AB12AA2965000C858BF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		13449AB72AA2965000C858BF /* MagnetStorm.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagnetStorm.xcdatamodel; sourceTree = "<group>"; };
 		13449AB92AA2965100C858BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13449ABC2AA2965100C858BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
 		136A75792AA4B8F900BA3A3B /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
+		139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
 		13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Light.ttf"; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		13449AAC2AA2965000C858BF /* MagnetStorm */ = {
 			isa = PBXGroup;
 			children = (
+				136A75792AA4B8F900BA3A3B /* text.swift */,
 				13449AE02AA296B800C858BF /* Controllers */,
 				13449AE42AA296F200C858BF /* Views */,
 				13449AE32AA296E900C858BF /* Models */,
@@ -170,7 +175,8 @@
 		13449AE02AA296B800C858BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13449AB12AA2965000C858BF /* MainController.swift */,
+				13449AB12AA2965000C858BF /* MainViewController.swift */,
+				139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,8 +209,8 @@
 		13449AE42AA296F200C858BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				136A75792AA4B8F900BA3A3B /* text.swift */,
 				1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */,
+				132E1D032AAD1237005DBF27 /* CustomTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -515,13 +521,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
-				13449AB22AA2965000C858BF /* MainController.swift in Sources */,
+				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				136A757A2AA4B8F900BA3A3B /* text.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */,
+				132E1D042AAD1237005DBF27 /* CustomTableViewCell.swift in Sources */,
+				139A9A722AAD083D00FBB3A8 /* InfoViewController.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
