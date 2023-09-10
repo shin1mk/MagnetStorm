@@ -360,7 +360,13 @@ final class InfoViewController: UIViewController {
         return view
     }()
     private let contentView = UIView()
-    //  массив с данными о разных уровнях магнитных бурь
+    private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemGray6
+        return view
+    }()
+    // массив с данными о разных уровнях магнитных бурь
     lazy var stormLevels: [(String, String, UIColor)] = [
         ("Отсутствие бури", "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь.", InfoViewController.green0),
         ("Слабая буря", "Влияние на человека очень незначительное. Некоторые люди с повышенной чувствительностью к магнитным полям могут замечать легкое беспокойство.", InfoViewController.green1),
@@ -373,6 +379,15 @@ final class InfoViewController: UIViewController {
         ("Сверхбуря", "На этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния.", InfoViewController.deepRed),
         ("Супербуря", "Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире.", InfoViewController.veryDeepRed)
     ]
+    private lazy var sourceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Источник данных: NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
+        button.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -401,7 +416,7 @@ final class InfoViewController: UIViewController {
         
         let descriptionLabel = UILabel()
         descriptionLabel.textColor = .white
-        descriptionLabel.font = UIFont.SFUITextRegular(ofSize: 18)
+        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 18)
         descriptionLabel.text = description
         descriptionLabel.numberOfLines = 0
         
@@ -413,7 +428,6 @@ final class InfoViewController: UIViewController {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.centerX.equalTo(scrollView)
@@ -422,53 +436,62 @@ final class InfoViewController: UIViewController {
             make.bottom.equalTo(scrollView)
             make.height.equalTo(1700)
         }
+        // gray background
+        contentView.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(contentView)
+            make.left.equalTo(contentView)
+            make.right.equalTo(contentView)
+            make.height.equalTo(60)
+        }
+        // substract
+        contentView.addSubview(subtractImageView)
+        subtractImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(contentView)
+            make.top.equalTo(contentView.snp.top).offset(-20)
+        }
+        // titles and descriptions
+        var previousDescriptionLabel: UILabel? = nil // Изначально предыдущей метки для описания нет, устанавливаем её в nil
+        var isFirstTitle = true
         
-        // Изначально предыдущей метки для описания нет, устанавливаем её в nil
-        var previousDescriptionLabel: UILabel? = nil
-        
-        // Проходим по всем данным в массиве stormLevels
         for (title, description, textColor) in stormLevels {
-            // Создаём метки заголовка и описания, используя функцию createStormLevelView
             let (titleLabel, descriptionLabel) = createStormLevelView(title: title, description: description, textColor: textColor)
             
-            // Добавляем метку заголовка в контентное представление contentView
             contentView.addSubview(titleLabel)
-            
-            // Устанавливаем constraints (ограничения) для метки заголовка
-            titleLabel.snp.makeConstraints { make in
-                // Если есть предыдущая метка описания, то устанавливаем верхний край метки заголовка
-                // на расстоянии 10 от нижнего края предыдущей метки описания
-                // Иначе, если это первая метка, устанавливаем верхний край на расстоянии 10 от верхнего края contentView
-                make.top.equalTo(previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(10)
-                
-                // Устанавливаем левый край метки заголовка на расстоянии 15 от левого края contentView
-                make.leading.equalTo(contentView).offset(15)
-                
-                // Устанавливаем правый край метки заголовка на расстоянии 15 от правого края contentView
-                make.trailing.equalTo(contentView).offset(-15)
-            }
-            
-            // Добавляем метку описания в контентное представление contentView
             contentView.addSubview(descriptionLabel)
             
-            // Устанавливаем constraints (ограничения) для метки описания
-            descriptionLabel.snp.makeConstraints { make in
-                // Устанавливаем верхний край метки описания на расстоянии 10 от нижнего края метки заголовка
-                make.top.equalTo(titleLabel.snp.bottom).offset(10)
-                
-                // Устанавливаем левый край метки описания на расстоянии 15 от левого края contentView
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(isFirstTitle ? contentView.snp.top : previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(isFirstTitle ? 70 : 10)
                 make.leading.equalTo(contentView).offset(15)
-                
-                // Устанавливаем правый край метки описания на расстоянии 15 от правого края contentView
                 make.trailing.equalTo(contentView).offset(-15)
             }
             
-            // Передвигаем указатель previousDescriptionLabel на текущую метку описания,
-            // чтобы использовать его для следующей метки заголовка
+            descriptionLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                make.leading.equalTo(contentView).offset(15)
+                make.trailing.equalTo(contentView).offset(-15)
+            }
+            
             previousDescriptionLabel = descriptionLabel
+            isFirstTitle = false
         }
-        
+        // sourceButton
+//        contentView.addSubview(sourceButton)
+//        sourceButton.snp.makeConstraints { make in
+//            make.top.equalTo(previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(20)
+//            make.leading.equalTo(contentView).offset(15)
+//            make.trailing.equalTo(contentView).offset(-15)
+//            make.bottom.lessThanOrEqualTo(contentView.snp.bottom).offset(-20)
+//        }
     }
+    
+    @objc func openNOAALink() {
+        print("Button tapped")
+        if let url = URL(string: "https://www.swpc.noaa.gov/") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
 } // end
 //MARK: Colors
 extension InfoViewController {
