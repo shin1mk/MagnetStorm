@@ -180,7 +180,7 @@ final class MainViewController: UIViewController {
                     case 8:
                         state = .exceptionalStorm
                     case 9:
-                        state = .superstorm
+                        state = .superStorm
                     default:
                         state = .unknown
                     }

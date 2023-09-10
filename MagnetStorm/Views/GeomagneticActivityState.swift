@@ -17,7 +17,7 @@ enum GeomagneticActivityState {
     case extremeStorm
     case outstandingStorm
     case exceptionalStorm
-    case superstorm
+    case superStorm
     case unknown
     
     var labelText: String {
@@ -40,7 +40,7 @@ enum GeomagneticActivityState {
             return "G7"
         case .exceptionalStorm: // 8
             return "G8"
-        case .superstorm: // 9
+        case .superStorm: // 9
             return "G9"
         case .unknown:
             return "?"
@@ -67,7 +67,7 @@ enum GeomagneticActivityState {
             return "Буря исключительного масштаба:\nБуря может вызвать значительное ухудшение физического и эмоционального состояния. Головные боли, бессонница, нервозность и ухудшение настроения могут наблюдаться в значительной степени."
         case .exceptionalStorm: // 8
             return "Сверхбуря:\nНа этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния."
-        case .superstorm: // 9
+        case .superStorm: // 9
             return "Супербуря:\nСамый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире."
         case .unknown:
             return "Неизвестно"
