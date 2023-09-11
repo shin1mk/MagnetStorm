@@ -84,6 +84,12 @@ final class MainViewController: UIViewController {
         setupAnimatedGIFBackground()
         setupTarget()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Установите обработчик жеста здесь
+        setupSwipeGesture()
+    }
     // Notification observer
     private func setupAppLifecycleObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
