@@ -363,7 +363,8 @@ final class InfoViewController: UIViewController {
     private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
     private let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.systemGray6
+        view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.6)
+
         return view
     }()
     // массив с данными о разных уровнях магнитных бурь
@@ -424,10 +425,22 @@ final class InfoViewController: UIViewController {
     }
     //MARK: Constraints
     private func setupConstraints() {
+        // gray background
+        view.addSubview(backgroundView)
+        backgroundView.layer.zPosition = 100
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(view)
+            make.leading.equalTo(view)
+            make.trailing.equalTo(view)
+            make.height.equalTo(50)
+        }
+        // scroll view
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(backgroundView.snp.bottom) // Положение scrollView начинается после backgroundView
+            make.left.right.bottom.equalToSuperview()
         }
+        // content view
         scrollView.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.centerX.equalTo(scrollView)
@@ -436,24 +449,17 @@ final class InfoViewController: UIViewController {
             make.bottom.equalTo(scrollView)
             make.height.equalTo(1700)
         }
-        // gray background
-        contentView.addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(contentView)
-            make.left.equalTo(contentView)
-            make.right.equalTo(contentView)
-            make.height.equalTo(60)
-        }
         // substract
-        contentView.addSubview(subtractImageView)
+        backgroundView.addSubview(subtractImageView)
         subtractImageView.snp.makeConstraints { make in
-            make.centerX.equalTo(contentView)
-            make.top.equalTo(contentView.snp.top).offset(-20)
+            make.centerX.equalTo(backgroundView)
+            make.top.equalTo(backgroundView.snp.top).offset(-24)
         }
+        
+        
         // titles and descriptions
         var previousDescriptionLabel: UILabel? = nil // Изначально предыдущей метки для описания нет, устанавливаем её в nil
-        var isFirstTitle = true
-        
+        // titles and descriptions
         for (title, description, textColor) in stormLevels {
             let (titleLabel, descriptionLabel) = createStormLevelView(title: title, description: description, textColor: textColor)
             
@@ -461,7 +467,7 @@ final class InfoViewController: UIViewController {
             contentView.addSubview(descriptionLabel)
             
             titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(isFirstTitle ? contentView.snp.top : previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(isFirstTitle ? 70 : 10)
+                make.top.equalTo(previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(10)
                 make.leading.equalTo(contentView).offset(15)
                 make.trailing.equalTo(contentView).offset(-15)
             }
@@ -473,8 +479,8 @@ final class InfoViewController: UIViewController {
             }
             
             previousDescriptionLabel = descriptionLabel
-            isFirstTitle = false
         }
+
         // sourceButton
 //        contentView.addSubview(sourceButton)
 //        sourceButton.snp.makeConstraints { make in
