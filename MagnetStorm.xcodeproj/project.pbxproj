@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1325298E2AACEF260002CE93 /* background_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* background_gif.gif */; };
-		132E1D042AAD1237005DBF27 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132E1D032AAD1237005DBF27 /* Colors.swift */; };
 		13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAD2AA2965000C858BF /* AppDelegate.swift */; };
 		13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAF2AA2965000C858BF /* SceneDelegate.swift */; };
 		13449AB22AA2965000C858BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainViewController.swift */; };
@@ -54,7 +53,6 @@
 
 /* Begin PBXFileReference section */
 		1325298D2AACEF260002CE93 /* background_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background_gif.gif; sourceTree = "<group>"; };
-		132E1D032AAD1237005DBF27 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		13449AAA2AA2965000C858BF /* MagnetStorm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagnetStorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AAD2AA2965000C858BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13449AAF2AA2965000C858BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */,
-				132E1D032AAD1237005DBF27 /* Colors.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -528,7 +525,6 @@
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */,
-				132E1D042AAD1237005DBF27 /* Colors.swift in Sources */,
 				139A9A722AAD083D00FBB3A8 /* InfoViewController.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);

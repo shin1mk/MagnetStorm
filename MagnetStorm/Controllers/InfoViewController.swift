@@ -26,26 +26,26 @@ final class InfoViewController: UIViewController {
     }()
     // массив с данными о разных уровнях магнитных бурь
     private let stormLevels: [(String, String, UIColor)] = [
-    ("Отсутствие бури", "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь.", InfoViewController.green0),
-    ("Слабая буря", "Влияние на человека очень незначительное. Некоторые люди с повышенной чувствительностью к магнитным полям могут замечать легкое беспокойство.", InfoViewController.green1),
-    ("Умеренная буря", "Влияние на организм человека все равно остается небольшим. Некоторые люди могут испытывать головные боли или изменения в сне.", InfoViewController.green2),
-    ("Сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.green3),
-    ("Очень сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.yellow),
-    ("Сильнейшая буря", "Влияние на человека на этом уровне может стать более заметным. Могут усилиться симптомы, такие как бессонница, головные боли и нервозность у некоторых людей.", InfoViewController.orange1),
-    ("Буря выдающегося масштаба", "На этом уровне симптомы могут стать более выраженными и распространенными. Могут возникать более серьезные головные боли, бессонница и изменения настроения.", InfoViewController.orange2),
-    ("Буря исключительного масштаба", "Буря может вызвать значительное ухудшение физического и эмоционального состояния. Головные боли, бессонница, нервозность и ухудшение настроения могут наблюдаться в значительной степени.", InfoViewController.red),
-    ("Сверхбуря", "На этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния.", InfoViewController.deepRed),
-    ("Супербуря", "Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире.", InfoViewController.veryDeepRed)
-]
+        ("Отсутствие бури", "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь.", InfoViewController.green0),
+        ("Слабая буря", "Влияние на человека очень незначительное. Некоторые люди с повышенной чувствительностью к магнитным полям могут замечать легкое беспокойство.", InfoViewController.green1),
+        ("Умеренная буря", "Влияние на организм человека все равно остается небольшим. Некоторые люди могут испытывать головные боли или изменения в сне.", InfoViewController.green2),
+        ("Сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.green3),
+        ("Очень сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.yellow),
+        ("Сильнейшая буря", "Влияние на человека на этом уровне может стать более заметным. Могут усилиться симптомы, такие как бессонница, головные боли и нервозность у некоторых людей.", InfoViewController.orange1),
+        ("Буря выдающегося масштаба", "На этом уровне симптомы могут стать более выраженными и распространенными. Могут возникать более серьезные головные боли, бессонница и изменения настроения.", InfoViewController.orange2),
+        ("Буря исключительного масштаба", "Буря может вызвать значительное ухудшение физического и эмоционального состояния. Головные боли, бессонница, нервозность и ухудшение настроения могут наблюдаться в значительной степени.", InfoViewController.red),
+        ("Сверхбуря", "На этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния.", InfoViewController.deepRed),
+        ("Супербуря", "Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире.", InfoViewController.veryDeepRed)
+    ]
     private let sourceButton: UIButton = {
         let button = UIButton()
         button.setTitle("Источник данных: NOAA Space Weather Prediction Center", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 12)
         button.titleLabel?.numberOfLines = 0
         return button
     }()
-
+    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +53,11 @@ final class InfoViewController: UIViewController {
         setupConstraints()
         sourceTarget()
     }
-//        private func setupBackgroundView() {
-//            let backgroundView = UIView(frame: view.bounds)
-//            backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-//            view.addSubview(backgroundView)
-//        }
-    
+    //        private func setupBackgroundView() {
+    //            let backgroundView = UIView(frame: view.bounds)
+    //            backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+    //            view.addSubview(backgroundView)
+    //        }
     private func sourceTarget() {
         sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
     }
@@ -99,7 +98,7 @@ final class InfoViewController: UIViewController {
         // scroll view
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.bottom) // Положение scrollView начинается после backgroundView
+            make.top.equalTo(backgroundView.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
         // content view
@@ -138,42 +137,15 @@ final class InfoViewController: UIViewController {
             previousDescriptionLabel = descriptionLabel
         }
         // sourceButton
-//        contentView.addSubview(sourceButton)
-//        sourceButton.snp.makeConstraints { make in
-//            make.top.equalTo(previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(20)
-//            make.leading.equalTo(contentView).offset(15)
-//            make.trailing.equalTo(contentView).offset(-15)
-//            make.bottom.lessThanOrEqualTo(contentView.snp.bottom).offset(-20)
-//        }
-        // Создайте контейнер
-        let buttonContainer = UIView()
-
-        // Добавьте контейнер на contentView
-        contentView.addSubview(buttonContainer)
-
-        // Разместите sourceButton внутри контейнера
-        buttonContainer.addSubview(sourceButton)
-
-        // Установите ограничения для контейнера
-        buttonContainer.snp.makeConstraints { make in
-            make.edges.equalTo(contentView) // Занимает весь экран contentView
-        }
-//         Установите ограничения для sourceButton внутри контейнера
+        contentView.addSubview(sourceButton)
         sourceButton.snp.makeConstraints { make in
-//            make.top.equalTo(buttonContainer.snp.top).offset(1680)
-            make.leading.equalTo(buttonContainer).offset(15)
-            make.trailing.equalTo(buttonContainer).offset(-15)
-            make.bottom.equalTo(0)
+            make.leading.equalTo(contentView).offset(15)
+            make.trailing.equalTo(contentView).offset(-15)
+            make.bottom.equalTo(contentView.snp.bottom).offset(10)
+            make.height.equalTo(30)
         }
-
     }
-    
-//    @objc func openNOAALink() {
-//        print("Button tapped")
-//        if let url = URL(string: "https://www.swpc.noaa.gov/") {
-//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//        }
-//    }
+    // source button link
     @objc func openNOAALink() {
         print("Button tapped")
         if let url = URL(string: "https://www.swpc.noaa.gov/") {
@@ -181,7 +153,6 @@ final class InfoViewController: UIViewController {
             present(safariViewController, animated: true, completion: nil)
         }
     }
-    
 } // end
 //MARK: Colors
 extension InfoViewController {

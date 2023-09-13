@@ -84,12 +84,6 @@ final class MainViewController: UIViewController {
         setupAnimatedGIFBackground()
         setupTarget()
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//
-//        setupSwipeGesture() // Убедитесь, что жесты свайпа корректно настроены
-//        setupTarget() // Убедитесь, что обработчики для кнопок корректно настроены
-//    }
     // Notification observer
     private func setupAppLifecycleObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
