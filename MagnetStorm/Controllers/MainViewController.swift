@@ -84,12 +84,12 @@ final class MainViewController: UIViewController {
         setupAnimatedGIFBackground()
         setupTarget()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Установите обработчик жеста здесь
-        setupSwipeGesture()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        setupSwipeGesture() // Убедитесь, что жесты свайпа корректно настроены
+//        setupTarget() // Убедитесь, что обработчики для кнопок корректно настроены
+//    }
     // Notification observer
     private func setupAppLifecycleObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -125,7 +125,7 @@ final class MainViewController: UIViewController {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(2)
             make.leading.equalToSuperview().offset(15)
-            make.trailing.lessThanOrEqualToSuperview().offset(-40)
+            make.trailing.lessThanOrEqualToSuperview().offset(-25)
         }
         view.addSubview(refreshButton)
         refreshButton.snp.makeConstraints { make in
