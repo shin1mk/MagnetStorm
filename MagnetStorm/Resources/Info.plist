@@ -11,9 +11,9 @@
 		<string>SFUIText-Regular.ttf</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need your location data to provide geomagnetic information</string>
+	<string>Это приложение использует вашу геопозицию только во время использования, чтобы предоставлять вам актуальные данные о магнитных бурях и их воздействии на ваше местоположение.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We need your location data to provide geomagnetic information</string>
+	<string>Это приложение требует доступ к вашей геопозиции в любое время, чтобы предоставлять вам актуальные данные о магнитных бурях и их воздействии на ваше местоположение даже в фоновом режиме и при использовании приложения.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
