@@ -4,11 +4,7 @@
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
 //
-/*
- Dnepr
- 48,4647
- 35,0462
- */
+
 import UIKit
 import SnapKit
 import CoreLocation
