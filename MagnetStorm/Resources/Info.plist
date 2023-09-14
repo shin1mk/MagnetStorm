@@ -10,10 +10,6 @@
 		<string>SFUIText-Medium.ttf</string>
 		<string>SFUIText-Regular.ttf</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Требуется доступ к вашей геопозиции для предоставления актуальных данных о магнитных бурях и их воздействии.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Требуется доступ к вашей геопозиции для предоставления актуальных данных о магнитных бурях и их воздействии.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

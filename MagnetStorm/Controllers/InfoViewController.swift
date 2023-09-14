@@ -25,18 +25,31 @@ final class InfoViewController: UIViewController {
         return view
     }()
     // массив с данными о разных уровнях магнитных бурь
+//    private let stormLevels: [(String, String, UIColor)] = [
+//        ("Отсутствие бури", "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь.", InfoViewController.green0),
+//        ("Слабая буря", "Влияние на человека очень незначительное. Некоторые люди с повышенной чувствительностью к магнитным полям могут замечать легкое беспокойство.", InfoViewController.green1),
+//        ("Умеренная буря", "Влияние на организм человека все равно остается небольшим. Некоторые люди могут испытывать головные боли или изменения в сне.", InfoViewController.green2),
+//        ("Сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.green3),
+//        ("Очень сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.yellow),
+//        ("Сильнейшая буря", "Влияние на человека на этом уровне может стать более заметным. Могут усилиться симптомы, такие как бессонница, головные боли и нервозность у некоторых людей.", InfoViewController.orange1),
+//        ("Буря выдающегося масштаба", "На этом уровне симптомы могут стать более выраженными и распространенными. Могут возникать более серьезные головные боли, бессонница и изменения настроения.", InfoViewController.orange2),
+//        ("Буря исключительного масштаба", "Буря может вызвать значительное ухудшение физического и эмоционального состояния. Головные боли, бессонница, нервозность и ухудшение настроения могут наблюдаться в значительной степени.", InfoViewController.red),
+//        ("Сверхбуря", "На этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния.", InfoViewController.deepRed),
+//        ("Супербуря", "Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире.", InfoViewController.veryDeepRed)
+//    ]
     private let stormLevels: [(String, String, UIColor)] = [
-        ("Отсутствие бури", "Влияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений из-за отсутствия магнитных бурь.", InfoViewController.green0),
-        ("Слабая буря", "Влияние на человека очень незначительное. Некоторые люди с повышенной чувствительностью к магнитным полям могут замечать легкое беспокойство.", InfoViewController.green1),
-        ("Умеренная буря", "Влияние на организм человека все равно остается небольшим. Некоторые люди могут испытывать головные боли или изменения в сне.", InfoViewController.green2),
-        ("Сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.green3),
-        ("Очень сильная буря", "Буря может повысить вероятность появления физических и эмоциональных симптомов у большинства людей. Возможны головные боли, бессонница, ухудшение настроения.", InfoViewController.yellow),
-        ("Сильнейшая буря", "Влияние на человека на этом уровне может стать более заметным. Могут усилиться симптомы, такие как бессонница, головные боли и нервозность у некоторых людей.", InfoViewController.orange1),
-        ("Буря выдающегося масштаба", "На этом уровне симптомы могут стать более выраженными и распространенными. Могут возникать более серьезные головные боли, бессонница и изменения настроения.", InfoViewController.orange2),
-        ("Буря исключительного масштаба", "Буря может вызвать значительное ухудшение физического и эмоционального состояния. Головные боли, бессонница, нервозность и ухудшение настроения могут наблюдаться в значительной степени.", InfoViewController.red),
-        ("Сверхбуря", "На этом уровне возможны самые серьезные и неопределенные воздействия на человека. Могут возникать сильные головные боли, бессонницы и серьезное изменение эмоционального состояния.", InfoViewController.deepRed),
-        ("Супербуря", "Самый высший уровень активности магнитных бурь, с катастрофическими последствиями для всего организма и технического оборудования в мире.", InfoViewController.veryDeepRed)
+        ("noStorm_info".localized(), "noStorm_description_info".localized(), InfoViewController.green0),
+        ("minorStorm_info".localized(), "minorStorm_description_info".localized(), InfoViewController.green1),
+        ("weakStorm_info".localized(), "weakStorm_description_info".localized(), InfoViewController.green2),
+        ("moderateStorm_info".localized(), "moderateStorm_description_info".localized(), InfoViewController.green3),
+        ("strongStorm_info".localized(), "strongStorm_description_info".localized(), InfoViewController.yellow),
+        ("severeStorm_info".localized(), "severeStorm_description_info".localized(), InfoViewController.orange1),
+        ("extremeStorm_info".localized(), "extremeStorm_description_info".localized(), InfoViewController.orange2),
+        ("outstandingStorm_info".localized(), "outstandingStorm_description_info".localized(), InfoViewController.red),
+        ("exceptionalStorm_info".localized(), "exceptionalStorm_description_info".localized(), InfoViewController.deepRed),
+        ("superStorm_info".localized(), "superStorm_description_info".localized(), InfoViewController.veryDeepRed)
     ]
+
     private let sourceButton: UIButton = {
         let button = UIButton()
         button.setTitle("Источник данных: NOAA Space Weather Prediction Center", for: .normal)

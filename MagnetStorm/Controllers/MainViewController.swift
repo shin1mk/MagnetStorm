@@ -8,7 +8,6 @@
  Dnepr
  48,4647
  35,0462
- придумать автоперевод на 3 языка
  */
 import UIKit
 import SnapKit
