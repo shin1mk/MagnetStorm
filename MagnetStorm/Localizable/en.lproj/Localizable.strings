@@ -60,3 +60,5 @@
 "superStorm_description_info" = "The highest level of magnetic storm activity, with catastrophic consequences for the entire human body and world technical equipment.";
 //?
 "unknown_description_info" = "Unknown";
+// notifications
+"notification_text" =  "New geomagnetic activity data.";

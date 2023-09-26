@@ -61,3 +61,5 @@
 //?
 "unknown_description_info" = "Невідомо";
 
+// notifications
+"notification_text" =  "Нові дані про геомагнітну активність.";
