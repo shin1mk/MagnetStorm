@@ -17,7 +17,11 @@ final class MainViewController: UIViewController {
     
     private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
+    private let feedbackGenerator = UISelectionFeedbackGenerator()
     
+    private var timer: Timer?
+    private var currentTimeZone: TimeZone? // Вам нужно определить часовой пояс
+
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
@@ -78,7 +82,6 @@ final class MainViewController: UIViewController {
         setupSwipeGesture()
         setupAnimatedGIFBackground()
         setupTarget()
-        startFetchingMagneticDataPeriodically()
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
@@ -221,9 +224,9 @@ extension MainViewController: CLLocationManagerDelegate {
     //MARK: Location Manager
     private func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
 }
 //MARK: Swipe
@@ -252,6 +255,7 @@ extension MainViewController {
                 descriptionLabel.alpha = 1
                 if !isLabelAnimating {
                     animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
+                    feedbackGenerator.selectionChanged() // Добавьте виброотклик
                 }
             default:
                 break
@@ -265,6 +269,7 @@ extension MainViewController {
             switch (isAnimating, isLabelAnimating) {
             case (true, false):
                 animateDescriptionLabelDisappearance()
+                feedbackGenerator.selectionChanged() // Добавьте виброотклик
             default:
                 break
             }
@@ -279,6 +284,8 @@ extension MainViewController {
         chevronButton.tintColor = UIColor.white
         
         animateChevronButtonImageChange(withImage: chevronImage)
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+        
     }
     // Targets
     private func setupTarget() {
@@ -290,6 +297,7 @@ extension MainViewController {
     @objc private func refreshButtonTapped() {
         print("refresh")
         guard !isLabelAnimating else { return }
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
         if isAnimating {
             if let city = currentCity { // Use the captured city value
@@ -321,13 +329,19 @@ extension MainViewController {
         
         if isButtonUp {
             handleSwipe(fakeSwipeUpGesture)
+            feedbackGenerator.selectionChanged() // Добавьте виброотклик
+            
         } else {
             handleSwipeDown(fakeSwipeDownGesture)
+            feedbackGenerator.selectionChanged() // Добавьте виброотклик
+            
         }
     }
     // info button action
     @objc private func infoButtonTapped() {
         print("infoButtonTapped")
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+        
         let infoViewController = InfoViewController()
         infoViewController.modalPresentationStyle = .popover
         present(infoViewController, animated: true, completion: nil)
@@ -414,52 +428,5 @@ extension MainViewController {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
         }, completion: nil)
-    }
-}
-
-extension MainViewController {
-    func startFetchingMagneticDataPeriodically() {
-        // Создайте таймер, который будет выполняться каждые 3 часа (3 * 3600 секунд) в UTC
-        let timer = Timer(fireAt: calculateNextFetchTime(), interval: 3 * 3600, target: self, selector: #selector(fetchMagneticDataPeriodically), userInfo: nil, repeats: true)
-        
-        // Добавьте таймер в текущий Run Loop
-        RunLoop.current.add(timer, forMode: .common)
-        print("Следующий запрос запланирован на \(calculateNextFetchTime()) UTC")
-    }
-
-    func calculateNextFetchTime() -> Date {
-        let calendar = Calendar.current
-        let now = Date()
-        let currentHour = calendar.component(.hour, from: now)
-        
-        // Вычисляем ближайшее время в UTC, когда нужно выполнить запрос
-        let nextHour = ((currentHour / 3) * 3 + 3) % 24 // Округляем до ближайшего кратного 3 часа и учитываем переход через полночь
-        var dateComponents = calendar.dateComponents([.year, .month, .day], from: now)
-        dateComponents.hour = nextHour
-        dateComponents.minute = 0
-        dateComponents.second = 0
-        dateComponents.timeZone = TimeZone(identifier: "UTC")
-        
-        return calendar.date(from: dateComponents) ?? now
-    }
-
-    @objc func fetchMagneticDataPeriodically() {
-        // Вызовите вашу функцию fetchMagneticData для выполнения запроса данных
-        fetchMagneticData { [weak self] currentKpValue in
-            DispatchQueue.main.async {
-                // Обработайте результаты запроса, если это необходимо
-                self?.sendNotification()
-            }
-        }
-    }
-    func sendNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "MagnetStorm"
-        content.body = "notification_text".localized()
-        content.sound = UNNotificationSound.default
-
-        let request = UNNotificationRequest(identifier: "MagneticDataNotification", content: content, trigger: nil)
-
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }

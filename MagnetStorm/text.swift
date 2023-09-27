@@ -263,3 +263,65 @@
 
  Дата последнего обновления: [дата последнего обновления]
 */
+
+
+
+
+ 
+/*
+ 
+ 
+ private let feedbackGenerator = UISelectionFeedbackGenerator()
+ 
+ private var timer: Timer?
+ private var currentTimeZone: TimeZone? // Вам нужно определить часовой пояс
+
+ 
+ 
+ 
+ func startFetchingMagneticDataPeriodically() {
+     let timer = Timer(fireAt: calculateNextFetchTime(), interval: 3600, target: self, selector: #selector(fetchMagneticDataPeriodically), userInfo: nil, repeats: true)
+     RunLoop.current.add(timer, forMode: .common)
+     print("Следующий запрос запланирован на \(calculateNextFetchTime()) UTC")
+ }
+
+ func calculateNextFetchTime() -> Date {
+     guard let timeZone = TimeZone(identifier: "UTC") else {
+         return Date()
+     }
+
+     var calendar = Calendar.current
+     calendar.timeZone = timeZone // Установим часовой пояс UTC для календаря
+
+     var dateComponents = calendar.dateComponents([.year, .month, .day, .hour], from: Date())
+
+     // Находим ближайший следующий час, который кратен 3
+     let currentHour = dateComponents.hour ?? 0
+     let nextHour = (currentHour / 3 + 1) * 3
+
+     dateComponents.hour = nextHour
+     dateComponents.minute = 0
+     dateComponents.second = 0
+
+     return calendar.date(from: dateComponents)!
+ }
+
+ @objc func fetchMagneticDataPeriodically() {
+     // Вызовите вашу функцию fetchMagneticData для выполнения запроса данных
+     fetchMagneticData { [weak self] currentKpValue in
+         DispatchQueue.main.async {
+             // Обработайте результаты запроса, если это необходимо
+             self?.sendNotification()
+         }
+     }
+ }
+
+ func sendNotification() {
+     let content = UNMutableNotificationContent()
+     content.title = "MagnetStorm"
+     content.body = "notification_text".localized()
+     content.sound = UNNotificationSound.default
+     let request = UNNotificationRequest(identifier: "MagneticDataNotification", content: content, trigger: nil)
+     UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+ }
+ */
