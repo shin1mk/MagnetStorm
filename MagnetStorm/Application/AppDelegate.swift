@@ -44,10 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // didFinishLaunchingWithOptions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         notificationCenter.requestAuthorization(options: [.alert,.sound, .badge]) { (granted, error) in
-
+            
             guard granted else { return }
             self.notificationCenter.getNotificationSettings { (settings) in
-//                print(settings)
+                // print(settings)
                 guard settings.authorizationStatus == .authorized else { return }
             }
         }
