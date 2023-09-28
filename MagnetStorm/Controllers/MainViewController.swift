@@ -12,6 +12,10 @@ import SDWebImage
 import UserNotifications
 
 final class MainViewController: UIViewController {
+    private let notificationCenter = UNUserNotificationCenter.current()
+
+    
+    
     //MARK: Properties
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown // текущий стейт
     private var currentCharacterIndex = 0
@@ -96,6 +100,7 @@ final class MainViewController: UIViewController {
     // Приложение будет восстановлено
     @objc private func appWillEnterForeground() {
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
+        setupNotificationTimer()
     }
     // удаляем деинит
     deinit {
@@ -429,5 +434,25 @@ extension MainViewController {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
         }, completion: nil)
+    }
+}
+//MARK: UserNotificationCenter
+extension MainViewController {
+     func setupNotificationTimer() {
+        // Устанавливаем таймер на 30 секунд
+        let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: thirtySeconds, repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = "MagnetStorm"
+        content.body = "notification_text".localized()
+        let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
+        
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Ошибка при установке таймера: \(error)")
+            } else {
+                print("Таймер на уведомление установлен успешно.")
+            }
+        }
     }
 }

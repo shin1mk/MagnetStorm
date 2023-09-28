@@ -40,7 +40,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     // didFinishLaunchingWithOptions
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        return true
+//    }
+    // MARK: - UserNotificationCenter
+    let notificationCenter = UNUserNotificationCenter.current()
+    // didFinishLaunchingWithOptions
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, error) in
+            guard granted else { return }
+            self.notificationCenter.getNotificationSettings { (settings) in
+                guard settings.authorizationStatus == .authorized else { return }
+
+                // Разрешение на уведо  мления получено, теперь можно установить таймер
+                self.setupNotificationTimer()
+            }
+        }
+        notificationCenter.delegate = self
         return true
     }
+
+    // Установка таймера на уведомление
+    func setupNotificationTimer() {
+        // Устанавливаем таймер на 30 секунд
+        let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: thirtySeconds, repeats: false)
+        let content = UNMutableNotificationContent()
+        content.title = "MagnetStorm"
+        content.body = "notification_text".localized()
+        
+        // Добавляем стандартную вибрацию и звук
+        content.sound = UNNotificationSound.default
+
+        let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
+
+        notificationCenter.add(request) { (error) in
+            if let error = error {
+                print("Ошибка при установке таймера: \(error)")
+            } else {
+                print("Таймер на уведомление установлен успешно.")
+            }
+        }
+    }
 } // end
+// MARK: - UserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    }
+}
