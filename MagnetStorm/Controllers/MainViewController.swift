@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import CoreLocation
 import SDWebImage
+import UserNotifications
 
 final class MainViewController: UIViewController {
     //MARK: Properties
@@ -82,7 +83,6 @@ final class MainViewController: UIViewController {
         setupSwipeGesture()
         setupAnimatedGIFBackground()
         setupTarget()
-        startFetchingMagneticDataPeriodically()
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
@@ -97,7 +97,7 @@ final class MainViewController: UIViewController {
     @objc private func appWillEnterForeground() {
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
     }
-    
+    // удаляем деинит
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -227,7 +227,7 @@ extension MainViewController: CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManager.stopUpdatingLocation()
+        locationManager.distanceFilter = 100000.0 // distance 100km
     }
 }
 //MARK: Swipe
@@ -429,53 +429,5 @@ extension MainViewController {
         UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.chevronButton.setImage(image, for: .normal)
         }, completion: nil)
-    }
-}
-//MARK: fetch api call
-extension MainViewController {
-    private func startFetchingMagneticDataPeriodically() {
-        let timer = Timer(fireAt: calculateNextFetchTime(), interval: 3600, target: self, selector: #selector(fetchMagneticDataPeriodically), userInfo: nil, repeats: true)
-        RunLoop.current.add(timer, forMode: .common)
-        print("Следующий запрос запланирован на \(calculateNextFetchTime()) UTC")
-    }
-    // calculate когда следующий запрос
-    private func calculateNextFetchTime() -> Date {
-        guard let timeZone = TimeZone(identifier: "UTC") else {
-            return Date()
-        }
-
-        var calendar = Calendar.current
-        calendar.timeZone = timeZone // Установим часовой пояс UTC
-
-        var dateComponents = calendar.dateComponents([.year, .month, .day, .hour], from: Date())
-
-        // Находим ближайший следующий час, который кратен 3
-        let currentHour = dateComponents.hour ?? 0
-        let nextHour = (currentHour / 3 + 1) * 3
-
-        dateComponents.hour = nextHour
-        dateComponents.minute = 0
-        dateComponents.second = 0
-
-        return calendar.date(from: dateComponents)!
-    }
-
-    @objc private func fetchMagneticDataPeriodically() {
-        // Вызовите вашу функцию fetchMagneticData для выполнения запроса данных
-        fetchMagneticData { [weak self] currentKpValue in
-            DispatchQueue.main.async {
-                // шлем нотификейшен
-                self?.sendNotification()
-            }
-        }
-    }
-    // notification
-    private func sendNotification() {
-        let content = UNMutableNotificationContent()
-        content.title = "MagnetStorm"
-        content.body = "notification_text".localized()
-        content.sound = UNNotificationSound.default
-        let request = UNNotificationRequest(identifier: "MagneticDataNotification", content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }
