@@ -63,8 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Установка таймера на уведомление
     func setupNotificationTimer() {
         // Устанавливаем таймер на 30 секунд
-        let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: thirtySeconds, repeats: false)
+//        let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
+        let threeHours: TimeInterval = 3 * 3600 // 3 часа
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
         let content = UNMutableNotificationContent()
         content.title = "MagnetStorm"
         content.body = "notification_text".localized()
