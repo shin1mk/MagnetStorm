@@ -40,7 +40,7 @@ final class InfoViewController: UIViewController {
 
     private let sourceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Источник данных: NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 12)
         button.titleLabel?.numberOfLines = 0
