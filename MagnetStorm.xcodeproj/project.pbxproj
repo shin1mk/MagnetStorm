@@ -19,7 +19,9 @@
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
 		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
-		139A9A722AAD083D00FBB3A8 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */; };
+		137097402ACA1A9300EE4538 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */; };
+		139A9A722AAD083D00FBB3A8 /* InfoViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139A9A712AAD083D00FBB3A8 /* InfoViewController2.swift */; };
+		13A09F402AC9ECF8003858A1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
 		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
 		13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */; };
@@ -68,7 +70,9 @@
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
-		139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
+		139A9A712AAD083D00FBB3A8 /* InfoViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController2.swift; sourceTree = "<group>"; };
+		13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
 		13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Light.ttf"; sourceTree = "<group>"; };
@@ -178,7 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				13449AB12AA2965000C858BF /* MainViewController.swift */,
-				139A9A712AAD083D00FBB3A8 /* InfoViewController.swift */,
+				139A9A712AAD083D00FBB3A8 /* InfoViewController2.swift */,
+				13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */,
+				1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -532,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
+				13A09F402AC9ECF8003858A1 /* InfoViewController.swift in Sources */,
 				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
@@ -539,7 +546,8 @@
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */,
-				139A9A722AAD083D00FBB3A8 /* InfoViewController.swift in Sources */,
+				137097402ACA1A9300EE4538 /* InfoTableViewCell.swift in Sources */,
+				139A9A722AAD083D00FBB3A8 /* InfoViewController2.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

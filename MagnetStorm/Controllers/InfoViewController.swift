@@ -2,30 +2,17 @@
 //  InfoViewController.swift
 //  MagnetStorm
 //
-//  Created by SHIN MIKHAIL on 09.09.2023.
+//  Created by SHIN MIKHAIL on 01.10.2023.
 //
 
 import Foundation
 import UIKit
-import SnapKit
 import SafariServices
+import SnapKit
 
 final class InfoViewController: UIViewController {
-    private let scrollView: UIScrollView = {
-        var view = UIScrollView()
-        view.isScrollEnabled = true
-        view.alwaysBounceVertical = true
-        return view
-    }()
-    private let contentView = UIView()
-    private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
-    private let backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.6)
-        return view
-    }()
-    // массив с данными о разных уровнях магнитных бурь
-    private let stormLevels: [(String, String, UIColor)] = [
+    // Массив с данными о разных уровнях магнитных бурь
+    private let stormLevels: [(title: String, description: String, textColor: UIColor)] = [
         ("noStorm_info".localized(), "noStorm_description_info".localized(), InfoViewController.green0),
         ("minorStorm_info".localized(), "minorStorm_description_info".localized(), InfoViewController.green1),
         ("weakStorm_info".localized(), "weakStorm_description_info".localized(), InfoViewController.green2),
@@ -37,79 +24,47 @@ final class InfoViewController: UIViewController {
         ("exceptionalStorm_info".localized(), "exceptionalStorm_description_info".localized(), InfoViewController.deepRed),
         ("superStorm_info".localized(), "superStorm_description_info".localized(), InfoViewController.veryDeepRed)
     ]
-
+    //MARK: Properties
     private let sourceButton: UIButton = {
         let button = UIButton()
         button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 12)
+        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
         button.titleLabel?.numberOfLines = 0
         return button
     }()
-    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.black
+        tableView.register(InfoTableViewCell.self, forCellReuseIdentifier: "InfoCell")
+        return tableView
+    }()
+    private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.7)
+        return view
+    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBackgroundView()
         setupConstraints()
-        sourceTarget()
-    }
-    //        private func setupBackgroundView() {
-    //            let backgroundView = UIView(frame: view.bounds)
-    //            backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-    //            view.addSubview(backgroundView)
-    //        }
-    private func sourceTarget() {
-        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+        setupTarget()
     }
     //MARK: Methods
-    private func setupBackgroundView() {
-        let backgroundImage = UIImageView(image: UIImage(named: "infoViewBackground"))
-        backgroundImage.frame = view.bounds
-        backgroundImage.contentMode = .scaleAspectFill
-        view.addSubview(backgroundImage)
-    }
-    // функция для создания меток и описаний
-    private func createStormLevelView(title: String, description: String, textColor: UIColor) -> (UILabel, UILabel) {
-        let titleLabel = UILabel()
-        titleLabel.textColor = textColor
-        titleLabel.font = UIFont.SFUITextBold(ofSize: 24)
-        titleLabel.text = title
-        titleLabel.numberOfLines = 0
-        
-        let descriptionLabel = UILabel()
-        descriptionLabel.textColor = .white
-        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 18)
-        descriptionLabel.text = description
-        descriptionLabel.numberOfLines = 0
-        
-        return (titleLabel, descriptionLabel)
-    }
-    // Constraints
     private func setupConstraints() {
+        tableView.backgroundColor = UIColor.black
         // gray background
         view.addSubview(backgroundView)
-        backgroundView.layer.zPosition = 100
+        backgroundView.layer.zPosition = 100 // z-index
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(view)
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.height.equalTo(50)
-        }
-        // scroll view
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(backgroundView.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
-        }
-        // content view
-        scrollView.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.centerX.equalTo(scrollView)
-            make.top.bottom.equalTo(scrollView)
-            make.width.equalTo(scrollView)
-            make.bottom.equalTo(scrollView)
-            make.height.equalTo(1700)
         }
         // substract
         backgroundView.addSubview(subtractImageView)
@@ -117,45 +72,53 @@ final class InfoViewController: UIViewController {
             make.centerX.equalTo(backgroundView)
             make.top.equalTo(backgroundView.snp.top).offset(-24)
         }
-        // titles and descriptions
-        var previousDescriptionLabel: UILabel? = nil // Изначально предыдущей метки для описания нет, устанавливаем её в nil
-        for (title, description, textColor) in stormLevels {
-            let (titleLabel, descriptionLabel) = createStormLevelView(title: title, description: description, textColor: textColor)
-            // titleLabel
-            contentView.addSubview(titleLabel)
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(previousDescriptionLabel?.snp.bottom ?? contentView.snp.top).offset(10)
-                make.leading.equalTo(contentView).offset(15)
-                make.trailing.equalTo(contentView).offset(-15)
-            }
-            // descriptionLabel
-            contentView.addSubview(descriptionLabel)
-            descriptionLabel.snp.makeConstraints { make in
-                make.top.equalTo(titleLabel.snp.bottom).offset(10)
-                make.leading.equalTo(contentView).offset(15)
-                make.trailing.equalTo(contentView).offset(-15)
-            }
-            previousDescriptionLabel = descriptionLabel
+        
+        view.backgroundColor = .black
+        
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+            make.leading.equalTo(view)
+            make.trailing.equalTo(view)
+            make.bottom.equalTo(view)
         }
         // sourceButton
-        contentView.addSubview(sourceButton)
-        sourceButton.snp.makeConstraints { make in
-            make.leading.equalTo(contentView).offset(15)
-            make.trailing.equalTo(contentView).offset(-15)
-            make.bottom.equalTo(contentView.snp.bottom).offset(10)
-            make.height.equalTo(30)
-        }
+        let footerViewHeight: CGFloat = 50.0
+        sourceButton.backgroundColor = .black
+        sourceButton.frame.size.height = footerViewHeight
+        tableView.tableFooterView = sourceButton
     }
-    // source button link
-    @objc func openNOAALink() {
-        print("Button tapped")
+    // setup target
+    private func setupTarget() {
+        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+    }
+    // source button
+    @objc private func openNOAALink() {
         if let url = URL(string: "https://www.swpc.noaa.gov/") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
     }
 } // end
-//MARK: Colors
+//MARK: TableView
+extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
+    // UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return stormLevels.count
+    }
+    // cellForRowAt
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! InfoTableViewCell
+        let stormLevel = stormLevels[indexPath.row]
+        cell.configure(title: stormLevel.title, description: stormLevel.description, textColor: stormLevel.textColor)
+        return cell
+    }
+    // UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+} // end
+//MARK: UIColors
 extension InfoViewController {
     static let green0 = UIColor(red: 173/255, green: 255/255, blue: 47/255, alpha: 1.0)
     static let green1 = UIColor(red: 0/255, green: 255/255, blue: 0/255, alpha: 1.0)
