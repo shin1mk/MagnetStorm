@@ -73,5 +73,4 @@ enum GeomagneticActivityState {
             return "unknown_description".localized()
         }
     }
-
 }

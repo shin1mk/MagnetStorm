@@ -12,17 +12,17 @@
 //2
 "weakStorm_description" = "Weak Storm:\nThe impact on the human body remains small. Some people may experience headaches or changes in sleep.";
 //3
-"moderateStorm_description" = "Moderate Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia, and mood swings are possible.";
+"moderateStorm_description" = "Moderate Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible.";
 //4
-"strongStorm_description" = "Strong Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia, and mood swings are possible.";
+"strongStorm_description" = "Strong Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible.";
 //5
-"severeStorm_description" = "Severe Storm:\nThe impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches, and nervousness may intensify in some people.";
+"severeStorm_description" = "Severe Storm:\nThe impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches and nervousness may intensify in some people.";
 //6
-"extremeStorm_description" = "Extreme-Scale Storm:\nAt this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia, and mood swings can occur.";
+"extremeStorm_description" = "Extreme-Scale Storm:\nAt this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia and mood swings can occur.";
 //7
-"outstandingStorm_description" = "Outstanding-Scale Storm:\nThe storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness, and mood deterioration can be observed to a significant extent.";
+"outstandingStorm_description" = "Outstanding-Scale Storm:\nThe storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness and mood deterioration can be observed to a significant extent.";
 //8
-"exceptionalStorm_description" = "Exceptional Storm:\nAt this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia, and serious changes in emotional state may occur.";
+"exceptionalStorm_description" = "Exceptional Storm:\nAt this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia and serious changes in emotional state may occur.";
 //9
 "superStorm_description" = "Super Storm:\nThe highest level of magnetic storm activity, with catastrophic consequences for the entire human body and world technical equipment.";
 //?
@@ -45,22 +45,20 @@
 //2
 "weakStorm_description_info" = "The impact on the human body still remains small. Some people may experience headaches or changes in their sleep patterns. This can manifest as minor disruptions in sleep patterns or mild disorientation during daily activities.";
 //3
-"moderateStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia, and mood swings are possible. Possible headaches, insomnia, mood deterioration.";
+"moderateStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible. Possible headaches, insomnia, mood deterioration.";
 //4
-"strongStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia, and mood swings are possible. The headaches may become more prolonged, and nervousness can lead to discomfort in one's mental state.";
+"strongStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible. The headaches may become more prolonged, and nervousness can lead to discomfort in one's mental state.";
 //5
-"severeStorm_description_info" = "The impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches, and nervousness may intensify in some people.";
+"severeStorm_description_info" = "The impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches and nervousness may intensify in some people.";
 //6
-"extremeStorm_description_info" = "At this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia, and mood swings can occur.";
+"extremeStorm_description_info" = "At this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia and mood swings can occur.";
 //7
-"outstandingStorm_description_info" = "The storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness, and mood deterioration can be observed to a significant extent.";
+"outstandingStorm_description_info" = "The storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness and mood deterioration can be observed to a significant extent.";
 //8
-"exceptionalStorm_description_info" = "At this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia, and serious changes in emotional state may occur.";
+"exceptionalStorm_description_info" = "At this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia and serious changes in emotional state may occur.";
 //9
 "superStorm_description_info" = "The highest level of magnetic storm activity, with catastrophic consequences for the entire human body and world technical equipment.";
 //?
 "unknown_description_info" = "Unknown";
 // notifications
 "notification_text" =  "New geomagnetic activity data.";
-
-"LocationPermissionDescription" = "To determine your current location and provide information about magnetic storms in your region, please allow the app to use your location.";

@@ -93,11 +93,22 @@ final class MainViewController: UIViewController {
     // Приложение свернуто
     @objc private func appDidEnterBackground() {
         animateDescriptionLabelDisappearance()
+        UserDefaults.standard.set(isButtonUp, forKey: "isButtonUp")
     }
     // Приложение будет восстановлено
     @objc private func appWillEnterForeground() {
         chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
+        updateChevronButtonImage()
         setupNotificationTimer()
+    }
+    
+    private func updateChevronButtonImage() {
+        if let savedIsButtonUp = UserDefaults.standard.value(forKey: "isButtonUp") as? Bool {
+            isButtonUp = savedIsButtonUp
+            let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
+            let chevronImage = UIImage(systemName: imageName)
+            chevronButton.setImage(chevronImage, for: .normal)
+        }
     }
     // удаляем деинит
     deinit {
@@ -288,7 +299,6 @@ extension MainViewController {
         
         animateChevronButtonImageChange(withImage: chevronImage)
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
-        
     }
     // Targets
     private func setupTarget() {
@@ -333,11 +343,9 @@ extension MainViewController {
         if isButtonUp {
             handleSwipe(fakeSwipeUpGesture)
             feedbackGenerator.selectionChanged() // Добавьте виброотклик
-            
         } else {
             handleSwipeDown(fakeSwipeDownGesture)
             feedbackGenerator.selectionChanged() // Добавьте виброотклик
-            
         }
     }
     // info button action
@@ -392,7 +400,7 @@ extension MainViewController {
             }
         }
     }
-    //MARK: Animate Description
+    //MARK: Animate Description up
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.text = ""
         var currentCharacterIndex = 0
@@ -454,4 +462,4 @@ extension MainViewController {
             }
         }
     }
-}	
+}
