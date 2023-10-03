@@ -7,13 +7,8 @@
 
 import Foundation
 
-struct GeomagneticForecast {
-    let date: String
-    let timeRange: String
-    let value: Double
-}
-
 struct GeomagneticActivityData {
-    let date: Date // Дата
-    let timeIntervals: [String: Double] // Временные интервалы и их значения
+    let date: String
+    let minValue: Double
+    let maxValue: Double
 }

@@ -10,10 +10,10 @@ import Foundation
 func fetch3DayGeomagneticForecast(completion: @escaping (Result<String, Error>) -> Void) {
     // URL для запроса текстовых данных
     let url = URL(string: "https://services.swpc.noaa.gov/text/3-day-geomag-forecast.txt")!
-
+    
     // Создаем сессию URLSession
     let session = URLSession.shared
-
+    
     // Создаем задачу для выполнения HTTP-запроса
     let task = session.dataTask(with: url) { (data, response, error) in
         // Проверяем наличие ошибок
@@ -21,13 +21,13 @@ func fetch3DayGeomagneticForecast(completion: @escaping (Result<String, Error>) 
             completion(.failure(error))
             return
         }
-
+        
         // Проверяем, что мы получили данные
         guard let data = data else {
             completion(.failure(NSError(domain: "com.example", code: 0, userInfo: [NSLocalizedDescriptionKey: "Данные не получены"])))
             return
         }
-
+        
         // Преобразуем данные в строку
         if let text = String(data: data, encoding: .utf8) {
             completion(.success(text))
@@ -35,39 +35,10 @@ func fetch3DayGeomagneticForecast(completion: @escaping (Result<String, Error>) 
             completion(.failure(NSError(domain: "com.example", code: 0, userInfo: [NSLocalizedDescriptionKey: "Не удалось преобразовать данные в текст"])))
         }
     }
-
+    
     // Запускаем задачу
     task.resume()
 }
-
-
-//func parseGeomagneticForecastData(text: String) -> [(date: String, values: [Double])] {
-//    // Split the text by lines
-//    let lines = text.components(separatedBy: .newlines)
-//
-//    // Initialize an array to store the parsed data
-//    var parsedData: [(date: String, values: [Double])] = []
-//
-//    // Loop through each line
-//    for line in lines {
-//        // Split the line by spaces
-//        let components = line.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
-//
-//        // Check if there are at least two components (date and value)
-//        if components.count >= 2, let date = components.first, let value = Double(components[1]) {
-//            // Extract the date (the first component)
-//            let date = date
-//
-//            // Extract the values (remaining components)
-//            let values = Array(components[1..<components.count]).compactMap { Double($0) }
-//
-//            // Append the date and values to the parsed data array
-//            parsedData.append((date: date, values: values))
-//        }
-//    }
-//
-//    return parsedData
-//}
 
 func parseGeomagneticForecastData(text: String) -> [(date: String, values: [Double])] {
     // Split the text by lines
