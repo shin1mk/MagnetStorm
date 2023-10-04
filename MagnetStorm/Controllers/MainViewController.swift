@@ -4,6 +4,11 @@
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
 //
+//Добавить процент северного сияния
+//изменить описание
+//достанем температуру солнца онлайн
+//на два дня прогноз
+// вынести в отдельную вью то что на 3 дня
 
 import UIKit
 import SnapKit
@@ -33,6 +38,12 @@ final class MainViewController: UIViewController {
         dataLabel.textColor = .white
         return dataLabel
     }()
+    private let labelsStackView: UIStackView = {
+         let stackView = UIStackView()
+         stackView.axis = .vertical
+         stackView.spacing = 10  // Расстояние между метками
+         return stackView
+     }()
     //MARK: Properties
     private let notificationCenter = UNUserNotificationCenter.current()
     private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown // текущий стейт
@@ -101,6 +112,10 @@ final class MainViewController: UIViewController {
         setupSwipeGesture()
         setupAnimatedGIFBackground()
         setupTarget()
+        
+ 
+        
+
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
@@ -151,24 +166,24 @@ final class MainViewController: UIViewController {
             make.leading.equalToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-25)
         }
-        view.addSubview(todayLabel)
-        todayLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(2)
-            make.leading.equalToSuperview().offset(15)
-            make.height.greaterThanOrEqualTo(40)
-        }
-        view.addSubview(tomorrowLabel)
-        tomorrowLabel.snp.makeConstraints { make in
-            make.top.equalTo(todayLabel.snp.bottom).offset(2)
-            make.leading.equalToSuperview().offset(15)
-            make.height.greaterThanOrEqualTo(40)
-        }
-        view.addSubview(dayAfterLabel)
-        dayAfterLabel.snp.makeConstraints { make in
-            make.top.equalTo(tomorrowLabel.snp.bottom).offset(2)
-            make.leading.equalToSuperview().offset(15)
-            make.height.greaterThanOrEqualTo(40)
-        }
+//        view.addSubview(todayLabel)
+//        todayLabel.snp.makeConstraints { make in
+//            make.top.equalTo(descriptionLabel.snp.bottom).offset(2)
+//            make.leading.equalToSuperview().offset(15)
+//            make.height.greaterThanOrEqualTo(40)
+//        }
+//        view.addSubview(tomorrowLabel)
+//        tomorrowLabel.snp.makeConstraints { make in
+//            make.top.equalTo(todayLabel.snp.bottom).offset(2)
+//            make.leading.equalToSuperview().offset(15)
+//            make.height.greaterThanOrEqualTo(40)
+//        }
+//        view.addSubview(dayAfterLabel)
+//        dayAfterLabel.snp.makeConstraints { make in
+//            make.top.equalTo(tomorrowLabel.snp.bottom).offset(2)
+//            make.leading.equalToSuperview().offset(15)
+//            make.height.greaterThanOrEqualTo(40)
+//        }
         view.addSubview(refreshButton)
         refreshButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -190,6 +205,22 @@ final class MainViewController: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
+        // Добавляем метки в стек
+        labelsStackView.addArrangedSubview(todayLabel)
+        labelsStackView.addArrangedSubview(tomorrowLabel)
+        labelsStackView.addArrangedSubview(dayAfterLabel)
+
+        // Добавляем стек в представление (view)
+        view.addSubview(labelsStackView)
+
+        // Устанавливаем ограничения для стека
+        labelsStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(chevronButton.snp.top).offset(-20)
+            make.leading.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-15)  // Ограничение справа, если необходимо
+            make.height.greaterThanOrEqualTo(40)
+        }
+
     }
     //MARK: GIF Background
     private func setupAnimatedGIFBackground() {
@@ -201,96 +232,157 @@ final class MainViewController: UIViewController {
         view.addSubview(gifImageView) // Добавляем imageView на экран
         view.sendSubviewToBack(gifImageView) // Отправляем на задний план
     }
-    //MARK: Fetch Data
+//    //MARK: Fetch Data
+//    private func fetchAndDisplayTextData() {
+//        fetchStormForecast { result in
+//            DispatchQueue.main.async { // Обновление интерфейса должно выполняться в основной очереди
+//                switch result {
+//                case .success(let text):
+//                    // Парсим полученный текст
+//                    let parsedData = parseStormForecastData(text: text)
+//                    // Создаем массивы для значений today, tomorrow и afterday
+//                    var today: [Double] = []
+//                    var tomorrow: [Double] = []
+//                    var afterday: [Double] = []
+//                    // Определяем сегодняшнюю дату
+//                    let currentDate = Date()
+//                    let dateFormatter = DateFormatter()
+//                    dateFormatter.dateFormat = "E, MMM d" // Формат дня недели и даты
+//                    print("Сегодняшняя дата: \(dateFormatter.string(from: currentDate))")
+//                    // Определяем календарь
+//                    let calendar = Calendar.current
+//                    // Вычисляем даты для завтрашнего дня и послезавтрашнего дня
+//                    if let tomorrowDate = calendar.date(byAdding: .day, value: 1, to: currentDate),
+//                       let afterTomorrowDate = calendar.date(byAdding: .day, value: 2, to: currentDate) {
+//                        print("Дата завтрашнего дня: \(dateFormatter.string(from: tomorrowDate))")
+//                        print("Дата послезавтрашнего дня: \(dateFormatter.string(from: afterTomorrowDate))")
+//
+//                        // Распределяем значения по массивам
+//                        for dataEntry in parsedData {
+//                            if dataEntry.values.indices.contains(0) {
+//                                today.append(dataEntry.values[0])
+//                            }
+//                            if dataEntry.values.indices.contains(1) {
+//                                tomorrow.append(dataEntry.values[1])
+//                            }
+//                            if dataEntry.values.indices.contains(2) {
+//                                afterday.append(dataEntry.values[2])
+//                            }
+//                        }
+//
+//                        print("Значения для today: \(today)")
+//                        print("Значения для tomorrow: \(tomorrow)")
+//                        print("Значения для afterday: \(afterday)")
+//
+//                        // Находим минимальное и максимальное значение для today
+//                        if let todayMin = today.min(),
+//                           let todayMax = today.max() {
+//                            let numberFormatter = NumberFormatter()
+//                            numberFormatter.maximumFractionDigits = 0
+//
+//                            let todayMinValue = "G" + numberFormatter.string(from: NSNumber(value: todayMin))!
+//                            let todayMaxValue = "G" + numberFormatter.string(from: NSNumber(value: todayMax))!
+//
+//                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
+//                            self.todayLabel.text = "\(dateFormatter.string(from: currentDate)): ↓\(todayMinValue) ↑\(todayMaxValue)"
+//                        } else {
+//                            // Обработка случая, когда today пуст или не содержит числовых значений
+//                            self.todayLabel.text = "\(dateFormatter.string(from: currentDate)): -"
+//                        }
+//
+//                        // Находим минимальное и максимальное значение для tomorrow
+//                        if let tomorrowMin = tomorrow.min(),
+//                           let tomorrowMax = tomorrow.max() {
+//                            let numberFormatter = NumberFormatter()
+//                            numberFormatter.maximumFractionDigits = 0
+//
+//                            let tomorrowMinValue = "G" + numberFormatter.string(from: NSNumber(value: tomorrowMin))!
+//                            let tomorrowMaxValue = "G" + numberFormatter.string(from: NSNumber(value: tomorrowMax))!
+//
+//                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
+//                            self.tomorrowLabel.text = "\(dateFormatter.string(from: tomorrowDate)): ↓\(tomorrowMinValue) ↑\(tomorrowMaxValue)"
+//                        } else {
+//                            // Обработка случая, когда tomorrow пуст или не содержит числовых значений
+//                            self.tomorrowLabel.text = "\(dateFormatter.string(from: tomorrowDate)): -"
+//                        }
+//
+//                        // Находим минимальное и максимальное значение для afterday
+//                        if let afterdayMin = afterday.min(),
+//                           let afterdayMax = afterday.max() {
+//                            let numberFormatter = NumberFormatter()
+//                            numberFormatter.maximumFractionDigits = 0
+//
+//                            let afterdayMinValue = "G" + numberFormatter.string(from: NSNumber(value: afterdayMin))!
+//                            let afterdayMaxValue = "G" + numberFormatter.string(from: NSNumber(value: afterdayMax))!
+//
+//                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
+//                            self.dayAfterLabel.text = "\(dateFormatter.string(from: afterTomorrowDate)): ↓\(afterdayMinValue) ↑\(afterdayMaxValue)"
+//                        } else {
+//                            // Обработка случая, когда afterday пуст или не содержит числовых значений
+//                            self.dayAfterLabel.text = "\(dateFormatter.string(from: afterTomorrowDate)): -"
+//                        }
+//
+//                    }
+//
+//                case .failure(let error):
+//                    print("Ошибка при загрузке данных: \(error)")
+//                }
+//            }
+//        }
+//    }
+    
     private func fetchAndDisplayTextData() {
-        fetch3DayGeomagneticForecast { result in
+        fetchStormForecast { result in
             DispatchQueue.main.async { // Обновление интерфейса должно выполняться в основной очереди
                 switch result {
-                case .success(let text):
-                    // Парсим полученный текст
-                    let parsedData = parseGeomagneticForecastData(text: text)
+                case .success(let parsedData):
                     // Создаем массивы для значений today, tomorrow и afterday
                     var today: [Double] = []
                     var tomorrow: [Double] = []
                     var afterday: [Double] = []
+                    
                     // Определяем сегодняшнюю дату
                     let currentDate = Date()
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "E, MMM d" // Формат дня недели и даты
                     print("Сегодняшняя дата: \(dateFormatter.string(from: currentDate))")
-                    // Определяем календарь
-                    let calendar = Calendar.current
+                    
                     // Вычисляем даты для завтрашнего дня и послезавтрашнего дня
-                    if let tomorrowDate = calendar.date(byAdding: .day, value: 1, to: currentDate),
-                       let afterTomorrowDate = calendar.date(byAdding: .day, value: 2, to: currentDate) {
+                    if let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate),
+                       let afterTomorrowDate = Calendar.current.date(byAdding: .day, value: 2, to: currentDate) {
                         print("Дата завтрашнего дня: \(dateFormatter.string(from: tomorrowDate))")
                         print("Дата послезавтрашнего дня: \(dateFormatter.string(from: afterTomorrowDate))")
                         
                         // Распределяем значения по массивам
                         for dataEntry in parsedData {
-                            if dataEntry.values.indices.contains(0) {
-                                today.append(dataEntry.values[0])
-                            }
-                            if dataEntry.values.indices.contains(1) {
-                                tomorrow.append(dataEntry.values[1])
-                            }
-                            if dataEntry.values.indices.contains(2) {
-                                afterday.append(dataEntry.values[2])
-                            }
+                            today.append(dataEntry.values.indices.contains(0) ? dataEntry.values[0] : 0)
+                            tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
+                            afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
                         }
                         
                         print("Значения для today: \(today)")
                         print("Значения для tomorrow: \(tomorrow)")
                         print("Значения для afterday: \(afterday)")
                         
-                        // Находим минимальное и максимальное значение для today
-                        if let todayMin = today.min(),
-                           let todayMax = today.max() {
+                        // Функция для форматирования значений и обновления меток
+                        func updateLabel(label: UILabel, date: Date, values: [Double]) {
                             let numberFormatter = NumberFormatter()
                             numberFormatter.maximumFractionDigits = 0
                             
-                            let todayMinValue = "G" + numberFormatter.string(from: NSNumber(value: todayMin))!
-                            let todayMaxValue = "G" + numberFormatter.string(from: NSNumber(value: todayMax))!
-                            
-                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
-                            self.todayLabel.text = "\(dateFormatter.string(from: currentDate)): ↓\(todayMinValue) ↑\(todayMaxValue)"
-                        } else {
-                            // Обработка случая, когда today пуст или не содержит числовых значений
-                            self.todayLabel.text = "\(dateFormatter.string(from: currentDate)): -"
+                            if let minValue = values.min(),
+                               let maxValue = values.max() {
+                                let minStringValue = "G" + numberFormatter.string(from: NSNumber(value: minValue))!
+                                let maxStringValue = "G" + numberFormatter.string(from: NSNumber(value: maxValue))!
+                                label.text = "\(dateFormatter.string(from: date)): ↓\(minStringValue) ↑\(maxStringValue)"
+                            } else {
+                                label.text = "\(dateFormatter.string(from: date)): -"
+                            }
                         }
                         
-                        // Находим минимальное и максимальное значение для tomorrow
-                        if let tomorrowMin = tomorrow.min(),
-                           let tomorrowMax = tomorrow.max() {
-                            let numberFormatter = NumberFormatter()
-                            numberFormatter.maximumFractionDigits = 0
-                            
-                            let tomorrowMinValue = "G" + numberFormatter.string(from: NSNumber(value: tomorrowMin))!
-                            let tomorrowMaxValue = "G" + numberFormatter.string(from: NSNumber(value: tomorrowMax))!
-                            
-                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
-                            self.tomorrowLabel.text = "\(dateFormatter.string(from: tomorrowDate)): ↓\(tomorrowMinValue) ↑\(tomorrowMaxValue)"
-                        } else {
-                            // Обработка случая, когда tomorrow пуст или не содержит числовых значений
-                            self.tomorrowLabel.text = "\(dateFormatter.string(from: tomorrowDate)): -"
-                        }
-                        
-                        // Находим минимальное и максимальное значение для afterday
-                        if let afterdayMin = afterday.min(),
-                           let afterdayMax = afterday.max() {
-                            let numberFormatter = NumberFormatter()
-                            numberFormatter.maximumFractionDigits = 0
-                            
-                            let afterdayMinValue = "G" + numberFormatter.string(from: NSNumber(value: afterdayMin))!
-                            let afterdayMaxValue = "G" + numberFormatter.string(from: NSNumber(value: afterdayMax))!
-                            
-                            // Обновляем метку на интерфейсе с минимальными и максимальными значениями
-                            self.dayAfterLabel.text = "\(dateFormatter.string(from: afterTomorrowDate)): ↓\(afterdayMinValue) ↑\(afterdayMaxValue)"
-                        } else {
-                            // Обработка случая, когда afterday пуст или не содержит числовых значений
-                            self.dayAfterLabel.text = "\(dateFormatter.string(from: afterTomorrowDate)): -"
-                        }
-                        
+                        // Обновляем метки на интерфейсе
+                        updateLabel(label: self.todayLabel, date: currentDate, values: today)
+                        updateLabel(label: self.tomorrowLabel, date: tomorrowDate, values: tomorrow)
+                        updateLabel(label: self.dayAfterLabel, date: afterTomorrowDate, values: afterday)
                     }
                     
                 case .failure(let error):
@@ -299,9 +391,10 @@ final class MainViewController: UIViewController {
             }
         }
     }
+
     
     private func fetchMagneticDataAndUpdateUI() {
-        fetchMagneticData { [weak self] currentKpValue in
+        fetchStormValue { [weak self] currentKpValue in
             DispatchQueue.main.async {
                 var state: GeomagneticActivityState = .unknown
                 

@@ -1,5 +1,5 @@
 //
-//  Fetch3DayModels.swift
+//  StormForecastModels.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 02.10.2023.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct GeomagneticActivityData {
+struct StormForecast {
     let date: String
-    let minValue: Double
-    let maxValue: Double
+    let values: [Double]
 }

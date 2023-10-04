@@ -1,5 +1,5 @@
 //
-//  MagneticManager.swift
+//  StormValueManager.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-func fetchMagneticData(completion: @escaping (String?) -> Void) {
+func fetchStormValue(completion: @escaping (String?) -> Void) {
     let apiUrl = URL(string: "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json")!
     let session = URLSession.shared
     

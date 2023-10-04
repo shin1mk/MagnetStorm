@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		1325298E2AACEF260002CE93 /* background_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* background_gif.gif */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
-		1326E7882ACA9ABB00504BF8 /* Fetch3DayGeomagneticForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* Fetch3DayGeomagneticForecast.swift */; };
-		1326E78A2ACABE3700504BF8 /* Fetch3DayModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7892ACABE3700504BF8 /* Fetch3DayModels.swift */; };
+		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
+		1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7892ACABE3700504BF8 /* StormForecastModels.swift */; };
 		13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAD2AA2965000C858BF /* AppDelegate.swift */; };
 		13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAF2AA2965000C858BF /* SceneDelegate.swift */; };
 		13449AB22AA2965000C858BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainViewController.swift */; };
@@ -20,7 +20,7 @@
 		13449AD22AA2965100C858BF /* MagnetStormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD12AA2965100C858BF /* MagnetStormUITests.swift */; };
 		13449AD42AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */; };
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
-		136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* MagneticManager.swift */; };
+		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */; };
 		137097402ACA1A9300EE4538 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* empty.swift */; };
@@ -59,8 +59,8 @@
 /* Begin PBXFileReference section */
 		1325298D2AACEF260002CE93 /* background_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background_gif.gif; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
-		1326E7872ACA9ABB00504BF8 /* Fetch3DayGeomagneticForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch3DayGeomagneticForecast.swift; sourceTree = "<group>"; };
-		1326E7892ACABE3700504BF8 /* Fetch3DayModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch3DayModels.swift; sourceTree = "<group>"; };
+		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
+		1326E7892ACABE3700504BF8 /* StormForecastModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastModels.swift; sourceTree = "<group>"; };
 		13449AAA2AA2965000C858BF /* MagnetStorm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagnetStorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AAD2AA2965000C858BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13449AAF2AA2965000C858BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		13449AD12AA2965100C858BF /* MagnetStormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITests.swift; sourceTree = "<group>"; };
 		13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
-		136211AD2AA29A97005A4AE2 /* MagneticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticManager.swift; sourceTree = "<group>"; };
+		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticModels.swift; sourceTree = "<group>"; };
 		1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
@@ -134,6 +134,7 @@
 		13449AA12AA2965000C858BF = {
 			isa = PBXGroup;
 			children = (
+				1326E7852ACA35C400504BF8 /* text.swift */,
 				13449AAC2AA2965000C858BF /* MagnetStorm */,
 				13449AC62AA2965100C858BF /* MagnetStormTests */,
 				13449AD02AA2965100C858BF /* MagnetStormUITests */,
@@ -190,7 +191,6 @@
 				13449AB12AA2965000C858BF /* MainViewController.swift */,
 				13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */,
 				1375D8CE2ACCCF690000BCE6 /* empty.swift */,
-				1326E7852ACA35C400504BF8 /* text.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -207,8 +207,8 @@
 		13449AE22AA296E100C858BF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				136211AD2AA29A97005A4AE2 /* MagneticManager.swift */,
-				1326E7872ACA9ABB00504BF8 /* Fetch3DayGeomagneticForecast.swift */,
+				136211AD2AA29A97005A4AE2 /* StormValueManager.swift */,
+				1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -217,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				136211AF2AA29EAF005A4AE2 /* MagneticModels.swift */,
-				1326E7892ACABE3700504BF8 /* Fetch3DayModels.swift */,
+				1326E7892ACABE3700504BF8 /* StormForecastModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -546,19 +546,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1326E7882ACA9ABB00504BF8 /* Fetch3DayGeomagneticForecast.swift in Sources */,
+				1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */,
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
 				13A09F402AC9ECF8003858A1 /* InfoViewController.swift in Sources */,
 				1326E7862ACA35C400504BF8 /* text.swift in Sources */,
 				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
 				1375D8CF2ACCCF690000BCE6 /* empty.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
-				1326E78A2ACABE3700504BF8 /* Fetch3DayModels.swift in Sources */,
+				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* MagneticModels.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
-				136211AE2AA29A97005A4AE2 /* MagneticManager.swift in Sources */,
+				136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */,
 				137097402ACA1A9300EE4538 /* InfoTableViewCell.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);
