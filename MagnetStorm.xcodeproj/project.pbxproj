@@ -23,7 +23,7 @@
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
 		137097402ACA1A9300EE4538 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */; };
-		1375D8CF2ACCCF690000BCE6 /* empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* empty.swift */; };
+		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		13A09F402AC9ECF8003858A1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
 		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
@@ -77,7 +77,7 @@
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
 		1370973F2ACA1A9300EE4538 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
-		1375D8CE2ACCCF690000BCE6 /* empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = empty.swift; sourceTree = "<group>"; };
+		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 			children = (
 				13449AB12AA2965000C858BF /* MainViewController.swift */,
 				13A09F3F2AC9ECF8003858A1 /* InfoViewController.swift */,
-				1375D8CE2ACCCF690000BCE6 /* empty.swift */,
+				1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -551,7 +551,7 @@
 				13A09F402AC9ECF8003858A1 /* InfoViewController.swift in Sources */,
 				1326E7862ACA35C400504BF8 /* text.swift in Sources */,
 				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
-				1375D8CF2ACCCF690000BCE6 /* empty.swift in Sources */,
+				1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
