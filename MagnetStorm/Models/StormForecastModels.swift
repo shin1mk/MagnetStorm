@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StormForecast {
+struct StormForecastData {
     let date: String
     let values: [Double]
 }

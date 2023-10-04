@@ -112,10 +112,6 @@ final class MainViewController: UIViewController {
         setupSwipeGesture()
         setupAnimatedGIFBackground()
         setupTarget()
-        
- 
-        
-
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
@@ -205,22 +201,18 @@ final class MainViewController: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-        // Добавляем метки в стек
+        // Добавляем lable в stack
         labelsStackView.addArrangedSubview(todayLabel)
         labelsStackView.addArrangedSubview(tomorrowLabel)
         labelsStackView.addArrangedSubview(dayAfterLabel)
-
-        // Добавляем стек в представление (view)
+        
         view.addSubview(labelsStackView)
-
-        // Устанавливаем ограничения для стека
         labelsStackView.snp.makeConstraints { make in
             make.bottom.equalTo(chevronButton.snp.top).offset(-20)
             make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)  // Ограничение справа, если необходимо
+            make.trailing.equalToSuperview().offset(-15)
             make.height.greaterThanOrEqualTo(40)
         }
-
     }
     //MARK: GIF Background
     private func setupAnimatedGIFBackground() {
@@ -378,7 +370,6 @@ final class MainViewController: UIViewController {
                                 label.text = "\(dateFormatter.string(from: date)): -"
                             }
                         }
-                        
                         // Обновляем метки на интерфейсе
                         updateLabel(label: self.todayLabel, date: currentDate, values: today)
                         updateLabel(label: self.tomorrowLabel, date: tomorrowDate, values: tomorrow)
@@ -392,7 +383,6 @@ final class MainViewController: UIViewController {
         }
     }
 
-    
     private func fetchMagneticDataAndUpdateUI() {
         fetchStormValue { [weak self] currentKpValue in
             DispatchQueue.main.async {

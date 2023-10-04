@@ -5,7 +5,7 @@
 //  Created by SHIN MIKHAIL on 02.10.2023.
 //
 
-//import Foundation
+import Foundation
 //
 //func fetchStormForecast(completion: @escaping (Result<String, Error>) -> Void) {
 //    // URL для запроса текстовых данных
@@ -70,10 +70,7 @@
 //    }
 //    return parsedData
 //}
-
-import Foundation
-
-func fetchStormForecast(completion: @escaping (Result<[StormForecast], Error>) -> Void) {
+func fetchStormForecast(completion: @escaping (Result<[StormForecastData], Error>) -> Void) {
     // URL для запроса текстовых данных
     let url = URL(string: "https://services.swpc.noaa.gov/text/3-day-geomag-forecast.txt")!
     // Создаем сессию URLSession
@@ -102,11 +99,11 @@ func fetchStormForecast(completion: @escaping (Result<[StormForecast], Error>) -
     task.resume()
 }
 
-func parseStormForecastData(text: String) -> [StormForecast] {
+func parseStormForecastData(text: String) -> [StormForecastData] {
     // Разбиение текста на строки
     let lines = text.components(separatedBy: .newlines)
     // Инициализация массива для хранения разобранных данных
-    var parsedData: [StormForecast] = []
+    var parsedData: [StormForecastData] = []
     // Инициализация переменных для отслеживания текущего месяца и временного интервала
     var currentMonth: String?
     var currentTimeInterval: String?
@@ -130,7 +127,7 @@ func parseStormForecastData(text: String) -> [StormForecast] {
                         // Извлечение значений (оставшиеся компоненты)
                         let values = Array(components[1..<components.count]).compactMap { Double($0) }
                         // Создание экземпляра структуры StormForecast и добавление его в массив разобранных данных
-                        let stormForecast = StormForecast(date: date, values: values)
+                        let stormForecast = StormForecastData(date: date, values: values)
                         parsedData.append(stormForecast)
                     }
                 }

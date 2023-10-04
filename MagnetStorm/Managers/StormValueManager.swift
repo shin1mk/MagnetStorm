@@ -24,11 +24,11 @@ func fetchStormValue(completion: @escaping (String?) -> Void) {
             if let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [[String]] {
                 // Пропускаем первую строку с заголовками
                 let dataRows = Array(jsonArray.dropFirst())
-                var geomagneticDataArray: [GeomagneticData] = []
+                var geomagneticDataArray: [StormValueData] = []
                 
                 for dataRow in dataRows {
                     if dataRow.count == 4 {
-                        let geomagneticData = GeomagneticData(timeTag: dataRow[0], kp: dataRow[1], aRunning: dataRow[2], stationCount: dataRow[3])
+                        let geomagneticData = StormValueData(timeTag: dataRow[0], kp: dataRow[1], aRunning: dataRow[2], stationCount: dataRow[3])
                         geomagneticDataArray.append(geomagneticData)
                     }
                 }
