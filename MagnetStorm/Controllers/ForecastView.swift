@@ -9,113 +9,20 @@ import SnapKit
 import UIKit
 
 final class ForecastView: UIView {
-    private let todayLabel: UILabel = {
-        let dataLabel = UILabel()
-        dataLabel.text = ""
-        dataLabel.font = UIFont.SFUITextRegular(ofSize: 20)
-        dataLabel.textColor = .white
-        return dataLabel
-    }()
-    private let tomorrowLabel: UILabel = {
-        let dataLabel = UILabel()
-        dataLabel.text = ""
-        dataLabel.font = UIFont.SFUITextRegular(ofSize: 20)
-        dataLabel.textColor = .white
-        return dataLabel
-    }()
-    private let dayAfterLabel: UILabel = {
-        let dataLabel = UILabel()
-        dataLabel.text = ""
-        dataLabel.font = UIFont.SFUITextRegular(ofSize: 20)
-        dataLabel.textColor = .white
-        return dataLabel
-    }()
-    private let labelsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 10  // Расстояние между метками
-        return stackView
-    }()
+    //MARK: Properties
+    private var previousStackView: UIStackView?
+    //MARK: Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupConstraints()
     }
-    
-    private func setupConstraints() {
-        labelsStackView.addArrangedSubview(todayLabel)
-        labelsStackView.addArrangedSubview(tomorrowLabel)
-        labelsStackView.addArrangedSubview(dayAfterLabel)
-        
-        addSubview(labelsStackView)
-        labelsStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview() //.
-            make.leading.equalToSuperview().offset(1)
-            make.trailing.equalToSuperview().offset(1)
-            make.bottom.equalToSuperview() //
-        }
-    }
-    
-//    public func fetchStormForecastUI() {
-//        fetchStormForecast { result in
-//            DispatchQueue.main.async { // Обновление интерфейса должно выполняться в основной очереди
-//                switch result {
-//                case .success(let parsedData):
-//                    // Создаем массивы для значений today, tomorrow и afterday
-//                    var today: [Double] = []
-//                    var tomorrow: [Double] = []
-//                    var afterday: [Double] = []
-//                    // Определяем сегодняшнюю дату
-//                    let currentDate = Date()
-//                    let dateFormatter = DateFormatter()
-//                    dateFormatter.dateFormat = "E, MMM d" // Формат дня недели и даты
-//                    print("Сегодняшняя дата: \(dateFormatter.string(from: currentDate))")
-//                    // Вычисляем даты для завтрашнего дня и послезавтрашнего дня
-//                    if let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate),
-//                       let afterTomorrowDate = Calendar.current.date(byAdding: .day, value: 2, to: currentDate) {
-//                        print("Дата завтрашнего дня: \(dateFormatter.string(from: tomorrowDate))")
-//                        print("Дата послезавтрашнего дня: \(dateFormatter.string(from: afterTomorrowDate))")
-//                        // Распределяем значения по массивам
-//                        for dataEntry in parsedData {
-//                            today.append(dataEntry.values.indices.contains(0) ? dataEntry.values[0] : 0)
-//                            tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
-//                            afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
-//                        }
-//                        print("Значения для today: \(today)")
-//                        print("Значения для tomorrow: \(tomorrow)")
-//                        print("Значения для afterday: \(afterday)")
-//                        // Функция для форматирования значений и обновления меток
-//                        func updateLabel(label: UILabel, date: Date, values: [Double]) {
-//                            let numberFormatter = NumberFormatter()
-//                            numberFormatter.maximumFractionDigits = 0
-//
-//                            if let minValue = values.min(),
-//                               let maxValue = values.max() {
-//                                let minStringValue = "G" + numberFormatter.string(from: NSNumber(value: minValue))!
-//                                let maxStringValue = "G" + numberFormatter.string(from: NSNumber(value: maxValue))!
-//                                label.text = "\(dateFormatter.string(from: date)): ↓\(minStringValue) ↑\(maxStringValue)"
-//                            } else {
-//                                label.text = "\(dateFormatter.string(from: date)): -"
-//                            }
-//                        }
-//                        // Обновляем метки на интерфейсе
-//                        updateLabel(label: self.todayLabel, date: currentDate, values: today)
-//                        updateLabel(label: self.tomorrowLabel, date: tomorrowDate, values: tomorrow)
-//                        updateLabel(label: self.dayAfterLabel, date: afterTomorrowDate, values: afterday)
-//                    }
-//                case .failure(let error):
-//                    print("Ошибка при загрузке данных: \(error)")
-//                }
-//            }
-//        }
-//    }
+    //MARK: update ui
     public func fetchStormForecastUI() {
         fetchStormForecast { result in
-            DispatchQueue.main.async { // Обновление интерфейса должно выполняться в основной очереди
+            DispatchQueue.main.async { [self] in // Обновление интерфейса должно выполняться в основной очереди
                 switch result {
                 case .success(let parsedData):
                     // Создаем массивы для значений today, tomorrow и afterday
@@ -131,7 +38,6 @@ final class ForecastView: UIView {
                     if let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate),
                        let afterTomorrowDate = Calendar.current.date(byAdding: .day, value: 2, to: currentDate) {
                         print("Дата завтрашнего дня: \(dateFormatter.string(from: tomorrowDate))")
-                        print("Дата послезавтрашнего дня: \(dateFormatter.string(from: afterTomorrowDate))")
                         // Распределяем значения по массивам
                         for dataEntry in parsedData {
                             today.append(dataEntry.values.indices.contains(0) ? dataEntry.values[0] : 0)
@@ -141,35 +47,8 @@ final class ForecastView: UIView {
                         print("Значения для today: \(today)")
                         print("Значения для tomorrow: \(tomorrow)")
                         print("Значения для afterday: \(afterday)")
-
-                        // Создаем стековые представления для каждого дня
-                                        let stackViewToday = self.createStackView(withDate: currentDate, values: today)
-                                        let stackViewTomorrow = self.createStackView(withDate: tomorrowDate, values: tomorrow)
-                                        let stackViewAfterday = self.createStackView(withDate: afterTomorrowDate, values: afterday)
-                                        
-                                        // Добавляем стековые представления на экран
-                                        self.addSubview(stackViewToday)
-                                        self.addSubview(stackViewTomorrow)
-                                        self.addSubview(stackViewAfterday)
-                                        
-                                        // Устанавливаем ограничения для вертикального расположения стековых представлений
-                                        stackViewToday.snp.makeConstraints { make in
-                                            make.top.equalToSuperview().offset(10)
-                                            make.leading.equalToSuperview().offset(0)
-                                            make.trailing.equalToSuperview().offset(0)
-                                        }
-                                        
-                                        stackViewTomorrow.snp.makeConstraints { make in
-                                            make.top.equalTo(stackViewToday.snp.bottom).offset(10)
-                                            make.leading.equalToSuperview().offset(0)
-                                            make.trailing.equalToSuperview().offset(0)
-                                        }
-                                        
-                                        stackViewAfterday.snp.makeConstraints { make in
-                                            make.top.equalTo(stackViewTomorrow.snp.bottom).offset(10)
-                                            make.leading.equalToSuperview().offset(0)
-                                            make.trailing.equalToSuperview().offset(0)
-                                        }
+                        // вызываем функцию стек констрейнт и выводим в лейблы
+                        setupStackConstraints(today: today, tomorrow: tomorrow, afterday: afterday, currentDate: currentDate, tomorrowDate: tomorrowDate, afterTomorrowDate: afterTomorrowDate)
                     }
                 case .failure(let error):
                     print("Ошибка при загрузке данных: \(error)")
@@ -177,44 +56,73 @@ final class ForecastView: UIView {
             }
         }
     }
-    
-    
+    //MARK: Costraints
+    private func setupStackConstraints(today: [Double], tomorrow: [Double], afterday: [Double], currentDate: Date, tomorrowDate: Date, afterTomorrowDate: Date) {
+        // Создаем стековые представления для каждого дня
+        let stackViewToday = createStackView(withDate: currentDate, values: today)
+        let stackViewTomorrow = createStackView(withDate: tomorrowDate, values: tomorrow)
+        let stackViewAfterday = createStackView(withDate: afterTomorrowDate, values: afterday)
+        // Добавляем стековые представления на экран
+        addSubview(stackViewToday)
+        addSubview(stackViewTomorrow)
+        addSubview(stackViewAfterday)
+        // Устанавливаем ограничения для вертикального расположения стековых представлений
+        stackViewToday.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+        }
+        stackViewTomorrow.snp.makeConstraints { make in
+            make.top.equalTo(stackViewToday.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+        }
+        stackViewAfterday.snp.makeConstraints { make in
+            make.top.equalTo(stackViewTomorrow.snp.bottom).offset(10)
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+        }
+    }
+    //MARK: Labels number/date formatter
     private func createStackView(withDate date: Date, values: [Double]) -> UIStackView {
+        // Создаем NumberFormatter для форматирования числовых значений
         let numberFormatter = NumberFormatter()
         numberFormatter.maximumFractionDigits = 0
-        
+        // Создаем DateFormatter для форматирования даты
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, d MMM"
+        dateFormatter.dateFormat = "EEEE, d MMM" // Формат дня недели и даты
         
         var datePart = ""
         var valuesPart = ""
-        
+        // Проверяем, есть ли минимальное и максимальное значения в массиве values
         if let minValue = values.min(), let maxValue = values.max() {
+            // Форматируем дату
             datePart = dateFormatter.string(from: date)
+            // Форматируем минимальное и максимальное значения
             valuesPart = "↓G\(numberFormatter.string(from: NSNumber(value: minValue))!) ↑G\(numberFormatter.string(from: NSNumber(value: maxValue))!)"
         } else {
+            // Если нет минимальных и максимальных значений, используем дату и знак "-"
             datePart = dateFormatter.string(from: date)
             valuesPart = "-"
         }
-        
+        // Создаем метку для отображения даты
         let dateLabel = UILabel()
         dateLabel.text = datePart
         dateLabel.font = UIFont.SFUITextRegular(ofSize: 20)
         dateLabel.textColor = .white
-        
+        // Создаем метку для отображения значений
         let valuesLabel = UILabel()
         valuesLabel.text = valuesPart
         valuesLabel.font = UIFont.SFUITextRegular(ofSize: 20)
         valuesLabel.textColor = .white
         valuesLabel.textAlignment = .right
-        
+        // Создаем горизонтальный стековый контейнер и добавляем в него метки
         let stackView = UIStackView(arrangedSubviews: [dateLabel, valuesLabel])
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 10
+        stackView.axis = .horizontal // Располагаем элементы горизонтально
+        stackView.alignment = .fill // Выравниваем элементы по высоте
+        stackView.distribution = .fill // Равномерно распределяем элементы
+        stackView.spacing = 10 // Устанавливаем расстояние между элементами
         
         return stackView
     }
-
 } // end

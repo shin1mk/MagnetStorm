@@ -72,9 +72,9 @@ final class InfoViewController: UIViewController {
             make.centerX.equalTo(backgroundView)
             make.top.equalTo(backgroundView.snp.top).offset(-24)
         }
-        
+        // background color cell
         view.backgroundColor = .black
-        
+        // add table view on view
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(50)

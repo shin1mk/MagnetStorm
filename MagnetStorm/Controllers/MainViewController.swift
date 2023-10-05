@@ -16,12 +16,12 @@ import SDWebImage
 import UserNotifications
 
 final class MainViewController: UIViewController {
+    //MARK: Properties
     private let notificationCenter = UNUserNotificationCenter.current()
     private let geocoder = CLGeocoder()
     private let locationManager = CLLocationManager()
     private let feedbackGenerator = UISelectionFeedbackGenerator()
-    private let forecastView = ForecastView()
-    //MARK: Properties
+    private let forecastView = ForecastView()    //MARK: Properties
     // private var timer: Timer?
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
@@ -56,21 +56,22 @@ final class MainViewController: UIViewController {
     }()
     private let refreshButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
+        let chevronImage = UIImage(systemName: "arrow.clockwise.circle.fill")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
     }()
     private let chevronButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "chevron.up.circle")
+        let chevronImage = UIImage(systemName: "chevron.up.chevron.down")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
+        button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
     private let infoButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "info.circle")
+        let chevronImage = UIImage(systemName: "info.circle.fill")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -93,42 +94,28 @@ final class MainViewController: UIViewController {
     // Приложение свернуто
     @objc private func appDidEnterBackground() {
         animateDescriptionLabelDisappearance()
-        UserDefaults.standard.set(isButtonUp, forKey: "isButtonUp")
     }
     // Приложение будет восстановлено
     @objc private func appWillEnterForeground() {
-        chevronButton.setImage(UIImage(systemName: "chevron.up.circle"), for: .normal)
-        updateChevronButtonImage()
         setupNotificationTimer()
     }
-    // обновляем стрелку
-    private func updateChevronButtonImage() {
-        if let savedIsButtonUp = UserDefaults.standard.value(forKey: "isButtonUp") as? Bool {
-            isButtonUp = savedIsButtonUp
-            let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
-            let chevronImage = UIImage(systemName: imageName)
-            chevronButton.setImage(chevronImage, for: .normal)
-        }
-    }
-    // удаляем деинит
+    // удаляем наблюдатель
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     //MARK: Constraints
     private func setupConstraints() {
+        // text
         view.addSubview(locationLabel)
         locationLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(70)
             make.centerX.equalToSuperview()
-//            make.leading.equalToSuperview().offset(15)
             make.height.greaterThanOrEqualTo(40)
         }
         view.addSubview(geomagneticActivityLabel)
         geomagneticActivityLabel.snp.makeConstraints { make in
             make.top.equalTo(locationLabel.snp.bottom).offset(0)
             make.centerX.equalToSuperview()
-
-//            make.leading.equalToSuperview().offset(15)
             make.height.greaterThanOrEqualTo(40)
         }
         view.addSubview(descriptionLabel)
@@ -137,6 +124,7 @@ final class MainViewController: UIViewController {
             make.leading.equalToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-25)
         }
+        // buttons
         view.addSubview(refreshButton)
         refreshButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -158,7 +146,8 @@ final class MainViewController: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-        view.addSubview(forecastView)
+        // forecast view
+        animateForecastViewAppearance()
         forecastView.snp.makeConstraints { make in
             make.bottom.equalTo(chevronButton.snp.top).offset(-50)
             make.leading.equalToSuperview().offset(15)
@@ -168,7 +157,6 @@ final class MainViewController: UIViewController {
     }
     //MARK: GIF Background
     private func setupAnimatedGIFBackground() {
-        // Создаем SDAnimatedImageView
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
         if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
@@ -303,13 +291,11 @@ extension MainViewController {
     // toggle chevron button
     private func toggleChevronButtonImage() {
         isButtonUp.toggle()
-        let imageName = isButtonUp ? "chevron.up.circle" : "chevron.down.circle"
+        let imageName = isButtonUp ? "chevron.up.chevron.down" : "chevron.up.chevron.down"
         let chevronImage = UIImage(systemName: imageName)
         chevronButton.setImage(chevronImage, for: .normal)
         chevronButton.tintColor = UIColor.white
-        
-        animateChevronButtonImageChange(withImage: chevronImage)
-        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+        feedbackGenerator.selectionChanged() // виброотклик
     }
     // Targets
     private func setupTarget() {
@@ -322,24 +308,13 @@ extension MainViewController {
         print("refresh")
         guard !isLabelAnimating else { return }
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
-        
-        if isAnimating {
-            if let city = currentCity { // Use the captured city value
-                animateDescriptionLabelDisappearance()
-                // Delay the restart of locationLabel animation
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.animateLocationLabelAppearance(withText: city)
-                    self.fetchStormValueUI()
-                    self.forecastView.fetchStormForecastUI()
-                }
-            }
-        } else {
-            if let city = currentCity { // Use the captured city value
-                // Restart the locationLabel animation immediately
-                animateLocationLabelAppearance(withText: city)
-                fetchStormValueUI()
-                self.forecastView.fetchStormForecastUI()
-            }
+
+        if let city = currentCity { // Use the captured city value
+            self.animateDescriptionLabelDisappearance()
+            self.animateLocationLabelAppearance(withText: city)
+            self.fetchStormValueUI()
+            self.animateForecastViewAppearance()
+            self.forecastView.fetchStormForecastUI()
         }
     }
     // chevron button action
@@ -395,7 +370,19 @@ extension MainViewController {
             self?.geomagneticActivityLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
-    //MARK: Animate Description up
+    // animate forecast view
+    private func animateForecastViewAppearance() {
+        // Устанавливаем начальное значение альфа-канала в 0 (вид будет скрыт)
+        forecastView.alpha = 0.0
+        // Добавляем представление на экран
+        view.addSubview(forecastView)
+        // Используем анимацию для плавного появления
+        UIView.animate(withDuration: 2.5) {
+            // Устанавливаем значение альфа-канала в 1 (полная видимость)
+            self.forecastView.alpha = 1.0
+        }
+    }
+    // Animate Description swipe up
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.text = ""
         var currentCharacterIndex = 0
@@ -427,12 +414,6 @@ extension MainViewController {
             self.isAnimating = false
             self.toggleChevronButtonImage()
         }
-    }
-    //MARK: Animate chevron button
-    private func animateChevronButtonImageChange(withImage image: UIImage?) {
-        UIView.transition(with: chevronButton, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.chevronButton.setImage(image, for: .normal)
-        }, completion: nil)
     }
 }
 //MARK: UserNotificationCenter
