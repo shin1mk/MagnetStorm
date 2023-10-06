@@ -18,7 +18,7 @@ enum GeomagneticActivityState {
     case outstandingStorm
     case exceptionalStorm
     case superStorm
-    case unknown
+    case noInternet
     
     var labelText: String {
         switch self {
@@ -42,7 +42,7 @@ enum GeomagneticActivityState {
             return "G8"
         case .superStorm: // 9
             return "G9"
-        case .unknown:
+        case .noInternet:
             return "?"
         }
     }
@@ -69,8 +69,8 @@ enum GeomagneticActivityState {
             return "exceptionalStorm_description".localized()
         case .superStorm:
             return "superStorm_description".localized()
-        case .unknown:
-            return "unknown_description".localized()
+        case .noInternet:
+            return "noInternet_description".localized()
         }
     }
 }

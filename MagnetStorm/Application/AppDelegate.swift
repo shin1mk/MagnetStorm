@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
+    // didDiscardSceneSessions
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
     }
     // MARK: - Core Data stack
@@ -59,23 +59,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationCenter.delegate = self
         return true
     }
-
     // Установка таймера на уведомление
     func setupNotificationTimer() {
-        // Устанавливаем таймер на 30 секунд
-//        let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
+        // Устанавливаем таймер на 3 часа
         let threeHours: TimeInterval = 3 * 3600 // 3 часа
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
         let content = UNMutableNotificationContent()
         content.title = "MagnetStorm"
         content.body = "notification_text".localized()
-        
         // Добавляем стандартную вибрацию и звук
         content.sound = UNNotificationSound.default
 
         let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
-
         notificationCenter.add(request) { (error) in
             if let error = error {
                 print("Ошибка при установке таймера: \(error)")
@@ -90,7 +86,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert, .sound])
     }
-    
+    // didReceive
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
     }
 }

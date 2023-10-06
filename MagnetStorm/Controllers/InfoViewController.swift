@@ -94,7 +94,7 @@ final class InfoViewController: UIViewController {
     }
     // source button
     @objc private func openNOAALink() {
-        if let url = URL(string: "https://www.swpc.noaa.gov/") {
+        if let url = URL(string: "https://www.swpc.noaa.gov/products/planetary-k-index") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }

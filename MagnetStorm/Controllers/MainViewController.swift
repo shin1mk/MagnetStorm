@@ -7,13 +7,12 @@
 //Добавить процент северного сияния
 //изменить описание
 //достанем температуру солнца онлайн
-// если нет интернета
-// если нет доступа к геопозиции
 import UIKit
 import SnapKit
 import CoreLocation
 import SDWebImage
 import UserNotifications
+import Network
 
 final class MainViewController: UIViewController {
     //MARK: Properties
@@ -21,16 +20,17 @@ final class MainViewController: UIViewController {
     private let geocoder = CLGeocoder()
     private let locationManager = CLLocationManager()
     private let feedbackGenerator = UISelectionFeedbackGenerator()
-    private let forecastView = ForecastView()    //MARK: Properties
-    // private var timer: Timer?
+    private let forecastView = ForecastView()
+    //MARK: Properties
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
     // анимация и кнопка
-    private var currentGeomagneticActivityState: GeomagneticActivityState = .unknown // текущий стейт
+    private var currentGeomagneticActivityState: GeomagneticActivityState = .noInternet // текущий стейт
     private var isAnimating = false
     private var isLabelAnimating = false
-    private var isButtonUp = true
+    private var isButtonUp = true // следим за кнопкой
+    private var isConnected: Bool = false
     // создаем элементы
     private let locationLabel: UILabel = {
         let locationLabel = UILabel()
@@ -49,7 +49,7 @@ final class MainViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = ""
-        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 30)
+        descriptionLabel.font = UIFont.SFUITextLight(ofSize: 25)
         descriptionLabel.textColor = .white
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
@@ -81,10 +81,11 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupAppLifecycleObservers()
         setupConstraints()
-        setupLocationManager()
         setupSwipeGesture()
         setupAnimatedGIFBackground()
         setupTarget()
+        startNetworkMonitoring()
+        setupLocationManager()
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
@@ -168,7 +169,7 @@ final class MainViewController: UIViewController {
     private func fetchStormValueUI() {
         fetchStormValue { [weak self] currentKpValue in
             DispatchQueue.main.async {
-                var state: GeomagneticActivityState = .unknown
+                var state: GeomagneticActivityState = .noInternet
                 
                 if let kpValue = currentKpValue, let intValue = Int(kpValue) {
                     switch intValue {
@@ -193,7 +194,7 @@ final class MainViewController: UIViewController {
                     case 9:
                         state = .superStorm
                     default:
-                        state = .unknown
+                        state = .noInternet
                     }
                 }
                 self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
@@ -201,6 +202,27 @@ final class MainViewController: UIViewController {
                 self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
             }
         }
+    }
+    //MARK: Network monitor
+    private func startNetworkMonitoring() {
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        
+        monitor.pathUpdateHandler = { [weak self] path in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.isConnected = path.status == .satisfied
+                if self.isConnected {
+                    print("Internet connection is available.")
+                } else {
+                    print("No internet connection.")
+                    self.locationLabel.text = "--"
+                    self.geomagneticActivityLabel.text = "--"
+                }
+            }
+        }
+        monitor.start(queue: queue)
     }
 } // end
 //MARK: - Location Manager Delegate
@@ -226,6 +248,7 @@ extension MainViewController: CLLocationManagerDelegate {
             print("Доступ к геопозиции разрешен при использовании приложения.")
         case .denied:
             print("Доступ к геопозиции запрещен.")
+            locationLabel.text = "location.error"
         case .restricted:
             print("Доступ к геопозиции ограничен.")
         case .notDetermined:
@@ -268,7 +291,7 @@ extension MainViewController {
                 descriptionLabel.alpha = 1
                 if !isLabelAnimating {
                     animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
-                    feedbackGenerator.selectionChanged() // Добавьте виброотклик
+                    feedbackGenerator.selectionChanged() // виброотклик
                 }
             default:
                 break
@@ -282,7 +305,7 @@ extension MainViewController {
             switch (isAnimating, isLabelAnimating) {
             case (true, false):
                 animateDescriptionLabelDisappearance()
-                feedbackGenerator.selectionChanged() // Добавьте виброотклик
+                feedbackGenerator.selectionChanged() // виброотклик
             default:
                 break
             }
@@ -297,7 +320,7 @@ extension MainViewController {
         chevronButton.tintColor = UIColor.white
         feedbackGenerator.selectionChanged() // виброотклик
     }
-    // Targets
+    // targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
@@ -330,15 +353,15 @@ extension MainViewController {
         
         if isButtonUp {
             handleSwipe(fakeSwipeUpGesture)
-            feedbackGenerator.selectionChanged() // Добавьте виброотклик
+            feedbackGenerator.selectionChanged() // виброотклик
         } else {
             handleSwipeDown(fakeSwipeDownGesture)
-            feedbackGenerator.selectionChanged() // Добавьте виброотклик
+            feedbackGenerator.selectionChanged() // виброотклик
         }
     }
     // info button action
     @objc private func infoButtonTapped() {
-        print("infoButtonTapped")
+        print("infoButton")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
         let infoViewController = InfoViewController()
@@ -348,7 +371,7 @@ extension MainViewController {
 }
 //MARK: Animations
 extension MainViewController {
-    //MARK: Animate Location
+    // Animate Location
     private func animateLocationLabelAppearance(withText text: String) {
         locationLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         locationLabel.text = text // Устанавливаем текст
@@ -359,27 +382,15 @@ extension MainViewController {
             self?.locationLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
-    //MARK: Animate GeomagneticActivityLabel
+    // Animate GeomagneticActivityLabel
     private func animateGeomagneticActivityLabelAppearance(withText text: String) {
         geomagneticActivityLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         geomagneticActivityLabel.text = text // Устанавливаем текст
-
+        
         UIView.animate(withDuration: 1.2, animations: { [weak self] in
             self?.geomagneticActivityLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
         }) { [weak self] (_) in
             self?.geomagneticActivityLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
-        }
-    }
-    // animate forecast view
-    private func animateForecastViewAppearance() {
-        // Устанавливаем начальное значение альфа-канала в 0 (вид будет скрыт)
-        forecastView.alpha = 0.0
-        // Добавляем представление на экран
-        view.addSubview(forecastView)
-        // Используем анимацию для плавного появления
-        UIView.animate(withDuration: 2.5) {
-            // Устанавливаем значение альфа-канала в 1 (полная видимость)
-            self.forecastView.alpha = 1.0
         }
     }
     // Animate Description swipe up
@@ -404,7 +415,7 @@ extension MainViewController {
             }
         }
     }
-    //MARK: Animate Description Label swipe down
+    // Animate Description swipe down
     private func animateDescriptionLabelDisappearance() {
         isLabelAnimating = true
         UIView.animate(withDuration: 0.3) {
@@ -415,19 +426,28 @@ extension MainViewController {
             self.toggleChevronButtonImage()
         }
     }
+    // Аnimate forecast view
+    private func animateForecastViewAppearance() {
+        forecastView.alpha = 0.0
+        view.addSubview(forecastView)
+    
+        UIView.animate(withDuration: 2.5) {
+            self.forecastView.alpha = 1.0
+        }
+    }
 }
 //MARK: UserNotificationCenter
 extension MainViewController {
     private func setupNotificationTimer() {
-        // let thirtySeconds: TimeInterval = 10.0 // 30 секунд в секундах
         let threeHours: TimeInterval = 3 * 3600 // 3 часа
-        
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
         let content = UNMutableNotificationContent()
+        
         content.title = "MagnetStorm"
         content.body = "notification_text".localized()
+        content.sound = UNNotificationSound.default
+
         let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
-        
         notificationCenter.add(request) { (error) in
             if let error = error {
                 print("Ошибка при установке таймера: \(error)")

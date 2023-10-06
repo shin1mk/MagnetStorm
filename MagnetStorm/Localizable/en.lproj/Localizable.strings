@@ -6,27 +6,27 @@
 */
 //MARK: - GeomagneticActivityState
 //0
-"noStorm_description" = "Absence of Storm:\nThe impact on the human body is practically nonexistent. People do not feel any physical or emotional changes due to the absence of magnetic storms.";
+"noStorm_description" = "No storm:\nImpact on the human body is practically absent. People do not feel any physical or emotional changes.";
 //1
-"minorStorm_description" = "Minor Storm:\nThe impact on humans is very minimal. Some people with increased sensitivity to magnetic fields may experience mild discomfort.";
+"minorStorm_description" = "Minor storm:\nThe impact on a person is very insignificant. People with increased sensitivity to magnetic fields may notice anxiety.";
 //2
-"weakStorm_description" = "Weak Storm:\nThe impact on the human body remains small. Some people may experience headaches or changes in sleep.";
+"weakStorm_description" = "Weak storm:\nThe impact on the human body is small. Sensitive individuals may experience headaches or changes in sleep.";
 //3
-"moderateStorm_description" = "Moderate Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible.";
+"moderateStorm_description" = "Moderate storm:\nThe storm increases the likelihood of symptoms. Headaches, insomnia, and mood deterioration are possible.";
 //4
-"strongStorm_description" = "Strong Storm:\nThe storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible.";
+"strongStorm_description" = "Strong storm:\nThe storm increases the likelihood of symptoms. Severe headaches, insomnia, and mood deterioration are possible.";
 //5
-"severeStorm_description" = "Severe Storm:\nThe impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches and nervousness may intensify in some people.";
+"severeStorm_description" = "Severe storm:\nThe impact on a person at this level is serious. Headaches and nervousness can intensify.";
 //6
-"extremeStorm_description" = "Extreme-Scale Storm:\nAt this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia and mood swings can occur.";
+"extremeStorm_description" = "Extreme-scale storm:\nMore serious headaches, insomnia, and mood changes may occur.";
 //7
-"outstandingStorm_description" = "Outstanding-Scale Storm:\nThe storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness and mood deterioration can be observed to a significant extent.";
+"outstandingStorm_description" = "Outstanding-scale storm:\nThe storm can cause significant deterioration in physical and emotional condition.";
 //8
-"exceptionalStorm_description" = "Exceptional Storm:\nAt this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia and serious changes in emotional state may occur.";
+"exceptionalStorm_description" = "Exceptional storm:\nAt this level, the most serious and uncertain effects on a person are possible.";
 //9
-"superStorm_description" = "Super Storm:\nThe highest level of magnetic storm activity, with catastrophic consequences for the entire human body and world technical equipment.";
-//?
-"unknown_description" = "Unknown";
+"superStorm_description" = "Super storm:\nThe highest level of magnetic storm activity, with catastrophic consequences for the entire human body and technical equipment in the world.";
+//NoInternet
+"noInternet_description" = "No network"; // переклад на англійську мову
 //MARK: - infoViewController
 "noStorm_info" = "Absence of Storm"; //0
 "minorStorm_info" = "Minor Storm"; //1
@@ -34,31 +34,31 @@
 "moderateStorm_info" = "Moderate Storm"; //3
 "strongStorm_info" = "Strong Storm"; //4
 "severeStorm_info" = "Severe Storm"; //5
-"extremeStorm_info" = "Extreme-Scale\nStorm"; //6
+"extremeStorm_info" = "extreme-Scale\nStorm"; //6
 "outstandingStorm_info" = "Outstanding-Scale\nStorm"; //7
 "exceptionalStorm_info" = "Exceptional Storm"; //8
 "superStorm_info" = "Super Storm"; //9
 //0
-"noStorm_description_info" = "The impact on the human body is practically nonexistent. People do not feel any physical or emotional changes due to the absence of magnetic storms.";
+"noStorm_description_info" = "At this level of geomagnetic activity, the human body is practically unaffected by magnetic storms. People do not feel any physical or emotional changes. Sleep is stable, mood remains consistently good, and physical condition remains normal.";
 //1
-"minorStorm_description_info" = "The impact on a person is very slight. Some people with increased sensitivity to magnetic fields may experience mild discomfort. Most often, this slight sensation can be likened to minor fluctuations in their emotional state.";
+"minorStorm_description_info" = "At this level of geomagnetic activity, the impact on a person is very insignificant. Some people with increased sensitivity to magnetic fields may notice mild anxiety and nervousness. There may be slight changes in sleep and mood, but they usually do not interfere with normal life.";
 //2
-"weakStorm_description_info" = "The impact on the human body still remains small. Some people may experience headaches or changes in their sleep patterns. This can manifest as minor disruptions in sleep patterns or mild disorientation during daily activities.";
+"weakStorm_description_info" = "At this level of geomagnetic activity, the impact on the human body remains small. Some people may experience mild headaches or changes in sleep. Brief periods of anxiety and irritability may occur, but they usually pass quickly.";
 //3
-"moderateStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible. Possible headaches, insomnia, mood deterioration.";
+"moderateStorm_description_info" = "At this level of geomagnetic activity, a storm can increase the likelihood of physical and emotional symptoms in most people. Moderate headaches, insomnia, and mild mood deterioration are possible. Brief episodes of anxiety and irritability may occur.";
 //4
-"strongStorm_description_info" = "The storm can increase the likelihood of physical and emotional symptoms in most people. Headaches, insomnia and mood swings are possible. The headaches may become more prolonged, and nervousness can lead to discomfort in one's mental state.";
+"strongStorm_description_info" = "At this level of geomagnetic activity, a storm significantly increases the likelihood of physical and emotional symptoms in most people. Severe headaches, insomnia, and noticeable mood deterioration are possible. Feelings of irritability and dissatisfaction may intensify.";
 //5
-"severeStorm_description_info" = "The impact on a person at this level can become more noticeable. Symptoms such as insomnia, headaches and nervousness may intensify in some people.";
+"severeStorm_description_info" = "At this level of geomagnetic activity, the impact on a person may become more noticeable. Symptoms such as insomnia, severe headaches, and pronounced nervousness may intensify. Physical and emotional conditions may significantly worsen.";
 //6
-"extremeStorm_description_info" = "At this level, symptoms can become more pronounced and widespread. More severe headaches, insomnia and mood swings can occur.";
+"extremeStorm_description_info" = "At this level of geomagnetic activity, symptoms of geomagnetic activity may become more pronounced and widespread. More severe headaches, insomnia, and significant mood changes may occur. The level of anxiety and irritability increases.";
 //7
-"outstandingStorm_description_info" = "The storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness and mood deterioration can be observed to a significant extent.";
+"outstandingStorm_description_info" = "At this level of geomagnetic activity, a storm can cause significant deterioration in physical and emotional condition. Headaches, insomnia, nervousness, and pronounced mood deterioration may be observed to a significant extent.";
 //8
-"exceptionalStorm_description_info" = "At this level, the most serious and unpredictable effects on a person are possible. Severe headaches, insomnia and serious changes in emotional state may occur.";
+"exceptionalStorm_description_info" = "At this level of geomagnetic activity, the most serious and uncertain effects on a person are possible. Severe headaches, insomnia, and significant changes in emotional state may occur. Anxiety and irritability reach their peak.";
 //9
-"superStorm_description_info" = "The highest level of magnetic storm activity, with catastrophic consequences for the entire human body and world technical equipment.";
-//?
-"unknown_description_info" = "Unknown";
+"superStorm_description_info" = "The highest level of magnetic storm activity, with catastrophic consequences for the entire human body and technical equipment in the world. At this level, the human body may experience the most serious physical and emotional symptoms, including severe headaches, insomnia, and extremely high anxiety. Emotional state can be extremely unstable and uncertain.";
+//10
+"noInternet_description_info" = "No internet connection. Please check your internet connection and try again.";
 // notifications
-"notification_text" =  "New geomagnetic activity data.";
+"notification_text" = "New data on geomagnetic activity.";

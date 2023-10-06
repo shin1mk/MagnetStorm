@@ -12,13 +12,13 @@ final class InfoTableViewCell: UITableViewCell {
     //MARK: Properties
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.SFUITextBold(ofSize: 24)
+        titleLabel.font = UIFont.SFUITextBold(ofSize: 22)
         titleLabel.numberOfLines = 0
         return titleLabel
     }()
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 18)
+        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 16)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .white
         return descriptionLabel
