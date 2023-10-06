@@ -34,7 +34,7 @@
 "moderateStorm_info" = "Moderate Storm"; //3
 "strongStorm_info" = "Strong Storm"; //4
 "severeStorm_info" = "Severe Storm"; //5
-"extremeStorm_info" = "extreme-Scale\nStorm"; //6
+"extremeStorm_info" = "Extreme-Scale\nStorm"; //6
 "outstandingStorm_info" = "Outstanding-Scale\nStorm"; //7
 "exceptionalStorm_info" = "Exceptional Storm"; //8
 "superStorm_info" = "Super Storm"; //9
