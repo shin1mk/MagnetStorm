@@ -18,7 +18,7 @@ final class ForecastViewController: UIViewController {
     
     private let forecastLabel: UILabel = {
         let forecastLabel = UILabel()
-        forecastLabel.text = "Forecast for 3 days"
+        forecastLabel.text = "Forecast3days_text".localized()
         forecastLabel.font = UIFont.SFUITextHeavy(ofSize: 24)
         forecastLabel.textColor = .white
         return forecastLabel

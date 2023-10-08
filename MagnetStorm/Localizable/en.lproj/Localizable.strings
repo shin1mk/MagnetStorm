@@ -62,4 +62,5 @@
 "noInternet_description_info" = "No internet connection. Please check your internet connection and try again.";
 // notifications
 "notification_text" = "New data on geomagnetic activity.";
-
+// forecast 3 days
+"forecast3days_text" = "3-day forecast"

@@ -62,4 +62,5 @@
 "noInternet_description_info" = "Отсутствует подключение к интернету. Пожалуйста, проверьте свое интернет-соединение и повторите попытку.";
 // notifications
 "notification_text" = "Новые данные о геомагнитной активности.";
-
+// forecast 3 days
+"forecast3days_text" = "Прогноз на 3 дня"
