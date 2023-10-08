@@ -384,7 +384,6 @@ extension MainViewController {
             self.fetchStormValueUI()
             self.animateForecastViewAppearance()
             self.forecastView.fetchStormForecastUI()
-
         }
     }
     // chevron button action
