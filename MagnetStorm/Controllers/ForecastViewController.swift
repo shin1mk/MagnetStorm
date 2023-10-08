@@ -18,7 +18,7 @@ final class ForecastViewController: UIViewController {
     
     private let forecastLabel: UILabel = {
         let forecastLabel = UILabel()
-        forecastLabel.text = "Forecast3days_text".localized()
+        forecastLabel.text = "forecast3days_text".localized()
         forecastLabel.font = UIFont.SFUITextHeavy(ofSize: 24)
         forecastLabel.textColor = .white
         return forecastLabel
@@ -72,8 +72,8 @@ final class ForecastViewController: UIViewController {
         tableView.backgroundColor = UIColor.black
         tableView.snp.makeConstraints { make in
             make.top.equalTo(forecastLabel.snp.bottom).offset(5)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(-20)
         }
     }
@@ -185,7 +185,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.addSubview(label)
         label.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(0) // Отступ справа
+            make.trailing.equalToSuperview().inset(5) // Отступ справа
             make.centerY.equalToSuperview() // Выравнивание по вертикали
         }
         

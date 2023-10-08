@@ -63,4 +63,4 @@
 // notifications
 "notification_text" = "Новые данные о геомагнитной активности.";
 // forecast 3 days
-"forecast3days_text" = "Прогноз на 3 дня"
+"forecast3days_text" = "Прогноз на 3 дня";

@@ -63,4 +63,4 @@
 // notifications
 "notification_text" = "New data on geomagnetic activity.";
 // forecast 3 days
-"forecast3days_text" = "3-day forecast"
+"forecast3days_text" = "3-day forecast";
