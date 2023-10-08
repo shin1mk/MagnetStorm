@@ -62,21 +62,23 @@ final class ForecastView: UIView {
         let stackViewToday = createStackView(withDate: currentDate, values: today)
         let stackViewTomorrow = createStackView(withDate: tomorrowDate, values: tomorrow)
         let stackViewAfterday = createStackView(withDate: afterTomorrowDate, values: afterday)
-        // Добавляем стековые представления на экран
-        addSubview(stackViewToday)
-        addSubview(stackViewTomorrow)
-        addSubview(stackViewAfterday)
         // Устанавливаем ограничения для вертикального расположения стековых представлений
+        addSubview(stackViewToday)
+        stackViewToday.distribution = .fillEqually
         stackViewToday.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.leading.equalToSuperview().offset(0)
             make.trailing.equalToSuperview().offset(0)
         }
+        addSubview(stackViewTomorrow)
+        stackViewTomorrow.distribution = .fillEqually
         stackViewTomorrow.snp.makeConstraints { make in
             make.top.equalTo(stackViewToday.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(0)
             make.trailing.equalToSuperview().offset(0)
         }
+        addSubview(stackViewAfterday)
+        stackViewAfterday.distribution = .fillEqually
         stackViewAfterday.snp.makeConstraints { make in
             make.top.equalTo(stackViewTomorrow.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(0)

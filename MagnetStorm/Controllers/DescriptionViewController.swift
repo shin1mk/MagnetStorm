@@ -1,5 +1,5 @@
 //
-//  InfoViewController.swift
+//  DescriptionViewController.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 01.10.2023.
@@ -10,19 +10,19 @@ import UIKit
 import SafariServices
 import SnapKit
 
-final class InfoViewController: UIViewController {
+final class DescriptionViewController: UIViewController {
     // Массив с данными о разных уровнях магнитных бурь
     private let stormLevels: [(title: String, description: String, textColor: UIColor)] = [
-        ("noStorm_info".localized(), "noStorm_description_info".localized(), InfoViewController.green0),
-        ("minorStorm_info".localized(), "minorStorm_description_info".localized(), InfoViewController.green1),
-        ("weakStorm_info".localized(), "weakStorm_description_info".localized(), InfoViewController.green2),
-        ("moderateStorm_info".localized(), "moderateStorm_description_info".localized(), InfoViewController.green3),
-        ("strongStorm_info".localized(), "strongStorm_description_info".localized(), InfoViewController.yellow),
-        ("severeStorm_info".localized(), "severeStorm_description_info".localized(), InfoViewController.orange1),
-        ("extremeStorm_info".localized(), "extremeStorm_description_info".localized(), InfoViewController.orange2),
-        ("outstandingStorm_info".localized(), "outstandingStorm_description_info".localized(), InfoViewController.red),
-        ("exceptionalStorm_info".localized(), "exceptionalStorm_description_info".localized(), InfoViewController.deepRed),
-        ("superStorm_info".localized(), "superStorm_description_info".localized(), InfoViewController.veryDeepRed)
+        ("noStorm_info".localized(), "noStorm_description_info".localized(), DescriptionViewController.green0),
+        ("minorStorm_info".localized(), "minorStorm_description_info".localized(), DescriptionViewController.green1),
+        ("weakStorm_info".localized(), "weakStorm_description_info".localized(), DescriptionViewController.green2),
+        ("moderateStorm_info".localized(), "moderateStorm_description_info".localized(), DescriptionViewController.green3),
+        ("strongStorm_info".localized(), "strongStorm_description_info".localized(), DescriptionViewController.yellow),
+        ("severeStorm_info".localized(), "severeStorm_description_info".localized(), DescriptionViewController.orange1),
+        ("extremeStorm_info".localized(), "extremeStorm_description_info".localized(), DescriptionViewController.orange2),
+        ("outstandingStorm_info".localized(), "outstandingStorm_description_info".localized(), DescriptionViewController.red),
+        ("exceptionalStorm_info".localized(), "exceptionalStorm_description_info".localized(), DescriptionViewController.deepRed),
+        ("superStorm_info".localized(), "superStorm_description_info".localized(), DescriptionViewController.veryDeepRed)
     ]
     //MARK: Properties
     private let sourceButton: UIButton = {
@@ -101,7 +101,7 @@ final class InfoViewController: UIViewController {
     }
 } // end
 //MARK: TableView
-extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
+extension DescriptionViewController: UITableViewDataSource, UITableViewDelegate {
     // UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stormLevels.count
@@ -119,7 +119,7 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
     }
 } // end
 //MARK: UIColors
-extension InfoViewController {
+extension DescriptionViewController {
     static let green0 = UIColor(red: 173/255, green: 255/255, blue: 47/255, alpha: 1.0)
     static let green1 = UIColor(red: 0/255, green: 255/255, blue: 0/255, alpha: 1.0)
     static let green2 = UIColor(red: 0/255, green: 200/255, blue: 0/255, alpha: 1.0)
@@ -131,3 +131,4 @@ extension InfoViewController {
     static let deepRed = UIColor(red: 139/255, green: 0/255, blue: 0/255, alpha: 1.0)
     static let veryDeepRed = UIColor(red: 80/255, green: 0/255, blue: 0/255, alpha: 1.0)
 }
+

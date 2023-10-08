@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MagnetStorm
   Russian
@@ -62,3 +62,4 @@
 "noInternet_description_info" = "Отсутствует подключение к интернету. Пожалуйста, проверьте свое интернет-соединение и повторите попытку.";
 // notifications
 "notification_text" = "Новые данные о геомагнитной активности.";
+

@@ -48,7 +48,7 @@ final class MainViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = ""
-        descriptionLabel.font = UIFont.SFUITextLight(ofSize: 25)
+        descriptionLabel.font = UIFont.SFUITextLight(ofSize: 22)
         descriptionLabel.textColor = .white
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
@@ -68,7 +68,7 @@ final class MainViewController: UIViewController {
         button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
-    private let infoButton: UIButton = {
+    private let descriptionButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "info.circle.fill")
         button.setImage(chevronImage, for: .normal)
@@ -80,10 +80,10 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         setupAppLifecycleObservers()
         setupConstraints()
-        setupSwipeGesture()
+        setupGestures()
         setupAnimatedGIFBackground()
         setupTarget()
-        startNetworkMonitoring()
+//        startNetworkMonitoring()
         setupLocationManager()
     }
     // Notification observer
@@ -139,8 +139,8 @@ final class MainViewController: UIViewController {
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-        view.addSubview(infoButton)
-        infoButton.snp.makeConstraints { make in
+        view.addSubview(descriptionButton)
+        descriptionButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().offset(-5)
             make.width.equalTo(80)
@@ -149,16 +149,22 @@ final class MainViewController: UIViewController {
         // forecast view
         animateForecastViewAppearance()
         forecastView.snp.makeConstraints { make in
-            make.bottom.equalTo(chevronButton.snp.top).offset(-50)
+            make.bottom.equalTo(chevronButton.snp.top).offset(0)
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
-            make.height.greaterThanOrEqualTo(40)
+            make.height.greaterThanOrEqualTo(100)
+        }
+        // UIPageControl
+        view.addSubview(pageControl)
+        pageControl.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-25)
         }
     }
     //MARK: GIF Background
     private func setupAnimatedGIFBackground() {
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
-        if let gifURL = Bundle.main.url(forResource: "background_gif", withExtension: "gif") {
+        if let gifURL = Bundle.main.url(forResource: "stormBackground_gif", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
         }
         view.addSubview(gifImageView) // Добавляем imageView на экран
@@ -210,18 +216,34 @@ final class MainViewController: UIViewController {
         monitor.pathUpdateHandler = { [weak self] path in
             guard let self = self else { return }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 self.isConnected = path.status == .satisfied
                 if self.isConnected {
                     print("Internet connection is available.")
+                    self.fetchStormValueUI()
                 } else {
                     print("No internet connection.")
-                    self.locationLabel.text = "--"
+                    self.locationLabel.text = "no internet"
                     self.geomagneticActivityLabel.text = "--"
                 }
             }
         }
         monitor.start(queue: queue)
+    }
+    //MARK: UIPageControl
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = 2 // количество доступных экранов
+        pageControl.currentPage = 0 // текущий экран
+        pageControl.pageIndicatorTintColor = UIColor.gray // Цвет точек экранов
+        pageControl.currentPageIndicatorTintColor = UIColor.white // Цвет точки
+        return pageControl
+    }()
+    // scroll func
+    private func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.width
+        let currentPage = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth)) + 1
+        pageControl.currentPage = currentPage
     }
 } // end
 //MARK: - Location Manager Delegate
@@ -235,6 +257,7 @@ extension MainViewController: CLLocationManagerDelegate {
                         self?.animateLocationLabelAppearance(withText: city)
                         self?.fetchStormValueUI()
                         self!.forecastView.fetchStormForecastUI()
+                        self?.startNetworkMonitoring()
                     }
                 }
             }
@@ -266,18 +289,46 @@ extension MainViewController: CLLocationManagerDelegate {
 }
 //MARK: Swipe
 extension MainViewController {
+    // targets
+    private func setupTarget() {
+        refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
+        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
+        descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
+    }
     // Swipe gestures and buttons
-    private func setupSwipeGesture() {
+    private func setupGestures() {
+        // свайп по экрану вправо
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft(_:)))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+        // свайп вверх для вызова описания
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeUpGesture.direction = .up
         swipeUpGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(swipeUpGesture)
-        
+        // свайп вниз для вызова описания
         let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
         swipeDownGesture.direction = .down
         swipeDownGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(swipeDownGesture)
         swipeUpGesture.require(toFail: swipeDownGesture) // Устанавливаем зависимость между жестами
+        // тап по описанию
+        let descriptionLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionViewTapped))
+        descriptionLabel.addGestureRecognizer(descriptionLabelTapGesture)
+        descriptionLabel.isUserInteractionEnabled = true
+        // тап по прогнозу
+        let forecastViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(forecastViewTapped))
+        forecastView.addGestureRecognizer(forecastViewTapGesture)
+        forecastView.isUserInteractionEnabled = true
+    }
+    // свайп вправо
+    @objc private func handleSwipeLeft(_ gesture: UISwipeGestureRecognizer) {
+        if gesture.state == .ended {
+            // Создайте экземпляр второго вью контроллера
+            let secondViewController = SecondViewController()
+            // Вызовите метод pushViewController для UINavigationController, чтобы выполнить переход на второй экран
+            navigationController?.pushViewController(secondViewController, animated: true)
+        }
     }
     // swipe up
     @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
@@ -310,20 +361,15 @@ extension MainViewController {
             }
         }
     }
-    // toggle chevron button
-    private func toggleChevronButtonImage() {
-        isButtonUp.toggle()
-        let imageName = isButtonUp ? "chevron.up.chevron.down" : "chevron.up.chevron.down"
-        let chevronImage = UIImage(systemName: imageName)
-        chevronButton.setImage(chevronImage, for: .normal)
-        chevronButton.tintColor = UIColor.white
-        feedbackGenerator.selectionChanged() // виброотклик
+    // вызываем функцию описания
+    @objc private func descriptionViewTapped() {
+        descriptionButtonTapped()
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
     }
-    // targets
-    private func setupTarget() {
-        refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
-        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
-        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+    // вызываем функцию для экрана прогноза
+    @objc private func forecastViewTapped() {
+        print("forecastView")
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
     }
     // refresh button action
     @objc private func refreshButtonTapped() {
@@ -334,9 +380,11 @@ extension MainViewController {
         if let city = currentCity { // Use the captured city value
             self.animateDescriptionLabelDisappearance()
             self.animateLocationLabelAppearance(withText: city)
+            self.startNetworkMonitoring()
             self.fetchStormValueUI()
             self.animateForecastViewAppearance()
             self.forecastView.fetchStormForecastUI()
+
         }
     }
     // chevron button action
@@ -359,13 +407,22 @@ extension MainViewController {
         }
     }
     // info button action
-    @objc private func infoButtonTapped() {
-        print("infoButton")
+    @objc private func descriptionButtonTapped() {
+        print("descriptionButtonTapped")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
-        let infoViewController = InfoViewController()
+        let infoViewController = DescriptionViewController()
         infoViewController.modalPresentationStyle = .popover
         present(infoViewController, animated: true, completion: nil)
+    }
+    // toggle chevron button
+    private func toggleChevronButtonImage() {
+        isButtonUp.toggle()
+        let imageName = isButtonUp ? "chevron.up.chevron.down" : "chevron.up.chevron.down"
+        let chevronImage = UIImage(systemName: imageName)
+        chevronButton.setImage(chevronImage, for: .normal)
+        chevronButton.tintColor = UIColor.white
+        feedbackGenerator.selectionChanged() // виброотклик
     }
 }
 //MARK: Animations
@@ -456,3 +513,4 @@ extension MainViewController {
         }
     }
 }
+

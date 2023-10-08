@@ -39,10 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    // didFinishLaunchingWithOptions
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//        return true
-//    }
     // MARK: - UserNotificationCenter
     let notificationCenter = UNUserNotificationCenter.current()
     // didFinishLaunchingWithOptions

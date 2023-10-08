@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MagnetStorm
   English
@@ -62,3 +62,4 @@
 "noInternet_description_info" = "No internet connection. Please check your internet connection and try again.";
 // notifications
 "notification_text" = "New data on geomagnetic activity.";
+

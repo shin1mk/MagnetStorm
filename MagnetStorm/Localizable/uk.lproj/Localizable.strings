@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   MagnetStorm
   Ukranian
@@ -62,3 +62,4 @@
 "noInternet_description_info" = "Відсутнє підключення до інтернету. Будь ласка, перевірте ваше інтернет-з'єднання і повторіть спробу.";
 // notifications
 "notification_text" = "Нові дані про геомагнітну активність.";
+

@@ -8,6 +8,7 @@ target 'MagnetStorm' do
   # Pods for MagnetStorm
   pod 'SnapKit'
   pod 'SDWebImage'
+  pod 'SwiftSoup'
 
   target 'MagnetStormTests' do
     inherit! :search_paths
