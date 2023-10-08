@@ -1,11 +1,26 @@
-//
-//  .swift
-//  MagnetStorm
-//
-//  Created by SHIN MIKHAIL on 02.10.2023.
-//
 
 /*
+ задачи
+ Добавить процент северного сияния
+ достанем температуру солнца онлайн
+ 
+ 
+ на forecastview controller добавить источник? 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  let progressBar = UIProgressView(progressViewStyle: .default)
 

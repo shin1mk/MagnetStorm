@@ -4,8 +4,7 @@
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
 //
-//Добавить процент северного сияния
-//достанем температуру солнца онлайн
+
 import UIKit
 import SnapKit
 import CoreLocation
@@ -28,7 +27,7 @@ final class MainViewController: UIViewController {
     private var currentGeomagneticActivityState: GeomagneticActivityState = .noInternet // текущий стейт
     private var isAnimating = false
     private var isLabelAnimating = false
-    private var isButtonUp = true // следим за кнопкой
+    private var isButtonUp = true
     private var isConnected: Bool = false
     // создаем элементы
     private let locationLabel: UILabel = {
@@ -83,7 +82,6 @@ final class MainViewController: UIViewController {
         setupGestures()
         setupAnimatedGIFBackground()
         setupTarget()
-//        startNetworkMonitoring()
         setupLocationManager()
     }
     // Notification observer
@@ -158,7 +156,7 @@ final class MainViewController: UIViewController {
         view.addSubview(pageControl)
         pageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-25)
+            make.bottom.equalToSuperview().offset(-60)
         }
     }
     //MARK: GIF Background
@@ -369,7 +367,11 @@ extension MainViewController {
     // вызываем функцию для экрана прогноза
     @objc private func forecastViewTapped() {
         print("forecastView")
-        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+        feedbackGenerator.selectionChanged() // виброотклик
+        
+        let forecastViewController = ForecastViewController()
+        forecastViewController.modalPresentationStyle = .popover
+        present(forecastViewController, animated: true, completion: nil)
     }
     // refresh button action
     @objc private func refreshButtonTapped() {
@@ -410,9 +412,9 @@ extension MainViewController {
         print("descriptionButtonTapped")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
-        let infoViewController = DescriptionViewController()
-        infoViewController.modalPresentationStyle = .popover
-        present(infoViewController, animated: true, completion: nil)
+        let descriptionViewController = DescriptionViewController()
+        descriptionViewController.modalPresentationStyle = .popover
+        present(descriptionViewController, animated: true, completion: nil)
     }
     // toggle chevron button
     private func toggleChevronButtonImage() {

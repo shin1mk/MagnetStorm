@@ -39,7 +39,7 @@ final class DescriptionViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.black
-        tableView.register(InfoTableViewCell.self, forCellReuseIdentifier: "InfoCell")
+        tableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: "InfoCell")
         return tableView
     }()
     private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
@@ -108,7 +108,7 @@ extension DescriptionViewController: UITableViewDataSource, UITableViewDelegate 
     }
     // cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! InfoTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! DescriptionTableViewCell
         let stormLevel = stormLevels[indexPath.row]
         cell.configure(title: stormLevel.title, description: stormLevel.description, textColor: stormLevel.textColor)
         return cell
@@ -131,4 +131,3 @@ extension DescriptionViewController {
     static let deepRed = UIColor(red: 139/255, green: 0/255, blue: 0/255, alpha: 1.0)
     static let veryDeepRed = UIColor(red: 80/255, green: 0/255, blue: 0/255, alpha: 1.0)
 }
-
