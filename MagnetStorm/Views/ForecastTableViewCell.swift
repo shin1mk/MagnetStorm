@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class ForecastTableViewCell: UITableViewCell {
+final class ForecastTableViewCell: UITableViewCell {
     let timeLabel = UILabel()
     let todayValueLabel = UILabel()
     let tomorrowValueLabel = UILabel()
@@ -30,6 +30,11 @@ class ForecastTableViewCell: UITableViewCell {
         todayValueLabel.font = UIFont.SFUITextMedium(ofSize: 16)
         tomorrowValueLabel.font = UIFont.SFUITextMedium(ofSize: 16)
         afterdayValueLabel.font = UIFont.SFUITextMedium(ofSize: 16)
+        
+        timeLabel.textColor = UIColor.systemBlue
+        todayValueLabel.textColor = UIColor.white
+        tomorrowValueLabel.textColor = UIColor.white
+        afterdayValueLabel.textColor = UIColor.white
     }
 
     private func setupConstraints() {

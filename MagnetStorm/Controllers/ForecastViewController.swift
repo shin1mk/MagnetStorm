@@ -38,18 +38,18 @@ final class ForecastViewController: UIViewController {
         view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.7)
         return view
     }()
- 
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
         fetchStormDetailForecastUI()
     }
-    
+
     private func setupConstraints() {
         view.backgroundColor = .black
         // gray background
         view.addSubview(backgroundView)
-        backgroundView.layer.zPosition = 100 // z-index
+        backgroundView.layer.zPosition = 100
         backgroundView.snp.makeConstraints { make in
             make.top.equalTo(view)
             make.leading.equalTo(view)
@@ -69,15 +69,14 @@ final class ForecastViewController: UIViewController {
         }
         
         view.addSubview(tableView)
-        tableView.backgroundColor = UIColor.black
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(forecastLabel.snp.bottom).offset(5)
+            make.top.equalTo(forecastLabel.snp.bottom).offset(0)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(-20)
         }
     }
-    
+    //MARK: forecast detail
     private func fetchStormDetailForecastUI() {
         fetchStormForecast { result in
             DispatchQueue.main.async { [self] in
@@ -140,7 +139,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+    // did select
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
@@ -151,15 +150,14 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         // Опционально, вы можете снять выделение с ячейки после нажатия
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
     // view for header in section
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = .clear
+        headerView.backgroundColor = .black
         
         let label = UILabel()
         label.textColor = .white // Цвет текста заголовка
-        label.font = UIFont.SFUITextBold(ofSize: 18) // Жирный шрифт
+        label.font = UIFont.SFUITextHeavy(ofSize: 18) // Жирный шрифт
         label.textAlignment = .right // Выравнивание текста справа
         
         switch section {
@@ -175,7 +173,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
             if let tomorrowDate = tomorrowDate, let afterTomorrowDate = afterTomorrowDate {
                 let tomorrowString = dateFormatter.string(from: tomorrowDate)
                 let afterTomorrowString = dateFormatter.string(from: afterTomorrowDate)
-                label.text = "\(todayDate)   \(tomorrowString)   \(afterTomorrowString)"
+                label.text = "\(todayDate)  \(tomorrowString)  \(afterTomorrowString)"
             } else {
                 label.text = todayDate
             }
@@ -193,7 +191,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Возвращайте высоту ячейки, которая соответствует вашим потребностям.
-        return 40.0 // Пример фиксированной высоты, замените ее на вашу логику
+        // Возвращайте высоту ячейки
+        return 40.0
     }
 }

@@ -92,7 +92,7 @@ final class ForecastView: UIView {
         numberFormatter.maximumFractionDigits = 0
         // Создаем DateFormatter для форматирования даты
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, d MMM" // Формат дня недели и даты
+        dateFormatter.dateFormat = "EE, d MMMM" // Формат дня недели и даты
         
         var datePart = ""
         var valuesPart = ""
