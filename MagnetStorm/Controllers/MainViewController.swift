@@ -74,6 +74,14 @@ final class MainViewController: UIViewController {
         button.tintColor = UIColor.white
         return button
     }()
+    private let pageControl: UIPageControl = {
+        let pageControl = UIPageControl()
+        pageControl.numberOfPages = 2 // количество доступных экранов
+        pageControl.currentPage = 0 // текущий экран
+        pageControl.pageIndicatorTintColor = UIColor.gray // Цвет точек экранов
+        pageControl.currentPageIndicatorTintColor = UIColor.white // Цвет точки
+        return pageControl
+    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,6 +162,7 @@ final class MainViewController: UIViewController {
         }
         // UIPageControl
         view.addSubview(pageControl)
+        pageControl.layer.zPosition = 100
         pageControl.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().offset(-60)
@@ -229,15 +238,6 @@ final class MainViewController: UIViewController {
         monitor.start(queue: queue)
     }
     //MARK: UIPageControl
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.numberOfPages = 2 // количество доступных экранов
-        pageControl.currentPage = 0 // текущий экран
-        pageControl.pageIndicatorTintColor = UIColor.gray // Цвет точек экранов
-        pageControl.currentPageIndicatorTintColor = UIColor.white // Цвет точки
-        return pageControl
-    }()
-    // scroll func
     private func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.width
         let currentPage = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth)) + 1
@@ -407,7 +407,7 @@ extension MainViewController {
             feedbackGenerator.selectionChanged() // виброотклик
         }
     }
-    // info button action
+    // description button action
     @objc private func descriptionButtonTapped() {
         print("descriptionButtonTapped")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Charts
 
 final class ForecastViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
@@ -15,7 +16,8 @@ final class ForecastViewController: UIViewController {
     private var today: [Double] = []
     private var tomorrow: [Double] = []
     private var afterday: [Double] = []
-    
+    private let lineChartView = LineChartView()
+
     private let forecastLabel: UILabel = {
         let forecastLabel = UILabel()
         forecastLabel.text = "forecast3days_text".localized()
@@ -44,7 +46,7 @@ final class ForecastViewController: UIViewController {
         setupConstraints()
         fetchStormDetailForecastUI()
     }
-
+    //MARK: Methods
     private func setupConstraints() {
         view.backgroundColor = .black
         // gray background
@@ -62,18 +64,27 @@ final class ForecastViewController: UIViewController {
             make.centerX.equalTo(backgroundView)
             make.top.equalTo(backgroundView.snp.top).offset(-24)
         }
+        // title label
         view.addSubview(forecastLabel)
         forecastLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(65)
             make.centerX.equalToSuperview()
         }
-        
+        // таблица
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.top.equalTo(forecastLabel.snp.bottom).offset(0)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(0)
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-300)
+        }
+        // график
+        view.addSubview(lineChartView)
+        lineChartView.snp.makeConstraints { make in
+            make.top.equalTo(tableView.snp.bottom).offset(20) // Расположите график ниже tableView
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(0)
+            make.bottom.equalToSuperview().offset(-50)
         }
     }
     //MARK: forecast detail
@@ -104,12 +115,54 @@ final class ForecastViewController: UIViewController {
                         print("detail for tomorrow: \(tomorrow)")
                         print("detail for afterday: \(afterday)")
                         tableView.reloadData()
+                        setupLineChart()
+
                     }
                 case .failure(let error):
                     print("Ошибка при загрузке данных: \(error)")
                 }
             }
         }
+    }
+    //MARK: Chart
+    private func setupLineChart() {
+        // Настройка свойств графика
+        configureChartProperties()
+        // Создание данных для "today", "tomorrow" и "afterday"
+        let todayChartDataSet = createChartDataSet(data: today, label: "chartToday_text".localized(), color: .systemBlue)
+        let tomorrowChartDataSet = createChartDataSet(data: tomorrow, label: "chartTomorrow_text".localized(), color: .systemRed)
+        let afterdayChartDataSet = createChartDataSet(data: afterday, label: "chartAfterday_text".localized(), color: .systemGreen)
+        // Создание набора данных, объединяя данные для "today", "tomorrow" и "afterday"
+        let chartData = LineChartData(dataSets: [todayChartDataSet, tomorrowChartDataSet, afterdayChartDataSet])
+        // Установка данных для графика без анимации
+        self.lineChartView.data = chartData
+
+        let xAxis = lineChartView.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(values: timeLabels)
+        xAxis.labelPosition = .top
+        xAxis.labelCount = timeLabels.count
+        xAxis.granularity = 1.0
+    }
+    // фон графика
+    private func configureChartProperties() {
+        lineChartView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
+        lineChartView.center = view.center
+        lineChartView.backgroundColor = .black
+    }
+    // загружаем данные в график
+    private func createChartDataSet(data: [Double], label: String, color: UIColor) -> LineChartDataSet {
+        var dataEntries: [ChartDataEntry] = []
+        for (index, value) in data.enumerated() {
+            let dataEntry = ChartDataEntry(x: Double(index), y: value)
+            dataEntries.append(dataEntry)
+        }
+        
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: label)
+        chartDataSet.colors = [color]
+        chartDataSet.drawCirclesEnabled = false
+        chartDataSet.mode = .cubicBezier
+
+        return chartDataSet
     }
 } // end
 //MARK: Table view
@@ -132,7 +185,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         cell.tomorrowValueLabel.text = "G\(tomorrowValue)"
         cell.afterdayValueLabel.text = "G\(afterdayValue)"
         cell.backgroundColor = .black //
-
+        
         return cell
     }
     // number of sections
@@ -193,5 +246,6 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // Возвращайте высоту ячейки
         return 40.0
+        
     }
 }

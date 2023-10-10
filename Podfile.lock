@@ -1,26 +1,36 @@
 PODS:
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - SDWebImage (5.17.0):
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
   - SnapKit (5.6.0)
+  - SwiftAlgorithms (1.0.0)
   - SwiftSoup (2.6.1)
 
 DEPENDENCIES:
+  - Charts
   - SDWebImage
   - SnapKit
   - SwiftSoup
 
 SPEC REPOS:
   trunk:
+    - Charts
     - SDWebImage
     - SnapKit
+    - SwiftAlgorithms
     - SwiftSoup
 
 SPEC CHECKSUMS:
+  Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   SwiftSoup: 5dd2c1b06afc964f30d99894af6ede22ede627aa
 
-PODFILE CHECKSUM: 8e39f6f9f441f5049e09b563d343eeeb33926ada
+PODFILE CHECKSUM: 0a0c6d3a5dcf9dac1c8ebdfd088e8a73357bd158
 
 COCOAPODS: 1.12.1

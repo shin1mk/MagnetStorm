@@ -10,22 +10,23 @@ import UIKit
 import SnapKit
 
 final class ForecastTableViewCell: UITableViewCell {
+    //MARK: Properties
     let timeLabel = UILabel()
     let todayValueLabel = UILabel()
     let tomorrowValueLabel = UILabel()
     let afterdayValueLabel = UILabel()
-    
+    //MARK: Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
-        changeFontSize()
+        changeFontProperties()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    private func changeFontSize() {
+    //MARK: Methods
+    private func changeFontProperties() {
         timeLabel.font = UIFont.SFUITextMedium(ofSize: 16)
         todayValueLabel.font = UIFont.SFUITextMedium(ofSize: 16)
         tomorrowValueLabel.font = UIFont.SFUITextMedium(ofSize: 16)
@@ -36,7 +37,7 @@ final class ForecastTableViewCell: UITableViewCell {
         tomorrowValueLabel.textColor = UIColor.white
         afterdayValueLabel.textColor = UIColor.white
     }
-
+    // constraints
     private func setupConstraints() {
         contentView.addSubview(timeLabel)
         timeLabel.snp.makeConstraints { make in
@@ -67,5 +68,4 @@ final class ForecastTableViewCell: UITableViewCell {
             make.height.equalTo(20)
         }
     }
-
-}
+} // end

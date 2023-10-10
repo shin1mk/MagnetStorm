@@ -19,7 +19,9 @@
 		13449AC82AA2965100C858BF /* MagnetStormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AC72AA2965100C858BF /* MagnetStormTests.swift */; };
 		13449AD22AA2965100C858BF /* MagnetStormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD12AA2965100C858BF /* MagnetStormUITests.swift */; };
 		13449AD42AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */; };
+		134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */; };
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
+		1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */; };
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
 		13649D422AD2C65E00745175 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* SecondViewController.swift */; };
@@ -76,7 +78,9 @@
 		13449ACD2AA2965100C858BF /* MagnetStormUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MagnetStormUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AD12AA2965100C858BF /* MagnetStormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITests.swift; sourceTree = "<group>"; };
 		13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraImageManager.swift; sourceTree = "<group>"; };
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
+		1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraNowcastManager.swift; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
 		13649D412AD2C65E00745175 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 			children = (
 				136211AD2AA29A97005A4AE2 /* StormValueManager.swift */,
 				1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */,
+				134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */,
+				1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -567,6 +573,7 @@
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
 				13A09F402AC9ECF8003858A1 /* DescriptionViewController.swift in Sources */,
 				13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */,
+				134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */,
 				1326E7862ACA35C400504BF8 /* text.swift in Sources */,
 				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
 				138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */,
@@ -575,6 +582,7 @@
 				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */,
+				1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */,

@@ -62,5 +62,10 @@
 "noInternet_description_info" = "Отсутствует подключение к интернету. Пожалуйста, проверьте свое интернет-соединение и повторите попытку.";
 // notifications
 "notification_text" = "Новые данные о геомагнитной активности.";
+//MARK: Forecast view controler
 // forecast 3 days
 "forecast3days_text" = "Прогноз на 3 дня";
+// chart in forecast 3days
+"chartToday_text" = "Сегодня";
+"chartTomorrow_text" = "Завтра";
+"chartAfterday_text" = "Послезавтра";
