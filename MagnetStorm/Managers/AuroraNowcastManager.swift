@@ -18,7 +18,7 @@ func auroraNowcastValue(completion: @escaping (Result<String, Error>) -> Void) {
             }
             if let data = data, let text = String(data: data, encoding: .utf8) {
                 // Выводим содержимое текста ответа
-                print(text)
+//                print(text)
                 // Ищем значение North-Hemispheric-Power-Index с помощью функции extractNorthPowerIndex
                 if let northPowerIndex = extractNorthPowerIndex(from: text) {
                     // Выводим найденное значение

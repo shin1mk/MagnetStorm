@@ -29,6 +29,7 @@
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
 		13A09F402AC9ECF8003858A1 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */; };
+		13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
 		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
 		13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */; };
@@ -88,6 +89,7 @@
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
 		13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
 		13AA214A2AA5C629006DAB56 /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Light.ttf"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */,
 				13649D412AD2C65E00745175 /* SecondViewController.swift */,
 				13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */,
+				13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
+				13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */,
 				1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */,

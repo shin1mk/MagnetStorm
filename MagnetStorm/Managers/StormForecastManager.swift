@@ -9,7 +9,8 @@ import Foundation
 
 func fetchStormForecast(completion: @escaping (Result<[StormForecastData], Error>) -> Void) {
     // URL для запроса текстовых данных
-    let url = URL(string: "https://services.swpc.noaa.gov/text/3-day-geomag-forecast.txt")!
+//    let url = URL(string: "https://services.swpc.noaa.gov/text/3-day-geomag-forecast.txt")!
+    let url = URL(string: "https://services.swpc.noaa.gov/text/3-day-forecast.txt")!
     // Создаем сессию URLSession
     let session = URLSession.shared
     // Создаем задачу для выполнения HTTP-запроса

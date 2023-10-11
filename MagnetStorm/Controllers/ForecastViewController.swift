@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Charts
+import SafariServices
 
 final class ForecastViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
@@ -40,10 +41,19 @@ final class ForecastViewController: UIViewController {
         view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.7)
         return view
     }()
+    private let sourceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
+        button.titleLabel?.numberOfLines = 0
+        return button
+    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
+        setupTarget()
         fetchStormDetailForecastUI()
     }
     //MARK: Methods
@@ -85,6 +95,12 @@ final class ForecastViewController: UIViewController {
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(-50)
+        }
+        // sourceButton
+        view.addSubview(sourceButton)
+        sourceButton.snp.makeConstraints { make in
+            make.top.equalTo(lineChartView.snp.bottom).offset(0)
+            make.centerX.equalToSuperview()
         }
     }
     //MARK: forecast detail
@@ -163,6 +179,17 @@ final class ForecastViewController: UIViewController {
         chartDataSet.mode = .cubicBezier
 
         return chartDataSet
+    }
+    // setup target
+    private func setupTarget() {
+        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+    }
+    // source button
+    @objc private func openNOAALink() {
+        if let url = URL(string: "https://www.swpc.noaa.gov/products/3-day-forecast") {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
 } // end
 //MARK: Table view
@@ -244,8 +271,6 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Возвращайте высоту ячейки
         return 40.0
-        
     }
 }
