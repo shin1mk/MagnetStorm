@@ -19,6 +19,7 @@ final class MainViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private let forecastView = ForecastView()
+    private let auroraViewController = SecondViewController()
     //MARK: Properties
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
@@ -88,7 +89,8 @@ final class MainViewController: UIViewController {
         setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
-        setupAnimatedGIFBackground()
+        setupMagnetGIFBackground()
+        auroraViewController.setupAuroraGIFBackground()
         setupTarget()
         setupLocationManager()
     }
@@ -169,7 +171,7 @@ final class MainViewController: UIViewController {
         }
     }
     //MARK: GIF Background
-    private func setupAnimatedGIFBackground() {
+    private func setupMagnetGIFBackground() {
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
         if let gifURL = Bundle.main.url(forResource: "stormBackground_gif", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
@@ -488,7 +490,7 @@ extension MainViewController {
         forecastView.alpha = 0.0
         view.addSubview(forecastView)
     
-        UIView.animate(withDuration: 2.5) {
+        UIView.animate(withDuration: 1.8) {
             self.forecastView.alpha = 1.0
         }
     }

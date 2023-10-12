@@ -26,20 +26,24 @@ final class FullScreenImageViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
     //MARK: Lifecycle
     init(image: UIImage?) {
         super.init(nibName: nil, bundle: nil)
         self.imageView.image = image
         setupConstraint()
+        setupDelegate()
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func setupConstraint() {
         // gray background
         view.addSubview(backgroundView)
@@ -57,15 +61,11 @@ final class FullScreenImageViewController: UIViewController {
             make.top.equalTo(backgroundView.snp.top).offset(-24)
         }
         view.backgroundColor = .black
-        
         // Add the scrollView to the view
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        imageView.contentMode = .scaleAspectFit
-
         // Add the imageView to the scrollView
         scrollView.addSubview(imageView)
         imageView.snp.makeConstraints { make in
@@ -74,13 +74,10 @@ final class FullScreenImageViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(1)
             make.height.equalToSuperview().multipliedBy(1)
         }
-        // Set the delegate of the scrollView
-        scrollView.delegate = self
     }
-
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    private func setupDelegate() {
+        scrollView.delegate = self
     }
 }
 extension FullScreenImageViewController: UIScrollViewDelegate {

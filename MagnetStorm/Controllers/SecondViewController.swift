@@ -11,26 +11,36 @@
 // локализовать текст
 import UIKit
 import SnapKit
+import SDWebImage
 
 final class SecondViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private var labelTimer: Timer?
     private var value: String = ""
+    private var isImageOpen = false
 
     //MARK: Properties
-    private let backgroundImage: UIImageView = {
-        let backgroundImage = UIImageView()
-//        backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-        backgroundImage.image = UIImage(named: "aurora_background.png")
-        return backgroundImage
-    }()
+//    private let backgroundImage: UIImageView = {
+//        let backgroundImage = UIImageView()
+////        backgroundImage.contentMode = .scaleAspectFill
+//        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundImage.image = UIImage(named: "aurora_background.png")
+//        return backgroundImage
+//    }()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit // Используйте .scaleAspectFit для вписывания изображения
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.borderWidth = 2.0 // Толщина рамки
+        imageView.layer.borderColor = UIColor.black.cgColor // Цвет рамки
+        imageView.layer.cornerRadius = 10.0 // Скругление углов
+        imageView.backgroundColor = .black // Установите фон в черный цвет
+
+        imageView.clipsToBounds = true // Обрезать изображение по радиусу
         return imageView
     }()
+
+
     private let auroraLabel: UILabel = {
         let auroraLabel = UILabel()
         auroraLabel.text = "Aurora"
@@ -80,7 +90,6 @@ final class SecondViewController: UIViewController {
         let chevronImage = UIImage(systemName: "chevron.up.chevron.down")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
-        button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
     private let pageControl: UIPageControl = {
@@ -94,9 +103,10 @@ final class SecondViewController: UIViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTarget()
         setupConstraint()
         setupSwipeGesture()
+        setupAuroraGIFBackground()
+        setupTarget()
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
         animationLabels()
@@ -105,10 +115,10 @@ final class SecondViewController: UIViewController {
     private func setupConstraint() {
         navigationItem.hidesBackButton = true
         // background image
-        view.addSubview(backgroundImage)
-        backgroundImage.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+//        view.addSubview(backgroundImage)
+//        backgroundImage.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
         view.addSubview(auroraLabel)
         auroraLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(70)
@@ -137,8 +147,8 @@ final class SecondViewController: UIViewController {
         imageView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.4)
-            make.height.equalToSuperview().multipliedBy(0.4)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.height.equalToSuperview().multipliedBy(0.35)
         }
         // buttons
         view.addSubview(refreshButton)
@@ -170,7 +180,15 @@ final class SecondViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-60)
         }
     }
-    
+    //MARK: GIF Background
+     func setupAuroraGIFBackground() {
+        let gifImageView = SDAnimatedImageView(frame: view.bounds)
+        if let gifURL = Bundle.main.url(forResource: "auroraBackground_gif", withExtension: "gif") {
+            gifImageView.sd_setImage(with: gifURL)
+        }
+        view.addSubview(gifImageView)
+        view.sendSubviewToBack(gifImageView)
+    }
     private func fetchAuroraNowcastValue() {
         auroraNowcastValue { result in
             switch result {
@@ -252,6 +270,10 @@ extension SecondViewController {
     }
     
     @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
+        if isImageOpen {
+               return // Если картина уже открыта, игнорируем свайп вверх
+           }
+        
         feedbackGenerator.selectionChanged()
         imageView.alpha = 0.0 // Установите начальное значение прозрачности
         imageView.isHidden = false
@@ -259,6 +281,7 @@ extension SecondViewController {
         UIView.animate(withDuration: 0.7) {
             self.imageView.alpha = 1.0 // Увеличьте прозрачность до 1 (полностью видимое состояние)
         }
+        isImageOpen = true
     }
 
     @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
@@ -268,6 +291,7 @@ extension SecondViewController {
         }) { _ in
             self.imageView.isHidden = true
         }
+        isImageOpen = false
     }
 }
 extension SecondViewController {

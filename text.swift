@@ -30,8 +30,60 @@
  
  
  
- 
- 
+ достаем из прогноза текущее значение
+ public func fetchStormForecastUI() {
+     fetchStormForecast { result in
+         DispatchQueue.main.async { [self] in
+             switch result {
+             case .success(let parsedData):
+                 // Создаем массивы для значений today, tomorrow и afterday
+                 var today: [Double] = []
+                 var tomorrow: [Double] = []
+                 var afterday: [Double] = []
+
+                 // Распределяем значения по массивам
+                 for dataEntry in parsedData {
+                     today.append(dataEntry.values.indices.contains(0) ? dataEntry.values[0] : 0)
+                     tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
+                     afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
+                 }
+
+                 // Определяем текущее время
+                 let currentDate = Date()
+                 let calendar = Calendar.current
+                 let hour = calendar.component(.hour, from: currentDate)
+
+                 // Определяем соответствующее значение
+                 var valueForCurrentTime: Double = 0
+                 if hour < today.count {
+                     valueForCurrentTime = today[hour]
+                 } else if hour < today.count + tomorrow.count {
+                     valueForCurrentTime = tomorrow[hour - today.count]
+                 } else if hour < today.count + tomorrow.count + afterday.count {
+                     valueForCurrentTime = afterday[hour - today.count - tomorrow.count]
+                 }
+
+                 // Пример отображения значения в UILabel
+                 print("Значение в \(hour) часов: \(valueForCurrentTime)")
+
+                 // Вывод значения в консоль
+                 print("Значение в \(hour) часов: \(valueForCurrentTime)")
+
+                 // Вызываем функцию стек констрейнт и выводим значения в интерфейс
+                 setupStackConstraints(today: today, tomorrow: tomorrow, afterday: afterday, currentDate: currentDate, valueForCurrentTime: valueForCurrentTime)
+
+             case .failure(let error):
+                 print("Ошибка при загрузке данных: \(error)")
+             }
+         }
+     }
+ }
+
+ // Функция для установки констрейнтов и отображения данных в интерфейсе
+ func setupStackConstraints(today: [Double], tomorrow: [Double], afterday: [Double], currentDate: Date, valueForCurrentTime: Double) {
+     // Здесь вы можете установить констрейнты и обновить интерфейс с текущим временем и соответствующим значением
+ }
+
  let progressBar = UIProgressView(progressViewStyle: .default)
 
 // Настраиваем прозрачный фон для прогресс-бара
@@ -64,59 +116,7 @@ progressBar.snp.makeConstraints { make in
 
 }
 
- private func fetchMagneticDataAndUpdateUI() {
-     fetchMagneticData { [weak self] currentKpValue in
-         DispatchQueue.main.async {
-             var state: GeomagneticActivityState = .unknown
-             var intValue = 0 // Объявляем intValue за пределами блока if и инициализируем его значением по умолчанию
-             
-             if let kpValue = currentKpValue, let convertedValue = Int(kpValue) {
-                 intValue = convertedValue // Присваиваем значение переменной intValue
-                 switch convertedValue {
-                 case 0:
-                     state = .noStorm
-                 case 1:
-                     state = .minorStorm
-                 case 2:
-                     state = .weakStorm
-                 case 3:
-                     state = .moderateStorm
-                 case 4:
-                     state = .strongStorm
-                 case 5:
-                     state = .severeStorm
-                 case 6:
-                     state = .extremeStorm
-                 case 7:
-                     state = .outstandingStorm
-                 case 8:
-                     state = .exceptionalStorm
-                 case 9:
-                     state = .superStorm
-                 default:
-                     state = .unknown
-                 }
-             }
-             
-             self?.currentGeomagneticActivityState = state // Обновляем текущее состояние
-             self?.geomagneticActivityLabel.text = state.labelText
-             self?.animateGeomagneticActivityLabelAppearance(withText: state.labelText)
-             
-             // Определите диапазон значений состояний
-             let minValue = 0
-             let maxValue = 9
-             
-             // Определите текущее состояние (например, текущее значение kpValue)
-             let currentValue = intValue // Используем значение intValue
-             
-             // Вычислите процентное значение на основе текущего состояния
-             let percentage = Float(currentValue - minValue) / Float(maxValue - minValue)
-             
-             // Установите прогресс в UIProgressView
-             self?.progressBar.progress = percentage
-         }
-     }
- }
+ 
  
  
  extension InfoViewController {

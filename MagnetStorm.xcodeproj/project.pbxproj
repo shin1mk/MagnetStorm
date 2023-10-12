@@ -22,6 +22,7 @@
 		134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */; };
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
 		1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */; };
+		1358EDAC2AD80AB9002A47B7 /* auroraBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */; };
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
 		13649D422AD2C65E00745175 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* SecondViewController.swift */; };
@@ -82,6 +83,7 @@
 		134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraImageManager.swift; sourceTree = "<group>"; };
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
 		1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraNowcastManager.swift; sourceTree = "<group>"; };
+		1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = auroraBackground_gif.gif; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
 		13649D412AD2C65E00745175 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		13AA21542AA5D1CF006DAB56 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */,
 				1325298D2AACEF260002CE93 /* stormBackground_gif.gif */,
 			);
 			path = Video;
@@ -443,6 +446,7 @@
 				13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */,
 				13CB67C82AC77275001C6270 /* InfoPlist.strings in Resources */,
 				13E3CC9F2AB302ED00C14F39 /* Localizable.strings in Resources */,
+				1358EDAC2AD80AB9002A47B7 /* auroraBackground_gif.gif in Resources */,
 				1325298E2AACEF260002CE93 /* stormBackground_gif.gif in Resources */,
 				13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */,
 			);

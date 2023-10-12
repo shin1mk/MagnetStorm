@@ -113,26 +113,38 @@ final class ForecastViewController: UIViewController {
                     today.removeAll()
                     tomorrow.removeAll()
                     afterday.removeAll()
+
                     // Определяем сегодняшнюю дату
                     let currentDate = Date()
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "EEEE, d MMM" // Формат дня недели и даты
                     print("Сегодняшняя дата: \(dateFormatter.string(from: currentDate))")
+
                     // Вычисляем даты для завтрашнего дня и послезавтрашнего дня
                     if let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate) {
                         print("Дата завтрашнего дня: \(dateFormatter.string(from: tomorrowDate))")
+                 
                         // Распределяем значения по массивам
                         for dataEntry in parsedData {
                             today.append(dataEntry.values.indices.contains(0) ? dataEntry.values[0] : 0)
                             tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
                             afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
                         }
+                        // Удаление последнего элемента из массивов
+                        if !today.isEmpty {
+                            today.removeLast()
+                        }
+                        if !tomorrow.isEmpty {
+                            tomorrow.removeLast()
+                        }
+                        if !afterday.isEmpty {
+                            afterday.removeLast()
+                        }
                         print("detail for today: \(today)")
                         print("detail for tomorrow: \(tomorrow)")
                         print("detail for afterday: \(afterday)")
                         tableView.reloadData()
                         setupLineChart()
-
                     }
                 case .failure(let error):
                     print("Ошибка при загрузке данных: \(error)")
@@ -140,6 +152,7 @@ final class ForecastViewController: UIViewController {
             }
         }
     }
+
     //MARK: Chart
     private func setupLineChart() {
         // Настройка свойств графика
@@ -204,15 +217,15 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         let todayValue = today[indexPath.row]
         let tomorrowValue = tomorrow[indexPath.row]
         let afterdayValue = afterday[indexPath.row]
-        
+
         let timeLabel = timeLabels[indexPath.row % timeLabels.count]
-        
+
         cell.timeLabel.text = timeLabel
         cell.todayValueLabel.text = "G\(todayValue)"
         cell.tomorrowValueLabel.text = "G\(tomorrowValue)"
         cell.afterdayValueLabel.text = "G\(afterdayValue)"
-        cell.backgroundColor = .black //
-        
+        cell.backgroundColor = .black
+
         return cell
     }
     // number of sections
