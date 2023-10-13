@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1304A9462AD94C2600006CA6 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1304A9452AD94C2600006CA6 /* PageViewController.swift */; };
 		1325298E2AACEF260002CE93 /* stormBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* stormBackground_gif.gif */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
 		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
 		1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7892ACABE3700504BF8 /* StormForecastModels.swift */; };
 		13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAD2AA2965000C858BF /* AppDelegate.swift */; };
 		13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AAF2AA2965000C858BF /* SceneDelegate.swift */; };
-		13449AB22AA2965000C858BF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* MainViewController.swift */; };
+		13449AB22AA2965000C858BF /* StormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB12AA2965000C858BF /* StormViewController.swift */; };
 		13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13449AB62AA2965000C858BF /* MagnetStorm.xcdatamodeld */; };
 		13449ABA2AA2965100C858BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13449AB92AA2965100C858BF /* Assets.xcassets */; };
 		13449AC82AA2965100C858BF /* MagnetStormTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AC72AA2965100C858BF /* MagnetStormTests.swift */; };
@@ -25,7 +26,7 @@
 		1358EDAC2AD80AB9002A47B7 /* auroraBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */; };
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
-		13649D422AD2C65E00745175 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* SecondViewController.swift */; };
+		13649D422AD2C65E00745175 /* AuroraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* AuroraViewController.swift */; };
 		137097402ACA1A9300EE4538 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* DescriptionTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1304A9452AD94C2600006CA6 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		1325298D2AACEF260002CE93 /* stormBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = stormBackground_gif.gif; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
@@ -71,7 +73,7 @@
 		13449AAA2AA2965000C858BF /* MagnetStorm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagnetStorm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13449AAD2AA2965000C858BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		13449AAF2AA2965000C858BF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		13449AB12AA2965000C858BF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		13449AB12AA2965000C858BF /* StormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormViewController.swift; sourceTree = "<group>"; };
 		13449AB72AA2965000C858BF /* MagnetStorm.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MagnetStorm.xcdatamodel; sourceTree = "<group>"; };
 		13449AB92AA2965100C858BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13449ABE2AA2965100C858BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,7 +88,7 @@
 		1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = auroraBackground_gif.gif; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
-		13649D412AD2C65E00745175 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		13649D412AD2C65E00745175 /* AuroraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraViewController.swift; sourceTree = "<group>"; };
 		1370973F2ACA1A9300EE4538 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
@@ -203,11 +205,12 @@
 		13449AE02AA296B800C858BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13449AB12AA2965000C858BF /* MainViewController.swift */,
+				13449AB12AA2965000C858BF /* StormViewController.swift */,
 				13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */,
-				13649D412AD2C65E00745175 /* SecondViewController.swift */,
+				13649D412AD2C65E00745175 /* AuroraViewController.swift */,
 				13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */,
 				13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */,
+				1304A9452AD94C2600006CA6 /* PageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -582,20 +585,21 @@
 				13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */,
 				134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */,
 				1326E7862ACA35C400504BF8 /* text.swift in Sources */,
-				13449AB22AA2965000C858BF /* MainViewController.swift in Sources */,
+				13449AB22AA2965000C858BF /* StormViewController.swift in Sources */,
 				138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */,
 				1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
 				13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
+				1304A9462AD94C2600006CA6 /* PageViewController.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */,
 				1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */,
 				137097402ACA1A9300EE4538 /* DescriptionTableViewCell.swift in Sources */,
-				13649D422AD2C65E00745175 /* SecondViewController.swift in Sources */,
+				13649D422AD2C65E00745175 /* AuroraViewController.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

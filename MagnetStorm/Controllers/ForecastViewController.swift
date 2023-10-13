@@ -130,15 +130,15 @@ final class ForecastViewController: UIViewController {
                             tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
                             afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
                         }
-                        // Удаление последнего элемента из массивов
-                        if !today.isEmpty {
-                            today.removeLast()
+                        // Проверка и обрезка массивов до 8 элементов
+                        if today.count > 8 {
+                            today = Array(today.prefix(8))
                         }
-                        if !tomorrow.isEmpty {
-                            tomorrow.removeLast()
+                        if tomorrow.count > 8 {
+                            tomorrow = Array(tomorrow.prefix(8))
                         }
-                        if !afterday.isEmpty {
-                            afterday.removeLast()
+                        if afterday.count > 8 {
+                            afterday = Array(afterday.prefix(8))
                         }
                         print("detail for today: \(today)")
                         print("detail for tomorrow: \(tomorrow)")
@@ -248,10 +248,10 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         let headerView = UIView()
         headerView.backgroundColor = .black
         
-        let label = UILabel()
-        label.textColor = .white // Цвет текста заголовка
-        label.font = UIFont.SFUITextHeavy(ofSize: 18) // Жирный шрифт
-        label.textAlignment = .right // Выравнивание текста справа
+        let dataLabel = UILabel()
+        dataLabel.textColor = .white // Цвет текста заголовка
+        dataLabel.font = UIFont.SFUITextBold(ofSize: 18) // Жирный шрифт
+        dataLabel.textAlignment = .right // Выравнивание текста справа
         
         switch section {
         case 0:
@@ -266,16 +266,16 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
             if let tomorrowDate = tomorrowDate, let afterTomorrowDate = afterTomorrowDate {
                 let tomorrowString = dateFormatter.string(from: tomorrowDate)
                 let afterTomorrowString = dateFormatter.string(from: afterTomorrowDate)
-                label.text = "\(todayDate)  \(tomorrowString)  \(afterTomorrowString)"
+                dataLabel.text = "\(todayDate)  \(tomorrowString)  \(afterTomorrowString)"
             } else {
-                label.text = todayDate
+                dataLabel.text = todayDate
             }
         default:
-            label.text = nil
+            dataLabel.text = nil
         }
         
-        headerView.addSubview(label)
-        label.snp.makeConstraints { make in
+        headerView.addSubview(dataLabel)
+        dataLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(5) // Отступ справа
             make.centerY.equalToSuperview() // Выравнивание по вертикали
         }

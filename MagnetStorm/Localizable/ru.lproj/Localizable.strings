@@ -69,3 +69,7 @@
 "chartToday_text" = "Сегодня";
 "chartTomorrow_text" = "Завтра";
 "chartAfterday_text" = "Послезавтра";
+
+//MARK: Second view controller
+"titleAurora_text" = "Cеверное Cияние";
+"descriptionAurora_text" = "Северное полушарие";

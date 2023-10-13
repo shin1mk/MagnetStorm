@@ -64,8 +64,12 @@
 "notification_text" = "New data on geomagnetic activity.";
 //MARK: Forecast view controler
 // forecast 3 days
-"forecast3days_text" = "Прогноз на 3 дня";
+"forecast3days_text" = "3 days forecast";
 // chart in forecast 3days
 "chartToday_text" = "Today";
 "chartTomorrow_text" = "Tomorrow";
 "chartAfterday_text" = "Afterday";
+
+//MARK: Second view controller
+"titleAurora_text" = "Aurora Borealis";
+"descriptionAurora_text" = "NORTHERN HEMISPHERE";

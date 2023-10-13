@@ -1,50 +1,35 @@
 //
-//  SecondViewController.swift
+//  AuroraViewController.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 06.10.2023.
 //
-// картинка должна быть кликабельна
-// рефрешь обновляет данные гигавата и картинку с индикатором загрузки
-// информация вставить 4 картинки
-// придумать объяснение
-// локализовать текст
+
 import UIKit
 import SnapKit
 import SDWebImage
 
-final class SecondViewController: UIViewController {
+final class AuroraViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private var labelTimer: Timer?
     private var value: String = ""
     private var isImageOpen = false
-
     //MARK: Properties
-//    private let backgroundImage: UIImageView = {
-//        let backgroundImage = UIImageView()
-////        backgroundImage.contentMode = .scaleAspectFill
-//        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-//        backgroundImage.image = UIImage(named: "aurora_background.png")
-//        return backgroundImage
-//    }()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit // Используйте .scaleAspectFit для вписывания изображения
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.borderWidth = 2.0 // Толщина рамки
-        imageView.layer.borderColor = UIColor.black.cgColor // Цвет рамки
-        imageView.layer.cornerRadius = 10.0 // Скругление углов
-        imageView.backgroundColor = .black // Установите фон в черный цвет
-
-        imageView.clipsToBounds = true // Обрезать изображение по радиусу
+        imageView.layer.borderWidth = 2.0
+        imageView.layer.borderColor = UIColor.black.cgColor
+        imageView.layer.cornerRadius = 10.0
+        imageView.backgroundColor = .black
+        imageView.clipsToBounds = true
         return imageView
     }()
-
-
     private let auroraLabel: UILabel = {
         let auroraLabel = UILabel()
-        auroraLabel.text = "Aurora"
-        auroraLabel.font = UIFont.SFUITextHeavy(ofSize: 40 )
+        auroraLabel.text = "titleAurora_text".localized()
+        auroraLabel.font = UIFont.SFUITextHeavy(ofSize: 35 )
         auroraLabel.textColor = .white
         return auroraLabel
     }()
@@ -65,7 +50,7 @@ final class SecondViewController: UIViewController {
     }()
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "NORTHERN HEMISPHERE"
+        descriptionLabel.text = "descriptionAurora_text".localized()
         descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 25)
         descriptionLabel.textColor = .white
         descriptionLabel.numberOfLines = 0
@@ -114,11 +99,6 @@ final class SecondViewController: UIViewController {
     //MARK: Methods
     private func setupConstraint() {
         navigationItem.hidesBackButton = true
-        // background image
-//        view.addSubview(backgroundImage)
-//        backgroundImage.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//        }
         view.addSubview(auroraLabel)
         auroraLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(70)
@@ -232,7 +212,7 @@ final class SecondViewController: UIViewController {
     
 } // end
 //MARK: Gestures
-extension SecondViewController {
+extension AuroraViewController {
     // swipe back
     private func setupSwipeGesture() {
         // свайп назад на main VC
@@ -294,7 +274,7 @@ extension SecondViewController {
         isImageOpen = false
     }
 }
-extension SecondViewController {
+extension AuroraViewController {
     // targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
@@ -335,11 +315,11 @@ extension SecondViewController {
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
     }
 }
-extension SecondViewController {
+extension AuroraViewController {
     private func animationLabels() {
-        animateAuroraLabelAppearance(withText: "Aurora")
+        animateAuroraLabelAppearance(withText: "titleAurora_text".localized())
         animateValueLabelAppearance(withText: "GIGAWATTS")
-        animateDescriptionLabelAppearance(withText: "NORTHERN HEMISPHERE")
+        animateDescriptionLabelAppearance(withText: "descriptionAurora_text".localized())
         animateNorthActivityLabelAppearance(withText: value)
     }
     

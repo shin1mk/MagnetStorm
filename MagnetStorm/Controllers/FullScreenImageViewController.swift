@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import SafariServices
 
 final class FullScreenImageViewController: UIViewController {
     private let subtractImageView = UIImageView(image: UIImage(named: "subtract"))
@@ -32,12 +33,21 @@ final class FullScreenImageViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    private let sourceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
+        button.titleLabel?.numberOfLines = 0
+        return button
+    }()
     //MARK: Lifecycle
     init(image: UIImage?) {
         super.init(nibName: nil, bundle: nil)
         self.imageView.image = image
         setupConstraint()
         setupDelegate()
+        setupTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -74,10 +84,27 @@ final class FullScreenImageViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(1)
             make.height.equalToSuperview().multipliedBy(1)
         }
+        // sourceButton
+        view.addSubview(sourceButton)
+        sourceButton.snp.makeConstraints { make in
+            make.bottom.equalTo(imageView.snp.bottom).offset(-20)
+            make.centerX.equalToSuperview()
+        }
     }
     
     private func setupDelegate() {
         scrollView.delegate = self
+    }
+    // setup target
+    private func setupTarget() {
+        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+    }
+    // source button
+    @objc private func openNOAALink() {
+        if let url = URL(string: "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast") {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
 }
 extension FullScreenImageViewController: UIScrollViewDelegate {

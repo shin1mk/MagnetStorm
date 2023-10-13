@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  StormViewController.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 02.09.2023.
@@ -12,15 +12,14 @@ import SDWebImage
 import UserNotifications
 import Network
 
-final class MainViewController: UIViewController {
+final class StormViewController: UIViewController {
     //MARK: Properties
     private let notificationCenter = UNUserNotificationCenter.current()
     private let geocoder = CLGeocoder()
     private let locationManager = CLLocationManager()
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private let forecastView = ForecastView()
-    private let auroraViewController = SecondViewController()
-    //MARK: Properties
+    private let auroraViewController = AuroraViewController()
     private var locationLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
@@ -247,7 +246,7 @@ final class MainViewController: UIViewController {
     }
 } // end
 //MARK: - Location Manager Delegate
-extension MainViewController: CLLocationManagerDelegate {
+extension StormViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
@@ -288,7 +287,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 //MARK: Swipe
-extension MainViewController {
+extension StormViewController {
     // targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
@@ -325,7 +324,7 @@ extension MainViewController {
     @objc private func handleSwipeLeft(_ gesture: UISwipeGestureRecognizer) {
         if gesture.state == .ended {
             // Создайте экземпляр второго вью контроллера
-            let secondViewController = SecondViewController()
+            let secondViewController = AuroraViewController()
             // Вызовите метод pushViewController для UINavigationController, чтобы выполнить переход на второй экран
             navigationController?.pushViewController(secondViewController, animated: true)
         }
@@ -429,7 +428,7 @@ extension MainViewController {
     }
 }
 //MARK: Animations
-extension MainViewController {
+extension StormViewController {
     // Animate Location
     private func animateLocationLabelAppearance(withText text: String) {
         locationLabel.alpha = 0.0 // Начнем с нулевой прозрачности
@@ -496,7 +495,7 @@ extension MainViewController {
     }
 }
 //MARK: UserNotificationCenter
-extension MainViewController {
+extension StormViewController {
     private func setupNotificationTimer() {
         let threeHours: TimeInterval = 3 * 3600 // 3 часа
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)

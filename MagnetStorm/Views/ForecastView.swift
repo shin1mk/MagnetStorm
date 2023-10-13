@@ -44,15 +44,15 @@ final class ForecastView: UIView {
                             tomorrow.append(dataEntry.values.indices.contains(1) ? dataEntry.values[1] : 0)
                             afterday.append(dataEntry.values.indices.contains(2) ? dataEntry.values[2] : 0)
                         }
-                        // Удаление последнего элемента из массивов
-                        if !today.isEmpty {
-                            today.removeLast()
+                        // Проверка и обрезка массивов до 8 элементов
+                        if today.count > 8 {
+                            today = Array(today.prefix(8))
                         }
-                        if !tomorrow.isEmpty {
-                            tomorrow.removeLast()
+                        if tomorrow.count > 8 {
+                            tomorrow = Array(tomorrow.prefix(8))
                         }
-                        if !afterday.isEmpty {
-                            afterday.removeLast()
+                        if afterday.count > 8 {
+                            afterday = Array(afterday.prefix(8))
                         }
                         print("Значения для today: \(today)")
                         print("Значения для tomorrow: \(tomorrow)")

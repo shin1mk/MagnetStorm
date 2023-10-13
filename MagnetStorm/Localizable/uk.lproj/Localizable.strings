@@ -64,8 +64,12 @@
 "notification_text" = "Нові дані про геомагнітну активність.";
 //MARK: Forecast view controler
 // forecast 3 days
-"forecast3days_text" = "Прогноз на 3 дня";
+"forecast3days_text" = "Прогноз на 3 дні";
 // chart in forecast 3days
 "chartToday_text" = "Сьогодні";
 "chartTomorrow_text" = "Завтра";
 "chartAfterday_text" = "Післязавтра";
+
+//MARK: Second view controller
+"titleAurora_text" = "Північне Cяйво";
+"descriptionAurora_text" = "Північна півкуля";
