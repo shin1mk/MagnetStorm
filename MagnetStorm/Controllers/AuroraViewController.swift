@@ -91,7 +91,7 @@ final class AuroraViewController: UIViewController {
         setupConstraint()
         setupSwipeGesture()
         view.backgroundColor = .black
-        //        setupAuroraGIFBackground()
+        setupAuroraGIFBackground()
         setupTarget()
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
@@ -164,12 +164,13 @@ final class AuroraViewController: UIViewController {
     //MARK: GIF Background
     func setupAuroraGIFBackground() {
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
-        if let gifURL = Bundle.main.url(forResource: "auroraBackground_gif", withExtension: "gif") {
+        if let gifURL = Bundle.main.url(forResource: "AuroraBackground2", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
         }
         view.addSubview(gifImageView)
         view.sendSubviewToBack(gifImageView)
     }
+    
     private func fetchAuroraNowcastValue() {
         auroraNowcastValue { result in
             switch result {

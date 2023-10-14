@@ -89,7 +89,7 @@ final class StormViewController: UIViewController {
         setupConstraints()
         setupGestures()
         view.backgroundColor = .black
-//        setupMagnetGIFBackground()
+        setupMagnetGIFBackground()
         auroraViewController.setupAuroraGIFBackground()
         setupTarget()
         setupLocationManager()
@@ -173,7 +173,7 @@ final class StormViewController: UIViewController {
     //MARK: GIF Background
     private func setupMagnetGIFBackground() {
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
-        if let gifURL = Bundle.main.url(forResource: "stormBackground_gif", withExtension: "gif") {
+        if let gifURL = Bundle.main.url(forResource: "StormBackground2", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
         }
         view.addSubview(gifImageView) // Добавляем imageView на экран

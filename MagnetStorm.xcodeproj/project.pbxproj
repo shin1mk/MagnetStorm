@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1325298E2AACEF260002CE93 /* stormBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* stormBackground_gif.gif */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
 		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
 		1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7892ACABE3700504BF8 /* StormForecastModels.swift */; };
@@ -22,7 +21,6 @@
 		134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */; };
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
 		1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */; };
-		1358EDAC2AD80AB9002A47B7 /* auroraBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */; };
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
 		13649D422AD2C65E00745175 /* AuroraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* AuroraViewController.swift */; };
@@ -31,6 +29,8 @@
 		137097402ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
+		139C70D02ADB2FE400F64606 /* StormBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CE2ADB2FE200F64606 /* StormBackground2.gif */; };
+		139C70D12ADB2FE400F64606 /* AuroraBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */; };
 		13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */; };
 		13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
@@ -66,7 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1325298D2AACEF260002CE93 /* stormBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = stormBackground_gif.gif; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
 		1326E7892ACABE3700504BF8 /* StormForecastModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastModels.swift; sourceTree = "<group>"; };
@@ -85,7 +84,6 @@
 		134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraImageManager.swift; sourceTree = "<group>"; };
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
 		1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraNowcastManager.swift; sourceTree = "<group>"; };
-		1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = auroraBackground_gif.gif; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
 		13649D412AD2C65E00745175 /* AuroraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +92,8 @@
 		1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		139C70CE2ADB2FE200F64606 /* StormBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = StormBackground2.gif; sourceTree = "<group>"; };
+		139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AuroraBackground2.gif; sourceTree = "<group>"; };
 		13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionViewController.swift; sourceTree = "<group>"; };
 		13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
@@ -285,8 +285,8 @@
 		13AA21542AA5D1CF006DAB56 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				1358EDAB2AD80AB9002A47B7 /* auroraBackground_gif.gif */,
-				1325298D2AACEF260002CE93 /* stormBackground_gif.gif */,
+				139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */,
+				139C70CE2ADB2FE200F64606 /* StormBackground2.gif */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -449,11 +449,11 @@
 				13AA214F2AA5C629006DAB56 /* SFUIText-Light.ttf in Resources */,
 				13AA21502AA5C629006DAB56 /* SFUIText-Heavy.ttf in Resources */,
 				13449ABA2AA2965100C858BF /* Assets.xcassets in Resources */,
+				139C70D02ADB2FE400F64606 /* StormBackground2.gif in Resources */,
+				139C70D12ADB2FE400F64606 /* AuroraBackground2.gif in Resources */,
 				13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */,
 				13CB67C82AC77275001C6270 /* InfoPlist.strings in Resources */,
 				13E3CC9F2AB302ED00C14F39 /* Localizable.strings in Resources */,
-				1358EDAC2AD80AB9002A47B7 /* auroraBackground_gif.gif in Resources */,
-				1325298E2AACEF260002CE93 /* stormBackground_gif.gif in Resources */,
 				13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
