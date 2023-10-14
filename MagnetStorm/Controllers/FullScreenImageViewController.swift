@@ -41,6 +41,12 @@ final class FullScreenImageViewController: UIViewController {
         button.titleLabel?.numberOfLines = 0
         return button
     }()
+    private let closeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"), for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        return button
+    }()
     //MARK: Lifecycle
     init(image: UIImage?) {
         super.init(nibName: nil, bundle: nil)
@@ -53,23 +59,23 @@ final class FullScreenImageViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    //MARK: Methods
     private func setupConstraint() {
         // gray background
-        view.addSubview(backgroundView)
-        backgroundView.layer.zPosition = 100 // z-index
-        backgroundView.snp.makeConstraints { make in
-            make.top.equalTo(view)
-            make.leading.equalTo(view)
-            make.trailing.equalTo(view)
-            make.height.equalTo(50)
-        }
+//        view.addSubview(backgroundView)
+//        backgroundView.layer.zPosition = 100 // z-index
+//        backgroundView.snp.makeConstraints { make in
+//            make.top.equalTo(view)
+//            make.leading.equalTo(view)
+//            make.trailing.equalTo(view)
+//            make.height.equalTo(50)
+//        }
         // subtract
-        backgroundView.addSubview(subtractImageView)
-        subtractImageView.snp.makeConstraints { make in
-            make.centerX.equalTo(backgroundView)
-            make.top.equalTo(backgroundView.snp.top).offset(-24)
-        }
+//        backgroundView.addSubview(subtractImageView)
+//        subtractImageView.snp.makeConstraints { make in
+//            make.centerX.equalTo(backgroundView)
+//            make.top.equalTo(backgroundView.snp.top).offset(-24)
+//        }
         view.backgroundColor = .black
         // Add the scrollView to the view
         view.addSubview(scrollView)
@@ -84,12 +90,23 @@ final class FullScreenImageViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(1)
             make.height.equalToSuperview().multipliedBy(1)
         }
+        // close button
+        view.addSubview(closeButton)
+        closeButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(view).offset(-10)
+            make.width.height.equalTo(30)
+        }
         // sourceButton
         view.addSubview(sourceButton)
         sourceButton.snp.makeConstraints { make in
-            make.bottom.equalTo(imageView.snp.bottom).offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
         }
+    }
+    
+    @objc private func closeButtonTapped() {
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupDelegate() {
@@ -98,6 +115,7 @@ final class FullScreenImageViewController: UIViewController {
     // setup target
     private func setupTarget() {
         sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     // source button
     @objc private func openNOAALink() {

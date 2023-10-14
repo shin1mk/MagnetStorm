@@ -4,6 +4,7 @@
   English
   Created by SHIN MIKHAIL on 14.09.2023.
 */
+
 //MARK: - GeomagneticActivityState
 //0
 "noStorm_description" = "No storm:\nImpact on the human body is practically absent. People do not feel any physical or emotional changes.";
@@ -26,18 +27,20 @@
 //9
 "superStorm_description" = "Super storm:\nThe highest level of magnetic storm activity, with catastrophic consequences for the entire human body and technical equipment in the world.";
 //NoInternet
-"noInternet_description" = "No network"; // переклад на англійську мову
-//MARK: - infoViewController
-"noStorm_info" = "Absence of Storm"; //0
-"minorStorm_info" = "Minor Storm"; //1
-"weakStorm_info" = "Weak Storm"; //2
-"moderateStorm_info" = "Moderate Storm"; //3
-"strongStorm_info" = "Strong Storm"; //4
-"severeStorm_info" = "Severe Storm"; //5
-"extremeStorm_info" = "Extreme-Scale\nStorm"; //6
-"outstandingStorm_info" = "Outstanding-Scale\nStorm"; //7
-"exceptionalStorm_info" = "Exceptional Storm"; //8
-"superStorm_info" = "Super Storm"; //9
+"noInternet_description" = "No network"; 
+
+//MARK: - StormDescriptionViewController
+"noStorm_info" = "Absence of Storm G0"; //0
+"minorStorm_info" = "Minor Storm G1"; //1
+"weakStorm_info" = "Weak Storm G2"; //2
+"moderateStorm_info" = "Moderate Storm G3"; //3
+"strongStorm_info" = "Strong Storm G4"; //4
+"severeStorm_info" = "Severe Storm G5"; //5
+"extremeStorm_info" = "Extreme-Scale\nStorm G6"; //6
+"outstandingStorm_info" = "Outstanding-Scale\nStorm G7"; //7
+"exceptionalStorm_info" = "Exceptional Storm G8"; //8
+"superStorm_info" = "Super Storm G9"; //9
+
 //0
 "noStorm_description_info" = "At this level of geomagnetic activity, the human body is practically unaffected by magnetic storms. People do not feel any physical or emotional changes. Sleep is stable, mood remains consistently good, and physical condition remains normal.";
 //1
@@ -62,6 +65,9 @@
 "noInternet_description_info" = "No internet connection. Please check your internet connection and try again.";
 // notifications
 "notification_text" = "New data on geomagnetic activity.";
+//rate app
+"rateApp_text" = "Rate App";
+
 //MARK: Forecast view controler
 // forecast 3 days
 "forecast3days_text" = "3 days forecast";
@@ -73,3 +79,20 @@
 //MARK: Second view controller
 "titleAurora_text" = "Aurora Borealis";
 "descriptionAurora_text" = "NORTHERN HEMISPHERE";
+
+//MARK: Aurora Description
+"geomagneticTitle" = "Geomagnetic Activity";
+"geomagneticDescription_text" = "If the geomagnetic field is active (as indicated by the G index), the northern lights (aurora) will be visible further from the poles. Geomagnetic activity depends on solar activity and the presence of solar coronal holes, so it varies over time.
+\nThe level of geomagnetic activity is measured using the planetary G index, and the intensity of the aurora is expressed in gigawatts (GW). The G index ranges from 0 to 9, and the intensity of the aurora varies from lower values to higher ones.
+\nIt should be noted that there are moments when these relationships do not hold exactly.";
+
+"locationTitle" = "Location";
+"locationDescription_text" = "For the best northern lights viewing, head towards the magnetic poles. With the right choice of location, such as on top of a hill in the northern hemisphere with an unobstructed view to the north, you can see the aurora even when it is still 1000 km to the north.
+\nIt is important to note that if you are beneath the aurora in the right place, you can enjoy beautiful auroral displays even during low geomagnetic activity (G = 2 or 3).";
+
+"mustBeDarkTitle" = "It Must Be Dark";
+"mustBeDarkDescription_text" = "For optimal northern lights observation, venture out during the night. Move away from artificial city lights. The light of a full moon may reduce the apparent brightness of the aurora, but not its actual brightness.";
+
+"timeTitle" = "Timing";
+"timeDescription_text" = "The best time for northern lights observation usually falls within an hour or two around midnight. These hours of auroral activity expand towards the evening and morning as the level of geomagnetic activity increases. Although the aurora may be visible in the evening and morning, it is usually less active and, therefore, less visually appealing.
+\nThe most favorable seasons for northern lights observation are around the spring and fall equinoxes.";

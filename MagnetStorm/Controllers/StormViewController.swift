@@ -54,7 +54,7 @@ final class StormViewController: UIViewController {
     }()
     private let refreshButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise.circle.fill")
+        let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -69,17 +69,17 @@ final class StormViewController: UIViewController {
     }()
     private let descriptionButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "info.circle.fill")
+        let chevronImage = UIImage(systemName: "info.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
     }()
     private let pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.numberOfPages = 2 // количество доступных экранов
-        pageControl.currentPage = 0 // текущий экран
-        pageControl.pageIndicatorTintColor = UIColor.gray // Цвет точек экранов
-        pageControl.currentPageIndicatorTintColor = UIColor.white // Цвет точки
+        pageControl.numberOfPages = 2
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = UIColor.gray
+        pageControl.currentPageIndicatorTintColor = UIColor.white
         return pageControl
     }()
     //MARK: Lifecycle
@@ -88,7 +88,8 @@ final class StormViewController: UIViewController {
         setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
-        setupMagnetGIFBackground()
+        view.backgroundColor = .black
+//        setupMagnetGIFBackground()
         auroraViewController.setupAuroraGIFBackground()
         setupTarget()
         setupLocationManager()
@@ -242,6 +243,7 @@ final class StormViewController: UIViewController {
     private func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.width
         let currentPage = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth)) + 1
+        
         pageControl.currentPage = currentPage
     }
 } // end
@@ -312,9 +314,9 @@ extension StormViewController {
         view.addGestureRecognizer(swipeDownGesture)
         swipeUpGesture.require(toFail: swipeDownGesture) // Устанавливаем зависимость между жестами
         // тап по описанию
-        let descriptionLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionViewTapped))
-        descriptionLabel.addGestureRecognizer(descriptionLabelTapGesture)
-        descriptionLabel.isUserInteractionEnabled = true
+//        let descriptionLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionViewTapped))
+//        descriptionLabel.addGestureRecognizer(descriptionLabelTapGesture)
+//        descriptionLabel.isUserInteractionEnabled = true
         // тап по прогнозу
         let forecastViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(forecastViewTapped))
         forecastView.addGestureRecognizer(forecastViewTapGesture)
@@ -361,10 +363,10 @@ extension StormViewController {
         }
     }
     // вызываем функцию описания
-    @objc private func descriptionViewTapped() {
-        descriptionButtonTapped()
-        feedbackGenerator.selectionChanged() // Добавьте виброотклик
-    }
+//    @objc private func descriptionViewTapped() {
+//        descriptionButtonTapped()
+//        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+//    }
     // вызываем функцию для экрана прогноза
     @objc private func forecastViewTapped() {
         print("forecastView")
@@ -413,7 +415,7 @@ extension StormViewController {
         print("descriptionButtonTapped")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
         
-        let descriptionViewController = DescriptionViewController()
+        let descriptionViewController = StormDescriptionViewController()
         descriptionViewController.modalPresentationStyle = .popover
         present(descriptionViewController, animated: true, completion: nil)
     }
@@ -515,4 +517,3 @@ extension StormViewController {
         }
     }
 }
-

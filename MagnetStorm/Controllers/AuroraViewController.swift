@@ -58,14 +58,14 @@ final class AuroraViewController: UIViewController {
     }()
     private let refreshButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise.circle.fill")
+        let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
     }()
     private let descriptionButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "info.circle.fill")
+        let chevronImage = UIImage(systemName: "info.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
         return button
@@ -90,7 +90,8 @@ final class AuroraViewController: UIViewController {
         super.viewDidLoad()
         setupConstraint()
         setupSwipeGesture()
-        setupAuroraGIFBackground()
+        view.backgroundColor = .black
+        //        setupAuroraGIFBackground()
         setupTarget()
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
@@ -161,7 +162,7 @@ final class AuroraViewController: UIViewController {
         }
     }
     //MARK: GIF Background
-     func setupAuroraGIFBackground() {
+    func setupAuroraGIFBackground() {
         let gifImageView = SDAnimatedImageView(frame: view.bounds)
         if let gifURL = Bundle.main.url(forResource: "auroraBackground_gif", withExtension: "gif") {
             gifImageView.sd_setImage(with: gifURL)
@@ -209,7 +210,6 @@ final class AuroraViewController: UIViewController {
     private func loadAndDisplayImageFromURL(_ imageURL: String) {
         loadImage(imageURL, into: self.imageView)
     }
-    
 } // end
 //MARK: Gestures
 extension AuroraViewController {
@@ -251,8 +251,8 @@ extension AuroraViewController {
     
     @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
         if isImageOpen {
-               return // Если картина уже открыта, игнорируем свайп вверх
-           }
+            return // Если картина уже открыта, игнорируем свайп вверх
+        }
         
         feedbackGenerator.selectionChanged()
         imageView.alpha = 0.0 // Установите начальное значение прозрачности
@@ -263,7 +263,7 @@ extension AuroraViewController {
         }
         isImageOpen = true
     }
-
+    
     @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
         feedbackGenerator.selectionChanged()
         UIView.animate(withDuration: 0.3, animations: {
@@ -274,6 +274,7 @@ extension AuroraViewController {
         isImageOpen = false
     }
 }
+//MARK: Actions
 extension AuroraViewController {
     // targets
     private func setupTarget() {
@@ -292,11 +293,11 @@ extension AuroraViewController {
     
     @objc private func chevronButtonTapped() {
         feedbackGenerator.selectionChanged()
-
+        
         if imageView.isHidden {
             imageView.alpha = 0.0
             imageView.isHidden = false
-
+            
             UIView.animate(withDuration: 0.3) {
                 self.imageView.alpha = 1.0
             }
@@ -308,13 +309,18 @@ extension AuroraViewController {
             }
         }
     }
-
     // description button action
     @objc private func descriptionButtonTapped() {
         print("descriptionButtonTappedAurora")
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
+        
+        let descriptionViewController = AuroraDescriptionViewController()
+        descriptionViewController.modalPresentationStyle = .popover
+        present(descriptionViewController, animated: true, completion: nil)
+        
     }
 }
+//MARK: Animations
 extension AuroraViewController {
     private func animationLabels() {
         animateAuroraLabelAppearance(withText: "titleAurora_text".localized())
@@ -326,7 +332,7 @@ extension AuroraViewController {
     private func animateAuroraLabelAppearance(withText text: String) {
         auroraLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         auroraLabel.text = text // Устанавливаем текст
-
+        
         UIView.animate(withDuration: 0.7, animations: { [weak self] in
             self?.auroraLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
         }) { [weak self] (_) in
@@ -347,7 +353,7 @@ extension AuroraViewController {
     private func animateValueLabelAppearance(withText text: String) {
         valueLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         valueLabel.text = text // Устанавливаем текст
-
+        
         UIView.animate(withDuration: 0.7, animations: { [weak self] in
             self?.valueLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
         }) { [weak self] (_) in
@@ -357,7 +363,7 @@ extension AuroraViewController {
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         descriptionLabel.text = text // Устанавливаем текст
-
+        
         UIView.animate(withDuration: 0.7, animations: { [weak self] in
             self?.descriptionLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
         }) { [weak self] (_) in

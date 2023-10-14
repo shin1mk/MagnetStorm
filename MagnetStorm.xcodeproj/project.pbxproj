@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1304A9462AD94C2600006CA6 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1304A9452AD94C2600006CA6 /* PageViewController.swift */; };
 		1325298E2AACEF260002CE93 /* stormBackground_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1325298D2AACEF260002CE93 /* stormBackground_gif.gif */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
 		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
@@ -27,10 +26,12 @@
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
 		136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */; };
 		13649D422AD2C65E00745175 /* AuroraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13649D412AD2C65E00745175 /* AuroraViewController.swift */; };
-		137097402ACA1A9300EE4538 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* DescriptionTableViewCell.swift */; };
+		1366A0E02AD95B42000AD5CE /* AuroraDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */; };
+		136D1C5A2AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */; };
+		137097402ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
-		13A09F402AC9ECF8003858A1 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */; };
+		13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */; };
 		13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */; };
 		13AA214D2AA5C629006DAB56 /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */; };
 		13AA214E2AA5C629006DAB56 /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */; };
@@ -65,7 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1304A9452AD94C2600006CA6 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		1325298D2AACEF260002CE93 /* stormBackground_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = stormBackground_gif.gif; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
@@ -89,10 +89,12 @@
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
 		136211AF2AA29EAF005A4AE2 /* StormValueModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueModels.swift; sourceTree = "<group>"; };
 		13649D412AD2C65E00745175 /* AuroraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraViewController.swift; sourceTree = "<group>"; };
-		1370973F2ACA1A9300EE4538 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraDescriptionViewController.swift; sourceTree = "<group>"; };
+		136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
-		13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionViewController.swift; sourceTree = "<group>"; };
 		13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		13AA21482AA5C629006DAB56 /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		13AA21492AA5C629006DAB56 /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Bold.ttf"; sourceTree = "<group>"; };
@@ -206,11 +208,11 @@
 			isa = PBXGroup;
 			children = (
 				13449AB12AA2965000C858BF /* StormViewController.swift */,
-				13A09F3F2AC9ECF8003858A1 /* DescriptionViewController.swift */,
+				13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */,
 				13649D412AD2C65E00745175 /* AuroraViewController.swift */,
 				13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */,
 				13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */,
-				1304A9452AD94C2600006CA6 /* PageViewController.swift */,
+				1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -248,8 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */,
-				1370973F2ACA1A9300EE4538 /* DescriptionTableViewCell.swift */,
+				1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */,
 				138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */,
+				136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -581,24 +584,25 @@
 			files = (
 				1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */,
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
-				13A09F402AC9ECF8003858A1 /* DescriptionViewController.swift in Sources */,
+				13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */,
+				136D1C5A2AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift in Sources */,
 				13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */,
 				134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */,
 				1326E7862ACA35C400504BF8 /* text.swift in Sources */,
 				13449AB22AA2965000C858BF /* StormViewController.swift in Sources */,
 				138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */,
 				1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */,
+				1366A0E02AD95B42000AD5CE /* AuroraDescriptionViewController.swift in Sources */,
 				13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */,
 				1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */,
 				13A142552AD6157300E5B986 /* FullScreenImageViewController.swift in Sources */,
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
-				1304A9462AD94C2600006CA6 /* PageViewController.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */,
 				1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */,
-				137097402ACA1A9300EE4538 /* DescriptionTableViewCell.swift in Sources */,
+				137097402ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift in Sources */,
 				13649D422AD2C65E00745175 /* AuroraViewController.swift in Sources */,
 				13449AB02AA2965000C858BF /* SceneDelegate.swift in Sources */,
 			);

@@ -152,7 +152,6 @@ final class ForecastViewController: UIViewController {
             }
         }
     }
-
     //MARK: Chart
     private func setupLineChart() {
         // Настройка свойств графика
@@ -235,11 +234,11 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     // did select
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
-        
-        let descriptionViewController = DescriptionViewController()
+
+        let descriptionViewController = StormDescriptionViewController()
         descriptionViewController.modalPresentationStyle = .popover
         present(descriptionViewController, animated: true, completion: nil)
-        
+
         // Опционально, вы можете снять выделение с ячейки после нажатия
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -1,5 +1,5 @@
 //
-//  InfoTableViewCell.swift
+//  StormDescriptionTableViewCell.swift
 //  MagnetStorm
 //
 //  Created by SHIN MIKHAIL on 02.10.2023.
@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class DescriptionTableViewCell: UITableViewCell {
+final class StormDescriptionTableViewCell: UITableViewCell {
     //MARK: Properties
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -55,4 +55,3 @@ final class DescriptionTableViewCell: UITableViewCell {
         titleLabel.textColor = textColor
     }
 } // end
-//
