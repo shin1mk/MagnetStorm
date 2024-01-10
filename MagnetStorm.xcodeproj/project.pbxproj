@@ -19,6 +19,11 @@
 		13449AD22AA2965100C858BF /* MagnetStormUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD12AA2965100C858BF /* MagnetStormUITests.swift */; };
 		13449AD42AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */; };
 		134A6DF82AD5BBD70065F665 /* AuroraImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */; };
+		134DC9802B4ECDBE00EBBD16 /* Pods_MagnetStorm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134DC97F2B4ECDBE00EBBD16 /* Pods_MagnetStorm.framework */; };
+		134DC9842B4ECDC500EBBD16 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134DC9832B4ECDC500EBBD16 /* SDWebImage.framework */; };
+		134DC9872B4ECDCC00EBBD16 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134DC9862B4ECDCC00EBBD16 /* SnapKit.framework */; };
+		134DC98A2B4ECDCF00EBBD16 /* Algorithms.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134DC9892B4ECDCF00EBBD16 /* Algorithms.framework */; };
+		134DC98D2B4ECDD200EBBD16 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 134DC98C2B4ECDD200EBBD16 /* SwiftSoup.framework */; };
 		1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */; };
 		1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */; };
 		136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136211AD2AA29A97005A4AE2 /* StormValueManager.swift */; };
@@ -29,6 +34,7 @@
 		137097402ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
+		13977E6C2B4EF54100504F42 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13977E6B2B4EF54100504F42 /* MainTabBarController.swift */; };
 		139C70D02ADB2FE400F64606 /* StormBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CE2ADB2FE200F64606 /* StormBackground2.gif */; };
 		139C70D12ADB2FE400F64606 /* AuroraBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */; };
 		13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */; };
@@ -82,6 +88,11 @@
 		13449AD12AA2965100C858BF /* MagnetStormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITests.swift; sourceTree = "<group>"; };
 		13449AD32AA2965100C858BF /* MagnetStormUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetStormUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		134A6DF72AD5BBD70065F665 /* AuroraImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraImageManager.swift; sourceTree = "<group>"; };
+		134DC97F2B4ECDBE00EBBD16 /* Pods_MagnetStorm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_MagnetStorm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		134DC9832B4ECDC500EBBD16 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		134DC9862B4ECDCC00EBBD16 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		134DC9892B4ECDCF00EBBD16 /* Algorithms.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Algorithms.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		134DC98C2B4ECDD200EBBD16 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1353372D2AACF9DF001261E5 /* GeomagneticActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeomagneticActivityState.swift; sourceTree = "<group>"; };
 		1357C65D2AD6014C000AD8AA /* AuroraNowcastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuroraNowcastManager.swift; sourceTree = "<group>"; };
 		136211AD2AA29A97005A4AE2 /* StormValueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormValueManager.swift; sourceTree = "<group>"; };
@@ -92,6 +103,7 @@
 		1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
+		13977E6B2B4EF54100504F42 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		139C70CE2ADB2FE200F64606 /* StormBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = StormBackground2.gif; sourceTree = "<group>"; };
 		139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AuroraBackground2.gif; sourceTree = "<group>"; };
 		13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -126,7 +138,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				134DC9802B4ECDBE00EBBD16 /* Pods_MagnetStorm.framework in Frameworks */,
+				134DC9842B4ECDC500EBBD16 /* SDWebImage.framework in Frameworks */,
 				D5BE40A3755523CAA47C3A5A /* Pods_MagnetStorm.framework in Frameworks */,
+				134DC98A2B4ECDCF00EBBD16 /* Algorithms.framework in Frameworks */,
+				134DC9872B4ECDCC00EBBD16 /* SnapKit.framework in Frameworks */,
+				134DC98D2B4ECDD200EBBD16 /* SwiftSoup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +169,6 @@
 		13449AA12AA2965000C858BF = {
 			isa = PBXGroup;
 			children = (
-				1326E7852ACA35C400504BF8 /* text.swift */,
 				13449AAC2AA2965000C858BF /* MagnetStorm */,
 				13449AC62AA2965100C858BF /* MagnetStormTests */,
 				13449AD02AA2965100C858BF /* MagnetStormUITests */,
@@ -175,6 +191,8 @@
 		13449AAC2AA2965000C858BF /* MagnetStorm */ = {
 			isa = PBXGroup;
 			children = (
+				1326E7852ACA35C400504BF8 /* text.swift */,
+				13977E6B2B4EF54100504F42 /* MainTabBarController.swift */,
 				13CC9FE52AD2CEA300DBF5E7 /* State */,
 				13E3CC9A2AB301C200C14F39 /* Localizable */,
 				13449AE02AA296B800C858BF /* Controllers */,
@@ -207,6 +225,7 @@
 		13449AE02AA296B800C858BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				13977E6A2B4EF53300504F42 /* New Group */,
 				13449AB12AA2965000C858BF /* StormViewController.swift */,
 				13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */,
 				13649D412AD2C65E00745175 /* AuroraViewController.swift */,
@@ -269,6 +288,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		13977E6A2B4EF53300504F42 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		13AA21472AA5C609006DAB56 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +338,11 @@
 		2DEBA554ACE0125C44F09EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				134DC98C2B4ECDD200EBBD16 /* SwiftSoup.framework */,
+				134DC9892B4ECDCF00EBBD16 /* Algorithms.framework */,
+				134DC9862B4ECDCC00EBBD16 /* SnapKit.framework */,
+				134DC9832B4ECDC500EBBD16 /* SDWebImage.framework */,
+				134DC97F2B4ECDBE00EBBD16 /* Pods_MagnetStorm.framework */,
 				9E059D9BEDB1AF6AEA6D035D /* Pods_MagnetStorm.framework */,
 				B386282E1553463722EF87A1 /* Pods_MagnetStorm_MagnetStormUITests.framework */,
 				D6EFA7D8B6AF4A8E78CBC25D /* Pods_MagnetStormTests.framework */,
@@ -584,6 +615,7 @@
 			files = (
 				1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */,
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
+				13977E6C2B4EF54100504F42 /* MainTabBarController.swift in Sources */,
 				13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */,
 				136D1C5A2AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift in Sources */,
 				13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */,

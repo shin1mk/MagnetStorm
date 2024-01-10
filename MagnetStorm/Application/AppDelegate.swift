@@ -48,33 +48,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.notificationCenter.getNotificationSettings { (settings) in
                 guard settings.authorizationStatus == .authorized else { return }
 
-                // Разрешение на уведо  мления получено, теперь можно установить таймер
-                self.setupNotificationTimer()
+                // Уведомление будет отправлено каждый день
+                let content = UNMutableNotificationContent()
+                content.title = "\(NSLocalizedString("notification_title", comment: ""))"
+                content.body = "\(NSLocalizedString("notification_body", comment: ""))"
+                // Уведомление в 12:00
+                var dateComponents12 = DateComponents()
+                dateComponents12.hour = 10
+                dateComponents12.minute = 0
+                let trigger12 = UNCalendarNotificationTrigger(dateMatching: dateComponents12, repeats: true)
+                let request12 = UNNotificationRequest(identifier: "dailyNotification12", content: content, trigger: trigger12)
+                // Уведомление в 18:00
+                var dateComponents18 = DateComponents()
+                dateComponents18.hour = 16
+                dateComponents18.minute = 0
+                let trigger18 = UNCalendarNotificationTrigger(dateMatching: dateComponents18, repeats: true)
+                let request18 = UNNotificationRequest(identifier: "dailyNotification18", content: content, trigger: trigger18)
+
+                self.notificationCenter.add(request12) { (error) in
+                    if let error = error {
+                        print("Ошибка при добавлении уведомления (12:00): \(error.localizedDescription)")
+                    }
+                }
+
+                self.notificationCenter.add(request18) { (error) in
+                    if let error = error {
+                        print("Ошибка при добавлении уведомления (18:00): \(error.localizedDescription)")
+                    }
+                }
             }
         }
         notificationCenter.delegate = self
         return true
-    }
-    // Установка таймера на уведомление
-    func setupNotificationTimer() {
-        // Устанавливаем таймер на 3 часа
-        let threeHours: TimeInterval = 3 * 3600 // 3 часа
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
-        let content = UNMutableNotificationContent()
-        content.title = "MagnetStorm"
-        content.body = "notification_text".localized()
-        // Добавляем стандартную вибрацию и звук
-        content.sound = UNNotificationSound.default
-
-        let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Ошибка при установке таймера: \(error)")
-            } else {
-                print("Таймер на уведомление установлен успешно.")
-            }
-        }
     }
 } // end
 // MARK: - UserNotificationCenterDelegate

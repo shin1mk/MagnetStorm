@@ -120,12 +120,14 @@ final class ForecastView: UIView {
         // Создаем метку для отображения даты
         let dateLabel = UILabel()
         dateLabel.text = datePart
-        dateLabel.font = UIFont.SFUITextRegular(ofSize: 20)
+        dateLabel.font = UIFont.SFUITextRegular(ofSize: 19)
         dateLabel.textColor = .white
+        dateLabel.textAlignment = .left
+
         // Создаем метку для отображения значений
         let valuesLabel = UILabel()
         valuesLabel.text = valuesPart
-        valuesLabel.font = UIFont.SFUITextRegular(ofSize: 20)
+        valuesLabel.font = UIFont.SFUITextRegular(ofSize: 19)
         valuesLabel.textColor = .white
         valuesLabel.textAlignment = .right
         // Создаем горизонтальный стековый контейнер и добавляем в него метки

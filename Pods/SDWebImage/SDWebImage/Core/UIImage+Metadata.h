@@ -6,12 +6,9 @@
  * file that was distributed with this source code.
  */
 
-//#import "SDWebImageCompat.h"
-//#import "NSData+ImageContentType.h"
-//#import "SDImageCoder.h"
-#import <SDWebImageCompat.h>
-#import <NSData+ImageContentType.h>
-#import <SDImageCoder.h>
+#import "SDWebImageCompat.h"
+#import "NSData+ImageContentType.h"
+#import "SDImageCoder.h"
 
 /**
  UIImage category for image metadata, including animation, loop count, format, incremental, etc.

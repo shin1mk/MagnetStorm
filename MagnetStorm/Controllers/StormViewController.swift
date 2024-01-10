@@ -88,7 +88,6 @@ final class StormViewController: UIViewController {
         setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
-        view.backgroundColor = .black
         setupMagnetGIFBackground()
         auroraViewController.setupAuroraGIFBackground()
         setupTarget()
@@ -113,6 +112,7 @@ final class StormViewController: UIViewController {
     }
     //MARK: Constraints
     private func setupConstraints() {
+        view.backgroundColor = .black
         // text
         view.addSubview(locationLabel)
         locationLabel.snp.makeConstraints { make in
@@ -158,8 +158,8 @@ final class StormViewController: UIViewController {
         animateForecastViewAppearance()
         forecastView.snp.makeConstraints { make in
             make.bottom.equalTo(chevronButton.snp.top).offset(0)
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
+            make.leading.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-5)
             make.height.greaterThanOrEqualTo(100)
         }
         // UIPageControl
