@@ -52,13 +52,6 @@ final class StormViewController: UIViewController {
         geomagneticActivityLabel.textColor = .white
         return geomagneticActivityLabel
     }()
-    private let refreshButton: UIButton = {
-        let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
-        button.setImage(chevronImage, for: .normal)
-        button.tintColor = UIColor.white
-        return button
-    }()
     private let descriptionButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "info.circle")
@@ -91,7 +84,7 @@ final class StormViewController: UIViewController {
         setupMagnetGIFBackground()
         setupTarget()
         setupLocationManager()
-        setupRefreshControl()
+//        setupRefreshControl()
         animateForecastViewAppearance()
     }
     // Notification observer
@@ -109,6 +102,7 @@ final class StormViewController: UIViewController {
     private func setupConstraints() {
         view.backgroundColor = .black
         view.addSubview(scrollView)
+        scrollView.refreshControl = refreshControl
         scrollView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(250)
@@ -135,7 +129,7 @@ final class StormViewController: UIViewController {
         // buttons
         view.addSubview(descriptionButton)
         descriptionButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-10) // Отступ от правого края
+            make.trailing.equalToSuperview().offset(0) // Отступ от правого края
             make.centerY.equalTo(planetaryLabel) // Выравнивание по вертикали с planetaryLabel
             make.width.equalTo(80)
             make.height.equalTo(80)
@@ -272,13 +266,10 @@ extension StormViewController: CLLocationManagerDelegate {
 extension StormViewController {
     // targets
     private func setupTarget() {
-        refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
         descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
-    private func setupRefreshControl() {
-        scrollView.refreshControl = refreshControl
-    }
+    
     @objc private func refreshData() {
         print("refresh")
         guard !isLabelAnimating else { return }

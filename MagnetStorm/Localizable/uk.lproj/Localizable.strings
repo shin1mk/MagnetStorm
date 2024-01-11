@@ -75,11 +75,11 @@
 "chartToday_text" = "Сьогодні";
 "chartTomorrow_text" = "Завтра";
 "chartAfterday_text" = "Післязавтра";
-
-//MARK: Second view controller
+ 
+//MARK: aurora view controller
 "titleAurora_text" = "Північне Cяйво";
 "descriptionAurora_text" = "Північна півкуля";
-
+"open_forecast" = "ВІДКРИЙТЕ ПРОГНОЗ";
 //MARK: Aurora description
 "geomagneticTitle" = "Геомагнітна активність";
 "geomagneticDescription_text" = "Якщо геомагнітне поле активне (за індексом G), то північне сяйво (аврора) буде спостерігатися далеко від полюсів. Геомагнітна активність залежить від сонячної активності та наявності сонячних корональних дір, тому вона змінюється з часом.

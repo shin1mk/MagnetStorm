@@ -13,7 +13,6 @@ final class AuroraViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private var labelTimer: Timer?
     private var value: String = ""
-    private var isImageOpen = false
     //MARK: Properties
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -56,13 +55,6 @@ final class AuroraViewController: UIViewController {
         descriptionLabel.numberOfLines = 0
         return descriptionLabel
     }()
-    private let refreshButton: UIButton = {
-        let button = UIButton()
-        let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
-        button.setImage(chevronImage, for: .normal)
-        button.tintColor = UIColor.white
-        return button
-    }()
     private let descriptionButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "info.circle")
@@ -70,27 +62,36 @@ final class AuroraViewController: UIViewController {
         button.tintColor = UIColor.white
         return button
     }()
-    private let chevronButton: UIButton = {
+    private let imageButton: UIButton = {
         let button = UIButton()
-        let chevronImage = UIImage(systemName: "chevron.up.chevron.down")
-        button.setImage(chevronImage, for: .normal)
-        button.tintColor = UIColor.white
+        button.setTitle("open_forecast".localized(), for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 18) // Подберите подходящий размер шрифта
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.textAlignment = .center
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.cornerRadius = 10
         return button
     }()
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.numberOfPages = 2 // количество экранов
-        pageControl.currentPage = 1 // текущий экран
-        pageControl.pageIndicatorTintColor = UIColor.gray // Цвет точек
-        pageControl.currentPageIndicatorTintColor = UIColor.white // Цвет текущей
-        return pageControl
+    private let bottomMarginView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.3)
+        return view
+    }()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        return scrollView
+    }()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.backgroundColor = .clear
+        return refreshControl
     }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraint()
-        setupSwipeGesture()
-        view.backgroundColor = .black
         setupAuroraGIFBackground()
         setupTarget()
         fetchDataAndDisplayAuroraImage()
@@ -99,31 +100,44 @@ final class AuroraViewController: UIViewController {
     }
     //MARK: Methods
     private func setupConstraint() {
-        navigationItem.hidesBackButton = true
-        view.addSubview(auroraLabel)
+        view.backgroundColor = .black
+        view.addSubview(scrollView)
+        scrollView.refreshControl = refreshControl
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        scrollView.addSubview(auroraLabel)
         auroraLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(70)
+            make.top.equalToSuperview().offset(0)
             make.centerX.equalToSuperview()
             make.height.greaterThanOrEqualTo(40)
         }
-        view.addSubview(northActivityLabel)
+        scrollView.addSubview(northActivityLabel)
         northActivityLabel.snp.makeConstraints { make in
             make.top.equalTo(auroraLabel.snp.bottom).offset(0)
             make.centerX.equalToSuperview()
             make.height.equalTo(100)
         }
-        view.addSubview(valueLabel)
+        scrollView.addSubview(valueLabel)
         valueLabel.snp.makeConstraints { make in
             make.top.equalTo(northActivityLabel.snp.bottom).offset(0)
             make.centerX.equalToSuperview()
         }
-        view.addSubview(descriptionLabel)
+        scrollView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(valueLabel.snp.bottom).offset(5)
             make.centerX.equalToSuperview()
         }
+        scrollView.addSubview(imageButton)
+        imageButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-60)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+            make.leading.equalToSuperview().offset(10)
+            make.trailing.equalToSuperview().offset(-10)
+        }
         // image north aurora
-        view.addSubview(imageView)
+        scrollView.addSubview(imageView)
         imageView.isHidden = true
         imageView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
@@ -131,34 +145,19 @@ final class AuroraViewController: UIViewController {
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalToSuperview().multipliedBy(0.35)
         }
-        // buttons
-        view.addSubview(refreshButton)
-        refreshButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
-        view.addSubview(chevronButton)
-        chevronButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
         view.addSubview(descriptionButton)
         descriptionButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
+            make.trailing.equalToSuperview().offset(10)
+            make.centerY.equalTo(auroraLabel)
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
-        // page control
-        view.addSubview(pageControl)
-        pageControl.layer.zPosition = 100
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-60)
+        // tab bar background
+        view.addSubview(bottomMarginView)
+        bottomMarginView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.greaterThanOrEqualTo(0)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-0)
         }
     }
     //MARK: GIF Background
@@ -211,103 +210,26 @@ final class AuroraViewController: UIViewController {
     private func loadAndDisplayImageFromURL(_ imageURL: String) {
         loadImage(imageURL, into: self.imageView)
     }
+    
+  
 } // end
-//MARK: Gestures
-extension AuroraViewController {
-    // swipe back
-    private func setupSwipeGesture() {
-        // свайп назад на main VC
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeRight(_:)))
-        swipeRightGesture.direction = .right
-        view.addGestureRecognizer(swipeRightGesture)
-        // tap по картинке
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(tapGestureRecognizer)
-        // свайп вверх для вызова описания
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeUpGesture.direction = .up
-        swipeUpGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(swipeUpGesture)
-        // свайп вниз для вызова описания
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
-        swipeDownGesture.direction = .down
-        swipeDownGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(swipeDownGesture)
-        swipeUpGesture.require(toFail: swipeDownGesture) // зависимость между жестами
-    }
-    
-    @objc private func handleSwipeRight(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.state == .ended {
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    @objc private func imageTapped() {
-        // Создайте контроллер для отображения полноразмерной картинки
-        let fullScreenImageViewController = FullScreenImageViewController(image: imageView.image)
-        fullScreenImageViewController.modalPresentationStyle = .popover
-        present(fullScreenImageViewController, animated: true, completion: nil)
-    }
-    
-    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
-        if isImageOpen {
-            return // Если картина уже открыта, игнорируем свайп вверх
-        }
-        
-        feedbackGenerator.selectionChanged()
-        imageView.alpha = 0.0 // Установите начальное значение прозрачности
-        imageView.isHidden = false
-        
-        UIView.animate(withDuration: 0.7) {
-            self.imageView.alpha = 1.0 // Увеличьте прозрачность до 1 (полностью видимое состояние)
-        }
-        isImageOpen = true
-    }
-    
-    @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
-        feedbackGenerator.selectionChanged()
-        UIView.animate(withDuration: 0.3, animations: {
-            self.imageView.alpha = 0.0
-        }) { _ in
-            self.imageView.isHidden = true
-        }
-        isImageOpen = false
-    }
-}
 //MARK: Actions
 extension AuroraViewController {
     // targets
     private func setupTarget() {
-        refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
-        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
     }
     // refresh button action
-    @objc private func refreshButtonTapped() {
-        print("refreshAurora")
-        feedbackGenerator.selectionChanged()
+    @objc private func refreshData() {
+        print("refresh")
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
         animationLabels()
-    }
-    
-    @objc private func chevronButtonTapped() {
-        feedbackGenerator.selectionChanged()
-        
-        if imageView.isHidden {
-            imageView.alpha = 0.0
-            imageView.isHidden = false
-            
-            UIView.animate(withDuration: 0.3) {
-                self.imageView.alpha = 1.0
-            }
-        } else {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.imageView.alpha = 0.0
-            }) { _ in
-                self.imageView.isHidden = true
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            // Завершение обновления данных
+            self?.refreshControl.endRefreshing()
         }
     }
     // description button action
@@ -318,7 +240,13 @@ extension AuroraViewController {
         let descriptionViewController = AuroraDescriptionViewController()
         descriptionViewController.modalPresentationStyle = .popover
         present(descriptionViewController, animated: true, completion: nil)
-        
+    }
+    
+    @objc private func imageButtonTapped() {
+        // Создайте контроллер для отображения полноразмерной картинки
+        let fullScreenImageViewController = FullScreenImageViewController(image: imageView.image)
+        fullScreenImageViewController.modalPresentationStyle = .popover
+        present(fullScreenImageViewController, animated: true, completion: nil)
     }
 }
 //MARK: Animations
