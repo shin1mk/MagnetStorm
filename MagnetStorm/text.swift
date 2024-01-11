@@ -115,7 +115,8 @@
      button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
      button.titleLabel?.numberOfLines = 0
      return button
- }()    // source button
+ }()    
+ // source button
  @objc private func openNOAALink() {
      if let url = URL(string: "https://www.swpc.noaa.gov/products/3-day-forecast") {
          let safariViewController = SFSafariViewController(url: url)
@@ -127,6 +128,22 @@
  // source button
  @objc private func openNOAALink() {
      if let url = URL(string: "https://www.swpc.noaa.gov/products/planetary-k-index") {
+         let safariViewController = SFSafariViewController(url: url)
+         present(safariViewController, animated: true, completion: nil)
+     }
+ }
+ 
+ @objc private func rateButtonTapped() {
+     if let url = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721") {
+         let safariViewController = SFSafariViewController(url: url)
+         present(safariViewController, animated: true, completion: nil)
+     }
+ }
+ 
+ if let url = URL(string: "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast") {
+
+ @objc private func openNOAALink() {
+     if let url = URL(string: "https://www.swpc.noaa.gov/communities/aurora-dashboard-experimental") {
          let safariViewController = SFSafariViewController(url: url)
          present(safariViewController, animated: true, completion: nil)
      }

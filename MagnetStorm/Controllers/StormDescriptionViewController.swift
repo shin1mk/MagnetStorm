@@ -25,31 +25,6 @@ final class StormDescriptionViewController: UIViewController {
         ("superStorm_info".localized(), "superStorm_description_info".localized(), StormDescriptionViewController.veryDeepRed)
     ]
     //MARK: Properties
-    private let sourceButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        return button
-    }()
-    private let rateButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("rateApp_text".localized(), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        button.backgroundColor = .systemBlue
-        button.layer.borderWidth = 1.0
-        button.layer.cornerRadius = 10.0
-        return button
-    }()
-    private let footerView: UIView = {
-        let width = UIScreen.main.bounds.width
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
-        view.backgroundColor = .black
-        return view
-    }()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self

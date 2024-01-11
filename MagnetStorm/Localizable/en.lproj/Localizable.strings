@@ -83,6 +83,7 @@
 "titleAurora_text" = "Aurora Borealis";
 "descriptionAurora_text" = "NORTHERN HEMISPHERE";
 "open_forecast" = "OPEN FORECAST";
+"gigawatts" = "GIGAWATTS";
 //MARK: Aurora Description
 "geomagneticTitle" = "Geomagnetic Activity";
 "geomagneticDescription_text" = "If the geomagnetic field is active (as indicated by the G index), the northern lights (aurora) will be visible further from the poles. Geomagnetic activity depends on solar activity and the presence of solar coronal holes, so it varies over time.

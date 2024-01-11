@@ -33,14 +33,6 @@ final class FullScreenImageViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    private let sourceButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        return button
-    }()
     private let closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -62,20 +54,20 @@ final class FullScreenImageViewController: UIViewController {
     //MARK: Methods
     private func setupConstraint() {
         // gray background
-//        view.addSubview(backgroundView)
-//        backgroundView.layer.zPosition = 100 // z-index
-//        backgroundView.snp.makeConstraints { make in
-//            make.top.equalTo(view)
-//            make.leading.equalTo(view)
-//            make.trailing.equalTo(view)
-//            make.height.equalTo(50)
-//        }
+        view.addSubview(backgroundView)
+        backgroundView.layer.zPosition = 100 // z-index
+        backgroundView.snp.makeConstraints { make in
+            make.top.equalTo(view)
+            make.leading.equalTo(view)
+            make.trailing.equalTo(view)
+            make.height.equalTo(50)
+        }
         // subtract
-//        backgroundView.addSubview(subtractImageView)
-//        subtractImageView.snp.makeConstraints { make in
-//            make.centerX.equalTo(backgroundView)
-//            make.top.equalTo(backgroundView.snp.top).offset(-24)
-//        }
+        backgroundView.addSubview(subtractImageView)
+        subtractImageView.snp.makeConstraints { make in
+            make.centerX.equalTo(backgroundView)
+            make.top.equalTo(backgroundView.snp.top).offset(-24)
+        }
         view.backgroundColor = .black
         // Add the scrollView to the view
         view.addSubview(scrollView)
@@ -92,16 +84,11 @@ final class FullScreenImageViewController: UIViewController {
         }
         // close button
         view.addSubview(closeButton)
+        closeButton.layer.zPosition = 200 // z-index
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(view).offset(-10)
             make.width.height.equalTo(30)
-        }
-        // sourceButton
-        view.addSubview(sourceButton)
-        sourceButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-20)
-            make.centerX.equalToSuperview()
         }
     }
     
@@ -114,15 +101,7 @@ final class FullScreenImageViewController: UIViewController {
     }
     // setup target
     private func setupTarget() {
-        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-    }
-    // source button
-    @objc private func openNOAALink() {
-        if let url = URL(string: "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
     }
 }
 extension FullScreenImageViewController: UIScrollViewDelegate {

@@ -28,7 +28,6 @@ final class StormViewController: UIViewController {
     private var currentGeomagneticActivityState: GeomagneticActivityState = .noInternet
     private var isAnimating = false
     private var isLabelAnimating = false
-    private var isButtonUp = true
     private var isConnected: Bool = false
     // создаем элементы
     private let locationLabel: UILabel = {
@@ -41,8 +40,9 @@ final class StormViewController: UIViewController {
     private let planetaryLabel: UILabel = {
         let locationLabel = UILabel()
         locationLabel.text = ""
-        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 20 )
+        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 18 )
         locationLabel.textColor = .white
+        locationLabel.isUserInteractionEnabled = true
         return locationLabel
     }()
     private let geomagneticActivityLabel: UILabel = {
@@ -50,9 +50,10 @@ final class StormViewController: UIViewController {
         geomagneticActivityLabel.text = ""
         geomagneticActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 100)
         geomagneticActivityLabel.textColor = .white
+        geomagneticActivityLabel.isUserInteractionEnabled = true
         return geomagneticActivityLabel
     }()
-    private let descriptionButton: UIButton = {
+    private let infoButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "info.circle")
         button.setImage(chevronImage, for: .normal)
@@ -78,26 +79,25 @@ final class StormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         auroraViewController.setupAuroraGIFBackground()
-        setupAppLifecycleObservers()
+//        setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
         setupMagnetGIFBackground()
         setupTarget()
         setupLocationManager()
-//        setupRefreshControl()
         animateForecastViewAppearance()
     }
     // Notification observer
-    private func setupAppLifecycleObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-    }
-    // Приложение свернуто
-    @objc private func appDidEnterBackground() {
-    }
-    // удаляем наблюдатель
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+//    private func setupAppLifecycleObservers() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+//    }
+//    // Приложение свернуто
+//    @objc private func appDidEnterBackground() {
+//    }
+//    // удаляем наблюдатель
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
     //MARK: Constraints
     private func setupConstraints() {
         view.backgroundColor = .black
@@ -127,12 +127,10 @@ final class StormViewController: UIViewController {
             make.height.greaterThanOrEqualTo(40)
         }
         // buttons
-        view.addSubview(descriptionButton)
-        descriptionButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(0) // Отступ от правого края
-            make.centerY.equalTo(planetaryLabel) // Выравнивание по вертикали с planetaryLabel
-            make.width.equalTo(80)
-            make.height.equalTo(80)
+        view.addSubview(infoButton)
+        infoButton.snp.makeConstraints { make in
+            make.leading.equalTo(planetaryLabel.snp.trailing).offset(10)
+            make.centerY.equalTo(planetaryLabel)
         }
         // forecast view
         view.addSubview(forecastView)
@@ -266,7 +264,7 @@ extension StormViewController: CLLocationManagerDelegate {
 extension StormViewController {
     // targets
     private func setupTarget() {
-        descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
@@ -290,6 +288,12 @@ extension StormViewController {
     }
     // Swipe gestures and buttons
     private func setupGestures() {
+        // тап по тексту и по цифру
+        let planetaryLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonTapped))
+        planetaryLabel.addGestureRecognizer(planetaryLabelTapGesture)
+        // тап по цифре
+        let geomagneticActivityLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonTapped))
+        geomagneticActivityLabel.addGestureRecognizer(geomagneticActivityLabelTapGesture)
         // тап по прогнозу
         let forecastViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(forecastViewTapped))
         forecastView.addGestureRecognizer(forecastViewTapGesture)

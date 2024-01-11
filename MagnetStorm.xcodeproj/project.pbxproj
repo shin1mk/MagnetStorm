@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13127ABC2B507A460050551A /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13127ABB2B507A460050551A /* AboutViewController.swift */; };
 		13170B4F2B5046B200DFE057 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13170B4E2B5046B200DFE057 /* MainTabBarController.swift */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
 		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13127ABB2B507A460050551A /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		13170B4E2B5046B200DFE057 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
@@ -166,6 +168,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13127ABA2B5068120050551A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */,
+				136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		13449AA12AA2965000C858BF = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +202,7 @@
 		13449AAC2AA2965000C858BF /* MagnetStorm */ = {
 			isa = PBXGroup;
 			children = (
+				13127ABA2B5068120050551A /* Cell */,
 				1326E7852ACA35C400504BF8 /* text.swift */,
 				13CC9FE52AD2CEA300DBF5E7 /* State */,
 				13E3CC9A2AB301C200C14F39 /* Localizable */,
@@ -231,6 +243,7 @@
 				13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */,
 				1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */,
 				13170B4E2B5046B200DFE057 /* MainTabBarController.swift */,
+				13127ABB2B507A460050551A /* AboutViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -268,9 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */,
-				1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */,
 				138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */,
-				136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -623,6 +634,7 @@
 				13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */,
 				136211B02AA29EAF005A4AE2 /* StormValueModels.swift in Sources */,
 				1357C65E2AD6014C000AD8AA /* AuroraNowcastManager.swift in Sources */,
+				13127ABC2B507A460050551A /* AboutViewController.swift in Sources */,
 				13449AB82AA2965000C858BF /* MagnetStorm.xcdatamodeld in Sources */,
 				13449AAE2AA2965000C858BF /* AppDelegate.swift in Sources */,
 				136211AE2AA29A97005A4AE2 /* StormValueManager.swift in Sources */,

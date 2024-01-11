@@ -28,7 +28,7 @@ final class AuroraViewController: UIViewController {
     private let auroraLabel: UILabel = {
         let auroraLabel = UILabel()
         auroraLabel.text = "titleAurora_text".localized()
-        auroraLabel.font = UIFont.SFUITextHeavy(ofSize: 35 )
+        auroraLabel.font = UIFont.SFUITextHeavy(ofSize: 28)
         auroraLabel.textColor = .white
         return auroraLabel
     }()
@@ -37,25 +37,28 @@ final class AuroraViewController: UIViewController {
         northActivityLabel.text = ""
         northActivityLabel.font = UIFont.SFUITextHeavy(ofSize: 100)
         northActivityLabel.textColor = .white
+        northActivityLabel.isUserInteractionEnabled = true
         return northActivityLabel
     }()
     private let valueLabel: UILabel = {
         let valueLabel = UILabel()
-        valueLabel.text = "GIGAWATTS"
+        valueLabel.text = "gigawatts".localized()
         valueLabel.font = UIFont.SFUITextMedium(ofSize: 18)
         valueLabel.textColor = .white
         valueLabel.numberOfLines = 0
+        valueLabel.isUserInteractionEnabled = true
         return valueLabel
     }()
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.text = "descriptionAurora_text".localized()
-        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 25)
+        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 20)
         descriptionLabel.textColor = .white
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.isUserInteractionEnabled = true
         return descriptionLabel
     }()
-    private let descriptionButton: UIButton = {
+    private let infoButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "info.circle")
         button.setImage(chevronImage, for: .normal)
@@ -65,7 +68,7 @@ final class AuroraViewController: UIViewController {
     private let imageButton: UIButton = {
         let button = UIButton()
         button.setTitle("open_forecast".localized(), for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 18) // Подберите подходящий размер шрифта
+        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 18)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.textAlignment = .center
         button.layer.borderWidth = 1
@@ -94,6 +97,7 @@ final class AuroraViewController: UIViewController {
         setupConstraint()
         setupAuroraGIFBackground()
         setupTarget()
+        setupGestures()
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
         animationLabels()
@@ -136,21 +140,11 @@ final class AuroraViewController: UIViewController {
             make.leading.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-10)
         }
-        // image north aurora
-        scrollView.addSubview(imageView)
-        imageView.isHidden = true
-        imageView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalToSuperview().multipliedBy(0.35)
-        }
-        view.addSubview(descriptionButton)
-        descriptionButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(10)
+
+        view.addSubview(infoButton)
+        infoButton.snp.makeConstraints { make in
+            make.leading.equalTo(auroraLabel.snp.trailing).offset(10)
             make.centerY.equalTo(auroraLabel)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
         }
         // tab bar background
         view.addSubview(bottomMarginView)
@@ -210,14 +204,23 @@ final class AuroraViewController: UIViewController {
     private func loadAndDisplayImageFromURL(_ imageURL: String) {
         loadImage(imageURL, into: self.imageView)
     }
-    
-  
 } // end
 //MARK: Actions
 extension AuroraViewController {
+    private func setupGestures() {
+        // тап по тексту и по цифру
+        let northActivityLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonTapped))
+        northActivityLabel.addGestureRecognizer(northActivityLabelTapGesture)
+        // тап по цифре
+        let valueLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonTapped))
+        valueLabel.addGestureRecognizer(valueLabelTapGesture)
+        
+        let descriptionLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionButtonTapped))
+        descriptionLabel.addGestureRecognizer(descriptionLabelTapGesture)
+    }
     // targets
     private func setupTarget() {
-        descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
     }
@@ -253,7 +256,7 @@ extension AuroraViewController {
 extension AuroraViewController {
     private func animationLabels() {
         animateAuroraLabelAppearance(withText: "titleAurora_text".localized())
-        animateValueLabelAppearance(withText: "GIGAWATTS")
+        animateValueLabelAppearance(withText: "gigawatts".localized())
         animateDescriptionLabelAppearance(withText: "descriptionAurora_text".localized())
         animateNorthActivityLabelAppearance(withText: value)
     }

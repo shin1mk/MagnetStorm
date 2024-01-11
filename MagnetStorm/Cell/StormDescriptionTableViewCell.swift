@@ -1,25 +1,24 @@
 //
-//  AuroraDescriptionTableViewCell.swift
+//  StormDescriptionTableViewCell.swift
 //  MagnetStorm
 //
-//  Created by SHIN MIKHAIL on 13.10.2023.
+//  Created by SHIN MIKHAIL on 02.10.2023.
 //
 
-import Foundation
 import SnapKit
 import UIKit
 
-final class AuroraDescriptionTableViewCell: UITableViewCell {
+final class StormDescriptionTableViewCell: UITableViewCell {
     //MARK: Properties
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = UIFont.SFUITextBold(ofSize: 22)
+        titleLabel.font = UIFont.SFUITextBold(ofSize: 18)
         titleLabel.numberOfLines = 0
         return titleLabel
     }()
     private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 16)
+        descriptionLabel.font = UIFont.SFUITextMedium(ofSize: 15)
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textColor = .white
         return descriptionLabel
@@ -44,9 +43,9 @@ final class AuroraDescriptionTableViewCell: UITableViewCell {
         // description
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.leading.trailing.equalTo(contentView).inset(10)
-            make.bottom.equalTo(contentView).offset(-10)
+            make.bottom.equalTo(contentView).offset(-5)
         }
     }
     // configure

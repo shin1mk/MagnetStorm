@@ -18,31 +18,6 @@ final class AuroraDescriptionViewController: UIViewController {
          ("timeTitle".localized(), "timeDescription_text".localized(), .systemBlue)
     ]
     //MARK: Properties
-    private let sourceButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        return button
-    }()
-    private let rateButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("rateApp_text".localized(), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        button.backgroundColor = .systemBlue
-        button.layer.borderWidth = 1.0
-        button.layer.cornerRadius = 10.0
-        return button
-    }()
-    private let footerView: UIView = {
-        let width = UIScreen.main.bounds.width
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
-        view.backgroundColor = .black
-        return view
-    }()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -62,7 +37,6 @@ final class AuroraDescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        setupTarget()
     }
     //MARK: Methods
     private func setupConstraints() {
@@ -91,38 +65,6 @@ final class AuroraDescriptionViewController: UIViewController {
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.bottom.equalTo(view)
-        }
-        // Rate App
-        footerView.addSubview(rateButton)
-        rateButton.snp.makeConstraints { make in
-            make.centerX.equalTo(footerView)
-            make.top.equalTo(footerView).offset(10)
-            make.width.equalTo(200)
-        }
-        footerView.addSubview(sourceButton)
-        sourceButton.snp.makeConstraints { make in
-            make.centerX.equalTo(footerView)
-            make.top.equalTo(rateButton.snp.bottom).offset(10)
-        }
-        tableView.tableFooterView = footerView
-    }
-    // setup target
-    private func setupTarget() {
-        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
-        rateButton.addTarget(self, action: #selector(rateButtonTapped), for: .touchUpInside)
-    }
-    // source button
-    @objc private func openNOAALink() {
-        if let url = URL(string: "https://www.swpc.noaa.gov/communities/aurora-dashboard-experimental") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func rateButtonTapped() {
-        if let url = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
         }
     }
 } // end

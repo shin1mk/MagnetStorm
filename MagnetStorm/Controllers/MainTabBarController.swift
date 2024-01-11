@@ -30,6 +30,10 @@ final class MainTabBarController: UITabBarController {
                 viewController: AuroraViewController(),
                 title: "Aurora",
                 image: UIImage(systemName: "wind")),
+            generateVC(
+                viewController: AboutViewController(),
+                title: "About",
+                image: UIImage(systemName: "line.3.horizontal")),
         ]
     }
     // Generate View Controllers
