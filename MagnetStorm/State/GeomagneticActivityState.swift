@@ -23,25 +23,25 @@ enum GeomagneticActivityState {
     var labelText: String {
         switch self {
         case .noStorm: // 0
-            return "G0"
+            return "0"
         case .minorStorm: // 1
-            return "G1"
+            return "1"
         case .weakStorm: // 2
-            return "G2"
+            return "2"
         case .moderateStorm: // 3
-            return "G3"
+            return "3"
         case .strongStorm: // 4
-            return "G4"
+            return "4"
         case .severeStorm: // 5
-            return "G5"
+            return "5"
         case .extremeStorm: // 6
-            return "G6"
+            return "6"
         case .outstandingStorm: // 7
-            return "G7"
+            return "7"
         case .exceptionalStorm: // 8
-            return "G8"
+            return "8"
         case .superStorm: // 9
-            return "G9"
+            return "9"
         case .noInternet:
             return "?"
         }

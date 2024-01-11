@@ -50,18 +50,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 // Уведомление будет отправлено каждый день
                 let content = UNMutableNotificationContent()
-                content.title = "\(NSLocalizedString("notification_title", comment: ""))"
-                content.body = "\(NSLocalizedString("notification_body", comment: ""))"
-                // Уведомление в 12:00
+                content.title = "MagnetStorm"
+                content.body = "notification_text".localized()
+                // Уведомление в 10:00
                 var dateComponents12 = DateComponents()
                 dateComponents12.hour = 10
                 dateComponents12.minute = 0
                 let trigger12 = UNCalendarNotificationTrigger(dateMatching: dateComponents12, repeats: true)
                 let request12 = UNNotificationRequest(identifier: "dailyNotification12", content: content, trigger: trigger12)
-                // Уведомление в 18:00
+                // Уведомление в 17:00
                 var dateComponents18 = DateComponents()
-                dateComponents18.hour = 16
-                dateComponents18.minute = 0
+                dateComponents18.hour = 17
+                dateComponents18.minute = 00
                 let trigger18 = UNCalendarNotificationTrigger(dateMatching: dateComponents18, repeats: true)
                 let request18 = UNNotificationRequest(identifier: "dailyNotification18", content: content, trigger: trigger18)
 

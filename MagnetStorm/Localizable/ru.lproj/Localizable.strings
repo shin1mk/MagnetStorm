@@ -4,7 +4,8 @@
   Russian
   Created by SHIN MIKHAIL on 14.09.2023.
  */
-
+//MARK: - storm VC
+"planeraty_title" = "ПЛАНЕТАРНИЙ K-ІНДЕКС";
 //MARK: - GeomagneticActivityState
 //0
 "noStorm_description" = "Отсутствие бури:\nВлияние на организм человека практически отсутствует. Люди не ощущают никаких физических или эмоциональных изменений.";

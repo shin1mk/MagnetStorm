@@ -69,7 +69,6 @@ final class StormDescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        setupTarget()
     }
     //MARK: Methods
     private func setupConstraints() {
@@ -98,38 +97,6 @@ final class StormDescriptionViewController: UIViewController {
             make.leading.equalTo(view)
             make.trailing.equalTo(view)
             make.bottom.equalTo(view)
-        }
-        // Rate App
-        footerView.addSubview(rateButton)
-        rateButton.snp.makeConstraints { make in
-            make.centerX.equalTo(footerView)
-            make.top.equalTo(footerView).offset(10)
-            make.width.equalTo(200)
-        }
-        footerView.addSubview(sourceButton)
-        sourceButton.snp.makeConstraints { make in
-            make.centerX.equalTo(footerView)
-            make.top.equalTo(rateButton.snp.bottom).offset(10)
-        }
-        tableView.tableFooterView = footerView
-    }
-    // setup target
-    private func setupTarget() {
-        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
-        rateButton.addTarget(self, action: #selector(rateButtonTapped), for: .touchUpInside)
-    }
-    // source button
-    @objc private func openNOAALink() {
-        if let url = URL(string: "https://www.swpc.noaa.gov/products/planetary-k-index") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func rateButtonTapped() {
-        if let url = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
         }
     }
 } // end

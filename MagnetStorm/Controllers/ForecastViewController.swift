@@ -41,19 +41,10 @@ final class ForecastViewController: UIViewController {
         view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.7)
         return view
     }()
-    private let sourceButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
-        button.titleLabel?.numberOfLines = 0
-        return button
-    }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        setupTarget()
         fetchStormDetailForecastUI()
     }
     //MARK: Methods
@@ -95,12 +86,6 @@ final class ForecastViewController: UIViewController {
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(-50)
-        }
-        // sourceButton
-        view.addSubview(sourceButton)
-        sourceButton.snp.makeConstraints { make in
-            make.top.equalTo(lineChartView.snp.bottom).offset(0)
-            make.centerX.equalToSuperview()
         }
     }
     //MARK: forecast detail
@@ -192,17 +177,6 @@ final class ForecastViewController: UIViewController {
 
         return chartDataSet
     }
-    // setup target
-    private func setupTarget() {
-        sourceButton.addTarget(self, action: #selector(openNOAALink), for: .touchUpInside)
-    }
-    // source button
-    @objc private func openNOAALink() {
-        if let url = URL(string: "https://www.swpc.noaa.gov/products/3-day-forecast") {
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
-        }
-    }
 } // end
 //MARK: Table view
 extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
@@ -220,9 +194,9 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         let timeLabel = timeLabels[indexPath.row % timeLabels.count]
 
         cell.timeLabel.text = timeLabel
-        cell.todayValueLabel.text = "G\(todayValue)"
-        cell.tomorrowValueLabel.text = "G\(tomorrowValue)"
-        cell.afterdayValueLabel.text = "G\(afterdayValue)"
+        cell.todayValueLabel.text = "\(todayValue)"
+        cell.tomorrowValueLabel.text = "\(tomorrowValue)"
+        cell.afterdayValueLabel.text = "\(afterdayValue)"
         cell.backgroundColor = .black
 
         return cell

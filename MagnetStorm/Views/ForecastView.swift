@@ -111,7 +111,7 @@ final class ForecastView: UIView {
             // Форматируем дату
             datePart = dateFormatter.string(from: date)
             // Форматируем минимальное и максимальное значения
-            valuesPart = "↓G\(numberFormatter.string(from: NSNumber(value: minValue))!) ↑G\(numberFormatter.string(from: NSNumber(value: maxValue))!)"
+            valuesPart = "↓Kp \(numberFormatter.string(from: NSNumber(value: minValue))!) ↑Kp \(numberFormatter.string(from: NSNumber(value: maxValue))!)"
         } else {
             // Если нет минимальных и максимальных значений, используем дату и знак "-"
             datePart = dateFormatter.string(from: date)

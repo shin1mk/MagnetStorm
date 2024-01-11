@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13170B4F2B5046B200DFE057 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13170B4E2B5046B200DFE057 /* MainTabBarController.swift */; };
 		1326E7862ACA35C400504BF8 /* text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7852ACA35C400504BF8 /* text.swift */; };
 		1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */; };
 		1326E78A2ACABE3700504BF8 /* StormForecastModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1326E7892ACABE3700504BF8 /* StormForecastModels.swift */; };
@@ -34,7 +35,6 @@
 		137097402ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */; };
 		1375D8CF2ACCCF690000BCE6 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */; };
 		138D6FB82AD349F200CE7AB8 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */; };
-		13977E6C2B4EF54100504F42 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13977E6B2B4EF54100504F42 /* MainTabBarController.swift */; };
 		139C70D02ADB2FE400F64606 /* StormBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CE2ADB2FE200F64606 /* StormBackground2.gif */; };
 		139C70D12ADB2FE400F64606 /* AuroraBackground2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */; };
 		13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */; };
@@ -72,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13170B4E2B5046B200DFE057 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		1326E7852ACA35C400504BF8 /* text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = text.swift; sourceTree = "<group>"; };
 		1326E7872ACA9ABB00504BF8 /* StormForecastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastManager.swift; sourceTree = "<group>"; };
 		1326E7892ACABE3700504BF8 /* StormForecastModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormForecastModels.swift; sourceTree = "<group>"; };
@@ -103,7 +104,6 @@
 		1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
 		138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
-		13977E6B2B4EF54100504F42 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		139C70CE2ADB2FE200F64606 /* StormBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = StormBackground2.gif; sourceTree = "<group>"; };
 		139C70CF2ADB2FE400F64606 /* AuroraBackground2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AuroraBackground2.gif; sourceTree = "<group>"; };
 		13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StormDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				1326E7852ACA35C400504BF8 /* text.swift */,
-				13977E6B2B4EF54100504F42 /* MainTabBarController.swift */,
 				13CC9FE52AD2CEA300DBF5E7 /* State */,
 				13E3CC9A2AB301C200C14F39 /* Localizable */,
 				13449AE02AA296B800C858BF /* Controllers */,
@@ -225,13 +224,13 @@
 		13449AE02AA296B800C858BF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				13977E6A2B4EF53300504F42 /* New Group */,
 				13449AB12AA2965000C858BF /* StormViewController.swift */,
 				13A09F3F2AC9ECF8003858A1 /* StormDescriptionViewController.swift */,
 				13649D412AD2C65E00745175 /* AuroraViewController.swift */,
 				13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */,
 				13A142542AD6157300E5B986 /* FullScreenImageViewController.swift */,
 				1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */,
+				13170B4E2B5046B200DFE057 /* MainTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -286,13 +285,6 @@
 				13449AB62AA2965000C858BF /* MagnetStorm.xcdatamodeld */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		13977E6A2B4EF53300504F42 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		13AA21472AA5C609006DAB56 /* Fonts */ = {
@@ -615,7 +607,7 @@
 			files = (
 				1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */,
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
-				13977E6C2B4EF54100504F42 /* MainTabBarController.swift in Sources */,
+				13170B4F2B5046B200DFE057 /* MainTabBarController.swift in Sources */,
 				13A09F402AC9ECF8003858A1 /* StormDescriptionViewController.swift in Sources */,
 				136D1C5A2AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift in Sources */,
 				13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */,
@@ -820,7 +812,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5F8NF33WRR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagnetStorm/Resources/Info.plist;
@@ -836,7 +828,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = code.MagnetStorm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -857,7 +849,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5F8NF33WRR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MagnetStorm/Resources/Info.plist;
@@ -873,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = code.MagnetStorm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

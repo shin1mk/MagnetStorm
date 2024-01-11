@@ -5,6 +5,9 @@
   Created by SHIN MIKHAIL on 14.09.2023.
 */
 
+//MARK: - storm VC
+"planeraty_title" = "PLANETARY K-INDEX";
+
 //MARK: - GeomagneticActivityState
 //0
 "noStorm_description" = "No storm:\nImpact on the human body is practically absent. People do not feel any physical or emotional changes.";

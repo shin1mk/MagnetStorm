@@ -48,4 +48,94 @@
      notificationCenter.delegate = self
      return true
  }
+ 
+ 
+ Track magnetic storms, get forecasts with MagnetStorm. Be prepared for the appearance of the Northern Lights!
+ Small improvements and add notifications.
+ 
+ 
+ 
+ private let buyButton: UIButton = {
+     let button = UIButton()
+     button.setTitle("\(NSLocalizedString("support_text", comment: ""))", for: .normal)
+     button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
+     button.setTitleColor(.white, for: .normal)
+     button.backgroundColor = .systemBlue
+     button.layer.cornerRadius = 10
+     return button
+ }()
+ private let letterButton: UIButton = {
+     let button = UIButton()
+     button.setTitle("\(NSLocalizedString("letter_text", comment: ""))", for: .normal)
+     button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
+     button.setTitleColor(.white, for: .normal)
+     button.backgroundColor = .systemBlue
+     button.layer.cornerRadius = 10
+     return button
+ }()
+ @objc private func buyButtonTapped() {
+     if let url = URL(string: "https://www.buymeacoffee.com/shininswift") {
+         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+     }
+ }
+ private func addTarget() {
+ buyButton.addTarget(self, action: #selector(buyButtonTapped), for: .touchUpInside)
+ letterButton.addTarget(self, action: #selector(letterButtonTapped), for: .touchUpInside)
+ }
+ 
+ @objc private func letterButtonTapped() {
+     let recipient = "shininswift@gmail.com"
+     let subject = "NemaOkupantiv🇺🇦Співпраця/побажання."
+
+     let urlString = "mailto:\(recipient)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+     if let url = URL(string: urlString ?? "") {
+         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+     }
+ }
+ 
+ contentView.addSubview(buyButton)
+ buyButton.snp.makeConstraints { make in
+     make.top.equalTo(rateButton.snp.bottom).offset(10)
+     make.leading.trailing.equalToSuperview().inset(15)
+     make.height.equalTo(40)
+ }
+ contentView.addSubview(letterButton)
+ letterButton.snp.makeConstraints { make in
+     make.top.equalTo(buyButton.snp.bottom).offset(10)
+     make.leading.trailing.equalToSuperview().inset(15)
+     make.height.equalTo(40)
+ }
+ 
+ 
+ private let sourceButton: UIButton = {
+     let button = UIButton()
+     button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
+     button.setTitleColor(.systemBlue, for: .normal)
+     button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
+     button.titleLabel?.numberOfLines = 0
+     return button
+ }()    // source button
+ @objc private func openNOAALink() {
+     if let url = URL(string: "https://www.swpc.noaa.gov/products/3-day-forecast") {
+         let safariViewController = SFSafariViewController(url: url)
+         present(safariViewController, animated: true, completion: nil)
+     }
+ }
+ 
+ 
+ // source button
+ @objc private func openNOAALink() {
+     if let url = URL(string: "https://www.swpc.noaa.gov/products/planetary-k-index") {
+         let safariViewController = SFSafariViewController(url: url)
+         present(safariViewController, animated: true, completion: nil)
+     }
+ }
+ 
+ @objc private func rateButtonTapped() {
+     if let url = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721") {
+         let safariViewController = SFSafariViewController(url: url)
+         present(safariViewController, animated: true, completion: nil)
+     }
+ }
  */

@@ -21,10 +21,11 @@ final class StormViewController: UIViewController {
     private let forecastView = ForecastView()
     private let auroraViewController = AuroraViewController()
     private var locationLabelTimer: Timer?
+    private var planetaryLabelTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
     // анимация и кнопка
-    private var currentGeomagneticActivityState: GeomagneticActivityState = .noInternet // текущий стейт
+    private var currentGeomagneticActivityState: GeomagneticActivityState = .noInternet
     private var isAnimating = false
     private var isLabelAnimating = false
     private var isButtonUp = true
@@ -37,6 +38,13 @@ final class StormViewController: UIViewController {
         locationLabel.textColor = .white
         return locationLabel
     }()
+    private let planetaryLabel: UILabel = {
+        let locationLabel = UILabel()
+        locationLabel.text = ""
+        locationLabel.font = UIFont.SFUITextHeavy(ofSize: 20 )
+        locationLabel.textColor = .white
+        return locationLabel
+    }()
     private let geomagneticActivityLabel: UILabel = {
         let geomagneticActivityLabel = UILabel()
         geomagneticActivityLabel.text = ""
@@ -44,27 +52,11 @@ final class StormViewController: UIViewController {
         geomagneticActivityLabel.textColor = .white
         return geomagneticActivityLabel
     }()
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.text = ""
-        descriptionLabel.font = UIFont.SFUITextLight(ofSize: 22)
-        descriptionLabel.textColor = .white
-        descriptionLabel.numberOfLines = 0
-        return descriptionLabel
-    }()
     private let refreshButton: UIButton = {
         let button = UIButton()
         let chevronImage = UIImage(systemName: "arrow.clockwise.circle")
         button.setImage(chevronImage, for: .normal)
         button.tintColor = UIColor.white
-        return button
-    }()
-    private let chevronButton: UIButton = {
-        let button = UIButton()
-        let chevronImage = UIImage(systemName: "chevron.up.chevron.down")
-        button.setImage(chevronImage, for: .normal)
-        button.tintColor = UIColor.white
-        button.imageView?.contentMode = .scaleAspectFit
         return button
     }()
     private let descriptionButton: UIButton = {
@@ -74,37 +66,40 @@ final class StormViewController: UIViewController {
         button.tintColor = UIColor.white
         return button
     }()
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.numberOfPages = 2
-        pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = UIColor.gray
-        pageControl.currentPageIndicatorTintColor = UIColor.white
-        return pageControl
+    private let bottomMarginView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemGray6.withAlphaComponent(0.3)
+        return view
+    }()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        return scrollView
+    }()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.backgroundColor = .clear
+        return refreshControl
     }()
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        auroraViewController.setupAuroraGIFBackground()
         setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
         setupMagnetGIFBackground()
-        auroraViewController.setupAuroraGIFBackground()
         setupTarget()
         setupLocationManager()
+        setupRefreshControl()
+        animateForecastViewAppearance()
     }
     // Notification observer
     private func setupAppLifecycleObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(appWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     // Приложение свернуто
     @objc private func appDidEnterBackground() {
-        animateDescriptionLabelDisappearance()
-    }
-    // Приложение будет восстановлено
-    @objc private func appWillEnterForeground() {
-        setupNotificationTimer()
     }
     // удаляем наблюдатель
     deinit {
@@ -113,61 +108,52 @@ final class StormViewController: UIViewController {
     //MARK: Constraints
     private func setupConstraints() {
         view.backgroundColor = .black
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(250)
+        }
         // text
-        view.addSubview(locationLabel)
+        scrollView.addSubview(locationLabel)
         locationLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(70)
+            make.top.equalToSuperview().offset(0)
             make.centerX.equalToSuperview()
             make.height.greaterThanOrEqualTo(40)
         }
-        view.addSubview(geomagneticActivityLabel)
+        scrollView.addSubview(planetaryLabel)
+        planetaryLabel.snp.makeConstraints { make in
+            make.top.equalTo(locationLabel.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.height.greaterThanOrEqualTo(20)
+        }
+        scrollView.addSubview(geomagneticActivityLabel)
         geomagneticActivityLabel.snp.makeConstraints { make in
-            make.top.equalTo(locationLabel.snp.bottom).offset(0)
+            make.top.equalTo(planetaryLabel.snp.bottom).offset(0)
             make.centerX.equalToSuperview()
             make.height.greaterThanOrEqualTo(40)
-        }
-        view.addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(geomagneticActivityLabel.snp.bottom).offset(0)
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.lessThanOrEqualToSuperview().offset(-25)
         }
         // buttons
-        view.addSubview(refreshButton)
-        refreshButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
-        view.addSubview(chevronButton)
-        chevronButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
-            make.width.equalTo(80)
-            make.height.equalTo(80)
-        }
         view.addSubview(descriptionButton)
         descriptionButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-5)
+            make.trailing.equalToSuperview().offset(-10) // Отступ от правого края
+            make.centerY.equalTo(planetaryLabel) // Выравнивание по вертикали с planetaryLabel
             make.width.equalTo(80)
             make.height.equalTo(80)
         }
         // forecast view
-        animateForecastViewAppearance()
+        view.addSubview(forecastView)
         forecastView.snp.makeConstraints { make in
-            make.bottom.equalTo(chevronButton.snp.top).offset(0)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
             make.leading.equalToSuperview().offset(5)
             make.trailing.equalToSuperview().offset(-5)
             make.height.greaterThanOrEqualTo(100)
         }
-        // UIPageControl
-        view.addSubview(pageControl)
-        pageControl.layer.zPosition = 100
-        pageControl.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-60)
+        // tab bar background
+        view.addSubview(bottomMarginView)
+        bottomMarginView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.greaterThanOrEqualTo(0)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-0)
         }
     }
     //MARK: GIF Background
@@ -239,13 +225,6 @@ final class StormViewController: UIViewController {
         }
         monitor.start(queue: queue)
     }
-    //MARK: UIPageControl
-    private func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageWidth = scrollView.frame.width
-        let currentPage = Int(floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth)) + 1
-        
-        pageControl.currentPage = currentPage
-    }
 } // end
 //MARK: - Location Manager Delegate
 extension StormViewController: CLLocationManagerDelegate {
@@ -256,6 +235,7 @@ extension StormViewController: CLLocationManagerDelegate {
                     if let city = placemark.locality {
                         self?.currentCity = city // Set the currentCity property
                         self?.animateLocationLabelAppearance(withText: city)
+                        self?.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
                         self?.fetchStormValueUI()
                         self!.forecastView.fetchStormForecastUI()
                         self?.startNetworkMonitoring()
@@ -293,80 +273,37 @@ extension StormViewController {
     // targets
     private func setupTarget() {
         refreshButton.addTarget(self, action: #selector(refreshButtonTapped), for: .touchUpInside)
-        chevronButton.addTarget(self, action: #selector(chevronButtonTapped), for: .touchUpInside)
         descriptionButton.addTarget(self, action: #selector(descriptionButtonTapped), for: .touchUpInside)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    private func setupRefreshControl() {
+        scrollView.refreshControl = refreshControl
+    }
+    @objc private func refreshData() {
+        print("refresh")
+        guard !isLabelAnimating else { return }
+        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+
+        if let city = currentCity { // Use the captured city value
+            self.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
+            self.animateLocationLabelAppearance(withText: city)
+            self.startNetworkMonitoring()
+            self.fetchStormValueUI()
+            self.animateForecastViewAppearance()
+            self.forecastView.fetchStormForecastUI()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            // Завершение обновления данных
+            self?.refreshControl.endRefreshing()
+        }
     }
     // Swipe gestures and buttons
     private func setupGestures() {
-        // свайп по экрану вправо
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft(_:)))
-        swipeLeftGesture.direction = .left
-        view.addGestureRecognizer(swipeLeftGesture)
-        // свайп вверх для вызова описания
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeUpGesture.direction = .up
-        swipeUpGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(swipeUpGesture)
-        // свайп вниз для вызова описания
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown(_:)))
-        swipeDownGesture.direction = .down
-        swipeDownGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(swipeDownGesture)
-        swipeUpGesture.require(toFail: swipeDownGesture) // Устанавливаем зависимость между жестами
-        // тап по описанию
-//        let descriptionLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(descriptionViewTapped))
-//        descriptionLabel.addGestureRecognizer(descriptionLabelTapGesture)
-//        descriptionLabel.isUserInteractionEnabled = true
         // тап по прогнозу
         let forecastViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(forecastViewTapped))
         forecastView.addGestureRecognizer(forecastViewTapGesture)
         forecastView.isUserInteractionEnabled = true
     }
-    // свайп вправо
-    @objc private func handleSwipeLeft(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.state == .ended {
-            // Создайте экземпляр второго вью контроллера
-            let secondViewController = AuroraViewController()
-            // Вызовите метод pushViewController для UINavigationController, чтобы выполнить переход на второй экран
-            navigationController?.pushViewController(secondViewController, animated: true)
-        }
-    }
-    // swipe up
-    @objc private func handleSwipe(_ gesture: UISwipeGestureRecognizer) {
-        guard !isAnimating else {
-            return // Если текст полностью отображен вверх не свайпаем
-        }
-        if gesture.state == .ended {
-            switch (isAnimating, isLabelAnimating) {
-            case (false, _):
-                descriptionLabel.alpha = 1
-                if !isLabelAnimating {
-                    animateDescriptionLabelAppearance(withText: currentGeomagneticActivityState.descriptionText)
-                    feedbackGenerator.selectionChanged() // виброотклик
-                }
-            default:
-                break
-            }
-            isAnimating.toggle()
-        }
-    }
-    // swipe down
-    @objc private func handleSwipeDown(_ gesture: UISwipeGestureRecognizer) {
-        if gesture.state == .ended {
-            switch (isAnimating, isLabelAnimating) {
-            case (true, false):
-                animateDescriptionLabelDisappearance()
-                feedbackGenerator.selectionChanged() // виброотклик
-            default:
-                break
-            }
-        }
-    }
-    // вызываем функцию описания
-//    @objc private func descriptionViewTapped() {
-//        descriptionButtonTapped()
-//        feedbackGenerator.selectionChanged() // Добавьте виброотклик
-//    }
     // вызываем функцию для экрана прогноза
     @objc private func forecastViewTapped() {
         print("forecastView")
@@ -383,31 +320,12 @@ extension StormViewController {
         feedbackGenerator.selectionChanged() // Добавьте виброотклик
 
         if let city = currentCity { // Use the captured city value
-            self.animateDescriptionLabelDisappearance()
+            self.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
             self.animateLocationLabelAppearance(withText: city)
             self.startNetworkMonitoring()
             self.fetchStormValueUI()
             self.animateForecastViewAppearance()
             self.forecastView.fetchStormForecastUI()
-        }
-    }
-    // chevron button action
-    @objc private func chevronButtonTapped() {
-        // Создаем фиктивные жесты
-        let fakeSwipeUpGesture = UISwipeGestureRecognizer()
-        fakeSwipeUpGesture.direction = .up
-        fakeSwipeUpGesture.state = .ended
-        
-        let fakeSwipeDownGesture = UISwipeGestureRecognizer()
-        fakeSwipeDownGesture.direction = .down
-        fakeSwipeDownGesture.state = .ended
-        
-        if isButtonUp {
-            handleSwipe(fakeSwipeUpGesture)
-            feedbackGenerator.selectionChanged() // виброотклик
-        } else {
-            handleSwipeDown(fakeSwipeDownGesture)
-            feedbackGenerator.selectionChanged() // виброотклик
         }
     }
     // description button action
@@ -418,15 +336,6 @@ extension StormViewController {
         let descriptionViewController = StormDescriptionViewController()
         descriptionViewController.modalPresentationStyle = .popover
         present(descriptionViewController, animated: true, completion: nil)
-    }
-    // toggle chevron button
-    private func toggleChevronButtonImage() {
-        isButtonUp.toggle()
-        let imageName = isButtonUp ? "chevron.up.chevron.down" : "chevron.up.chevron.down"
-        let chevronImage = UIImage(systemName: imageName)
-        chevronButton.setImage(chevronImage, for: .normal)
-        chevronButton.tintColor = UIColor.white
-        feedbackGenerator.selectionChanged() // виброотклик
     }
 }
 //MARK: Animations
@@ -442,6 +351,17 @@ extension StormViewController {
             self?.locationLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
+    // animate planetary label
+    private func animatePlanetaryLabelAppearance(withText text: String) {
+        planetaryLabel.alpha = 0.0 // Начнем с нулевой прозрачности
+        planetaryLabel.text = text // Устанавливаем текст
+
+        UIView.animate(withDuration: 0.7, animations: { [weak self] in
+            self?.planetaryLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
+        }) { [weak self] (_) in
+            self?.planetaryLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
+        }
+    }
     // Animate GeomagneticActivityLabel
     private func animateGeomagneticActivityLabelAppearance(withText text: String) {
         geomagneticActivityLabel.alpha = 0.0 // Начнем с нулевой прозрачности
@@ -453,39 +373,6 @@ extension StormViewController {
             self?.geomagneticActivityLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
-    // Animate Description swipe up
-    private func animateDescriptionLabelAppearance(withText text: String) {
-        descriptionLabel.text = ""
-        var currentCharacterIndex = 0
-        isLabelAnimating = true // Устанавливаем флаг в true при начале анимации
-        Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] timer in
-            guard let self = self else {
-                timer.invalidate()
-                return
-            }
-            if currentCharacterIndex < text.count {
-                let index = text.index(text.startIndex, offsetBy: currentCharacterIndex)
-                let character = text[index]
-                self.descriptionLabel.text?.append(character)
-                currentCharacterIndex += 1
-            } else {
-                timer.invalidate()
-                self.isLabelAnimating = false
-                self.toggleChevronButtonImage()
-            }
-        }
-    }
-    // Animate Description swipe down
-    private func animateDescriptionLabelDisappearance() {
-        isLabelAnimating = true
-        UIView.animate(withDuration: 0.3) {
-            self.descriptionLabel.alpha = 0
-        } completion: { _ in
-            self.isLabelAnimating = false
-            self.isAnimating = false
-            self.toggleChevronButtonImage()
-        }
-    }
     // Аnimate forecast view
     private func animateForecastViewAppearance() {
         forecastView.alpha = 0.0
@@ -493,27 +380,6 @@ extension StormViewController {
     
         UIView.animate(withDuration: 1.8) {
             self.forecastView.alpha = 1.0
-        }
-    }
-}
-//MARK: UserNotificationCenter
-extension StormViewController {
-    private func setupNotificationTimer() {
-        let threeHours: TimeInterval = 3 * 3600 // 3 часа
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: threeHours, repeats: false)
-        let content = UNMutableNotificationContent()
-        
-        content.title = "MagnetStorm"
-        content.body = "notification_text".localized()
-        content.sound = UNNotificationSound.default
-
-        let request = UNNotificationRequest(identifier: "UpdateData", content: content, trigger: trigger)
-        notificationCenter.add(request) { (error) in
-            if let error = error {
-                print("Ошибка при установке таймера: \(error)")
-            } else {
-                print("Таймер на уведомление установлен успешно.")
-            }
         }
     }
 }
