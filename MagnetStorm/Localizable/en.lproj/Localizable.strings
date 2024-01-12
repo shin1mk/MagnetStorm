@@ -33,16 +33,16 @@
 "noInternet_description" = "No network"; 
 
 //MARK: - StormDescriptionViewController
-"noStorm_info" = "Absence of Storm G0"; //0
-"minorStorm_info" = "Minor Storm G1"; //1
-"weakStorm_info" = "Weak Storm G2"; //2
-"moderateStorm_info" = "Moderate Storm G3"; //3
-"strongStorm_info" = "Strong Storm G4"; //4
-"severeStorm_info" = "Severe Storm G5"; //5
-"extremeStorm_info" = "Extreme-Scale\nStorm G6"; //6
-"outstandingStorm_info" = "Outstanding-Scale\nStorm G7"; //7
-"exceptionalStorm_info" = "Exceptional Storm G8"; //8
-"superStorm_info" = "Super Storm G9"; //9
+"noStorm_info" = "Absence of Storm Kp-index 0"; //0
+"minorStorm_info" = "Minor Storm Kp-index 1"; //1
+"weakStorm_info" = "Weak Storm Kp-index 2"; //2
+"moderateStorm_info" = "Moderate Storm Kp-index 3"; //3
+"strongStorm_info" = "Strong Storm Kp-index 4"; //4
+"severeStorm_info" = "Severe Storm Kp-index 5"; //5
+"extremeStorm_info" = "Extreme-Scale\nStorm Kp-index 6"; //6
+"outstandingStorm_info" = "Outstanding-Scale\nStorm Kp-index 7"; //7
+"exceptionalStorm_info" = "Exceptional Storm Kp-index 8"; //8
+"superStorm_info" = "Super Storm Kp-index 9"; //9
 
 //0
 "noStorm_description_info" = "At this level of geomagnetic activity, the human body is practically unaffected by magnetic storms. People do not feel any physical or emotional changes. Sleep is stable, mood remains consistently good, and physical condition remains normal.";
@@ -68,12 +68,10 @@
 "noInternet_description_info" = "No internet connection. Please check your internet connection and try again.";
 // notifications
 "notification_text" = "New data on geomagnetic activity.";
-//rate app
-"rateApp_text" = "Rate App";
 
 //MARK: Forecast view controler
 // forecast 3 days
-"forecast3days_text" = "3 days forecast";
+"forecast3days_text" = "3 Days forecast";
 // chart in forecast 3days
 "chartToday_text" = "Today";
 "chartTomorrow_text" = "Tomorrow";
@@ -100,3 +98,15 @@
 "timeTitle" = "Timing";
 "timeDescription_text" = "The best time for northern lights observation usually falls within an hour or two around midnight. These hours of auroral activity expand towards the evening and morning as the level of geomagnetic activity increases. Although the aurora may be visible in the evening and morning, it is usually less active and, therefore, less visually appealing.
 \nThe most favorable seasons for northern lights observation are around the spring and fall equinoxes.";
+//MARK: About
+"about_text_label" = "Track magnetic storms in real time.\nGet reliable forecasts and notifications of geomagnetic events.\n\nWatch the probability, strength, and location of the northern lights.";
+"source_text1" = "Sources:";
+"like_label" = "If you liked the app:";
+"share_button" = "Share the app";
+"rate_button" = "⭐️ Rate app";
+"support_button" = "☕️ Support us";
+"letter_button" = "✉️ Write to us";
+//MARK: TabBar
+"storm_tabbar" = "Magnetic storms";
+"aurora_tabbar" = "Northern Lights";
+"about_tabbar" = "About app";

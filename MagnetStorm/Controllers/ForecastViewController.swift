@@ -22,7 +22,7 @@ final class ForecastViewController: UIViewController {
     private let forecastLabel: UILabel = {
         let forecastLabel = UILabel()
         forecastLabel.text = "forecast3days_text".localized()
-        forecastLabel.font = UIFont.SFUITextHeavy(ofSize: 24)
+        forecastLabel.font = UIFont.SFUITextMedium(ofSize: 25)
         forecastLabel.textColor = .white
         return forecastLabel
     }()
@@ -216,8 +216,8 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         
         let dataLabel = UILabel()
         dataLabel.textColor = .white // Цвет текста заголовка
-        dataLabel.font = UIFont.SFUITextBold(ofSize: 18) // Жирный шрифт
-        dataLabel.textAlignment = .right // Выравнивание текста справа
+        dataLabel.font = UIFont.SFUITextMedium(ofSize: 18) // Жирный шрифт
+        dataLabel.textAlignment = .center // Выравнивание текста справа
         
         switch section {
         case 0:
@@ -232,7 +232,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
             if let tomorrowDate = tomorrowDate, let afterTomorrowDate = afterTomorrowDate {
                 let tomorrowString = dateFormatter.string(from: tomorrowDate)
                 let afterTomorrowString = dateFormatter.string(from: afterTomorrowDate)
-                dataLabel.text = "\(todayDate)  \(tomorrowString)  \(afterTomorrowString)"
+                dataLabel.text = "\(todayDate)   \(tomorrowString)   \(afterTomorrowString)"
             } else {
                 dataLabel.text = todayDate
             }
@@ -242,7 +242,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.addSubview(dataLabel)
         dataLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(5) // Отступ справа
+            make.trailing.equalToSuperview().inset(10) // Отступ справа
             make.centerY.equalToSuperview() // Выравнивание по вертикали
         }
         

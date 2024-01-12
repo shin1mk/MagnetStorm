@@ -24,15 +24,15 @@ final class MainTabBarController: UITabBarController {
         viewControllers = [
             generateVC(
                 viewController: StormViewController(),
-                title: "Storm",
+                title: "storm_tabbar".localized(),
                 image: UIImage(systemName: "sun.max.trianglebadge.exclamationmark")),
             generateVC(
                 viewController: AuroraViewController(),
-                title: "Aurora",
+                title: "aurora_tabbar".localized(),
                 image: UIImage(systemName: "wind")),
             generateVC(
                 viewController: AboutViewController(),
-                title: "About",
+                title: "about_tabbar".localized(),
                 image: UIImage(systemName: "line.3.horizontal")),
         ]
     }

@@ -17,49 +17,50 @@ final class AboutViewController: UIViewController {
         return view
     }()
     private let textLabel: UILabel = {
-        let locationLabel = UILabel()
-        locationLabel.text = "что делает приложение"
-        locationLabel.font = UIFont.SFUITextRegular(ofSize: 18)
-        locationLabel.textColor = .white
-        return locationLabel
+        let label = UILabel()
+        label.text = "about_text_label".localized()
+        label.font = UIFont.SFUITextRegular(ofSize: 16)
+        label.textColor = .white
+        label.numberOfLines = 0
+        return label
     }()
     private let source1Label: UILabel = {
-        let locationLabel = UILabel()
-        locationLabel.text = "kp source"
-        locationLabel.font = UIFont.SFUITextRegular(ofSize: 18)
-        locationLabel.textColor = .white
-        return locationLabel
+        let label = UILabel()
+        label.text = "source_text1".localized()
+        label.font = UIFont.SFUITextRegular(ofSize: 16)
+        label.textColor = .white
+        return label
     }()
     private let source1Button: UIButton = {
         let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitle("NOAA SWPC Magnet forecast", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
+        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         return button
-    }()   
-    private let source2Label: UILabel = {
-        let locationLabel = UILabel()
-        locationLabel.text = "aurora source"
-        locationLabel.font = UIFont.SFUITextRegular(ofSize: 18)
-        locationLabel.textColor = .white
-        return locationLabel
     }()
     private let source2Button: UIButton = {
         let button = UIButton()
-        button.setTitle("NOAA Space Weather Prediction Center", for: .normal)
+        button.setTitle("NOAA SWPC Aurora forecast", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 14)
+        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         return button
     }()
+    private let likeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "like_label".localized()
+        label.font = UIFont.SFUITextRegular(ofSize: 16)
+        label.textColor = .white
+        return label
+    }()
     private let shareButton: UIButton = {
         let button = UIButton()
-        button.setTitle("share", for: .normal)
+        button.setTitle("share_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -68,7 +69,7 @@ final class AboutViewController: UIViewController {
     }()
     private let rateButton: UIButton = {
         let button = UIButton()
-        button.setTitle("rate", for: .normal)
+        button.setTitle("rate_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -77,7 +78,7 @@ final class AboutViewController: UIViewController {
     }()
     private let buyButton: UIButton = {
         let button = UIButton()
-        button.setTitle("\(NSLocalizedString("support_text", comment: ""))", for: .normal)
+        button.setTitle("support_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -86,7 +87,7 @@ final class AboutViewController: UIViewController {
     }()
     private let letterButton: UIButton = {
         let button = UIButton()
-        button.setTitle("\(NSLocalizedString("letter_text", comment: ""))", for: .normal)
+        button.setTitle("letter_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
@@ -106,35 +107,34 @@ final class AboutViewController: UIViewController {
         textLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
             make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(40)
         }
         view.addSubview(source1Label)
         source1Label.snp.makeConstraints { make in
-            make.top.equalTo(textLabel.snp.bottom).offset(10)
+            make.top.equalTo(textLabel.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
         view.addSubview(source1Button)
         source1Button.snp.makeConstraints { make in
-            make.top.equalTo(source1Label.snp.bottom).offset(15)
-            make.leading.trailing.equalToSuperview().inset(15)
-            make.height.equalTo(40)
-        }
-        view.addSubview(source2Label)
-        source2Label.snp.makeConstraints { make in
-            make.top.equalTo(source1Button.snp.bottom).offset(15)
+            make.top.equalTo(source1Label.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
         view.addSubview(source2Button)
         source2Button.snp.makeConstraints { make in
-            make.top.equalTo(source2Label.snp.bottom).offset(15)
+            make.top.equalTo(source1Button.snp.bottom).offset(15)
+            make.leading.trailing.equalToSuperview().inset(15)
+            make.height.equalTo(40)
+        }
+        view.addSubview(likeLabel)
+        likeLabel.snp.makeConstraints { make in
+            make.top.equalTo(source2Button.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
         view.addSubview(shareButton)
         shareButton.snp.makeConstraints { make in
-            make.top.equalTo(source2Button.snp.bottom).offset(15)
+            make.top.equalTo(likeLabel.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
@@ -167,12 +167,39 @@ final class AboutViewController: UIViewController {
     }
 
     private func addTarget() {
+        source1Button.addTarget(self, action: #selector(openNOAA1Link), for: .touchUpInside)
+        source2Button.addTarget(self, action: #selector(openNOAA2Link), for: .touchUpInside)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        rateButton.addTarget(self, action: #selector(rateButtonTapped), for: .touchUpInside)
         buyButton.addTarget(self, action: #selector(buyButtonTapped), for: .touchUpInside)
         letterButton.addTarget(self, action: #selector(letterButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func openNOAALink() {
+    @objc private func openNOAA1Link() {
         if let url = URL(string: "https://www.swpc.noaa.gov/products/3-day-forecast") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @objc private func openNOAA2Link() {
+        if let url = URL(string: "https://www.swpc.noaa.gov/communities/aurora-dashboard-experimental") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    // share
+    @objc private func shareButtonTapped() {
+        // Создайте экземпляр UIActivityViewController
+        let appURL = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721")!
+        let shareText = "MagnetStorm\n\(appURL)"
+        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        // Предотвратите показывание контроллера на iPad в поповере
+        activityViewController.popoverPresentationController?.sourceView = view
+        // Покажите UIActivityViewController
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
+    @objc private func rateButtonTapped() {
+        if let url = URL(string: "https://apps.apple.com/us/app/magnetstorm/id6468251721") {
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         }
@@ -186,7 +213,7 @@ final class AboutViewController: UIViewController {
     
     @objc private func letterButtonTapped() {
         let recipient = "shininswift@gmail.com"
-        let subject = "NemaOkupantiv🇺🇦Співпраця/побажання."
+        let subject = "MagnetStorm."
         
         let urlString = "mailto:\(recipient)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
