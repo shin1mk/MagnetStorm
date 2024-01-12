@@ -12,6 +12,7 @@ import SDWebImage
 final class AuroraViewController: UIViewController {
     private let feedbackGenerator = UISelectionFeedbackGenerator()
     private var labelTimer: Timer?
+    private var infoButtonTimer: Timer?
     private var value: String = ""
     //MARK: Properties
     private let imageView: UIImageView = {
@@ -142,6 +143,7 @@ final class AuroraViewController: UIViewController {
         }
 
         view.addSubview(infoButton)
+        infoButton.isHidden = true
         infoButton.snp.makeConstraints { make in
             make.leading.equalTo(auroraLabel.snp.trailing).offset(10)
             make.centerY.equalTo(auroraLabel)
@@ -292,6 +294,17 @@ extension AuroraViewController {
             self?.labelTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
+    // animate info button
+    private func animateInfoButtonAppearance() {
+        infoButton.alpha = 0.0 // Начнем с нулевой прозрачности
+        infoButton.isHidden = false
+        UIView.animate(withDuration: 0.7, animations: { [weak self] in
+            self?.infoButton.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
+        }) { [weak self] (_) in
+            self?.infoButtonTimer?.invalidate() // По завершении анимации останавливаем таймер
+        }
+    }
+    
     private func animateDescriptionLabelAppearance(withText text: String) {
         descriptionLabel.alpha = 0.0 // Начнем с нулевой прозрачности
         descriptionLabel.text = text // Устанавливаем текст

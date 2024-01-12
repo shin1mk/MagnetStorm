@@ -99,7 +99,7 @@
 "timeDescription_text" = "The best time for northern lights observation usually falls within an hour or two around midnight. These hours of auroral activity expand towards the evening and morning as the level of geomagnetic activity increases. Although the aurora may be visible in the evening and morning, it is usually less active and, therefore, less visually appealing.
 \nThe most favorable seasons for northern lights observation are around the spring and fall equinoxes.";
 //MARK: About
-"about_text_label" = "Track magnetic storms in real time.\nGet reliable forecasts and notifications of geomagnetic events.\n\nWatch the probability, strength, and location of the northern lights.";
+"about_text_label" = "About MagnetStorm\n\nTrack magnetic storms in real time.\nGet reliable forecasts and notifications of geomagnetic events.\n\nWatch the probability, strength, and location of the northern lights.";
 "source_text1" = "Sources:";
 "like_label" = "If you liked the app:";
 "share_button" = "Share the app";

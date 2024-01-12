@@ -22,6 +22,7 @@ final class StormViewController: UIViewController {
     private let auroraViewController = AuroraViewController()
     private var locationLabelTimer: Timer?
     private var planetaryLabelTimer: Timer?
+    private var infoButtonTimer: Timer?
     private var geomagneticActivityLabelTimer: Timer?
     private var currentCity: String?
     // анимация и кнопка
@@ -128,6 +129,7 @@ final class StormViewController: UIViewController {
         }
         // buttons
         view.addSubview(infoButton)
+        infoButton.isHidden = true
         infoButton.snp.makeConstraints { make in
             make.leading.equalTo(planetaryLabel.snp.trailing).offset(10)
             make.centerY.equalTo(planetaryLabel)
@@ -229,6 +231,7 @@ extension StormViewController: CLLocationManagerDelegate {
                         self?.animateLocationLabelAppearance(withText: city)
                         self?.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
                         self?.fetchStormValueUI()
+                        self?.animateInfoButtonAppearance()
                         self!.forecastView.fetchStormForecastUI()
                         self?.startNetworkMonitoring()
                     }
@@ -278,6 +281,7 @@ extension StormViewController {
             self.animateLocationLabelAppearance(withText: city)
             self.startNetworkMonitoring()
             self.fetchStormValueUI()
+            self.animateInfoButtonAppearance()
             self.animateForecastViewAppearance()
             self.forecastView.fetchStormForecastUI()
         }
@@ -309,20 +313,21 @@ extension StormViewController {
         present(forecastViewController, animated: true, completion: nil)
     }
     // refresh button action
-    @objc private func refreshButtonTapped() {
-        print("refresh")
-        guard !isLabelAnimating else { return }
-        feedbackGenerator.selectionChanged() // Добавьте виброотклик
-
-        if let city = currentCity { // Use the captured city value
-            self.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
-            self.animateLocationLabelAppearance(withText: city)
-            self.startNetworkMonitoring()
-            self.fetchStormValueUI()
-            self.animateForecastViewAppearance()
-            self.forecastView.fetchStormForecastUI()
-        }
-    }
+//    @objc private func refreshButtonTapped() {
+//        print("refresh")
+//        guard !isLabelAnimating else { return }
+//        feedbackGenerator.selectionChanged() // Добавьте виброотклик
+//
+//        if let city = currentCity { // Use the captured city value
+//            self.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
+//            self.animateLocationLabelAppearance(withText: city)
+//            self.startNetworkMonitoring()
+//            self.fetchStormValueUI()
+//            self.animateInfoButtonAppearance()
+//            self.animateForecastViewAppearance()
+//            self.forecastView.fetchStormForecastUI()
+//        }
+//    }
     // description button action
     @objc private func descriptionButtonTapped() {
         print("descriptionButtonTapped")
@@ -366,6 +371,16 @@ extension StormViewController {
             self?.geomagneticActivityLabel.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
         }) { [weak self] (_) in
             self?.geomagneticActivityLabelTimer?.invalidate() // По завершении анимации останавливаем таймер
+        }
+    }
+    // animate info button
+    private func animateInfoButtonAppearance() {
+        infoButton.alpha = 0.0 // Начнем с нулевой прозрачности
+        infoButton.isHidden = false
+        UIView.animate(withDuration: 0.7, animations: { [weak self] in
+            self?.infoButton.alpha = 1.0 // Увеличиваем прозрачность до 1 (полностью видимый)
+        }) { [weak self] (_) in
+            self?.infoButtonTimer?.invalidate() // По завершении анимации останавливаем таймер
         }
     }
     // Аnimate forecast view
