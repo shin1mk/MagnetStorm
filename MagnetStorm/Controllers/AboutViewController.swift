@@ -213,7 +213,7 @@ final class AboutViewController: UIViewController {
     
     @objc private func letterButtonTapped() {
         let recipient = "shininswift@gmail.com"
-        let subject = "MagnetStorm."
+        let subject = "MagnetStorm"
         
         let urlString = "mailto:\(recipient)?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         

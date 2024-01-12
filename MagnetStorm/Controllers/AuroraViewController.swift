@@ -232,6 +232,7 @@ extension AuroraViewController {
         fetchDataAndDisplayAuroraImage()
         fetchAuroraNowcastValue()
         animationLabels()
+        animateInfoButtonAppearance()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             // Завершение обновления данных
             self?.refreshControl.endRefreshing()
@@ -261,6 +262,7 @@ extension AuroraViewController {
         animateValueLabelAppearance(withText: "gigawatts".localized())
         animateDescriptionLabelAppearance(withText: "descriptionAurora_text".localized())
         animateNorthActivityLabelAppearance(withText: value)
+        animateInfoButtonAppearance()
     }
     
     private func animateAuroraLabelAppearance(withText text: String) {

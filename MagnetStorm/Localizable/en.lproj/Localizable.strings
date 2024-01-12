@@ -84,13 +84,13 @@
 "gigawatts" = "GIGAWATTS";
 //MARK: Aurora Description
 "geomagneticTitle" = "Geomagnetic Activity";
-"geomagneticDescription_text" = "If the geomagnetic field is active (as indicated by the G index), the northern lights (aurora) will be visible further from the poles. Geomagnetic activity depends on solar activity and the presence of solar coronal holes, so it varies over time.
-\nThe level of geomagnetic activity is measured using the planetary G index, and the intensity of the aurora is expressed in gigawatts (GW). The G index ranges from 0 to 9, and the intensity of the aurora varies from lower values to higher ones.
+"geomagneticDescription_text" = "If the geomagnetic field is active (as indicated by the Kp-index), the northern lights (aurora) will be visible further from the poles. Geomagnetic activity depends on solar activity and the presence of solar coronal holes, so it varies over time.
+\nThe level of geomagnetic activity is measured using the planetary Kp-index, and the intensity of the aurora is expressed in gigawatts (GW). The Kp-index ranges from 0 to 9, and the intensity of the aurora varies from lower values to higher ones.
 \nIt should be noted that there are moments when these relationships do not hold exactly.";
 
 "locationTitle" = "Location";
 "locationDescription_text" = "For the best northern lights viewing, head towards the magnetic poles. With the right choice of location, such as on top of a hill in the northern hemisphere with an unobstructed view to the north, you can see the aurora even when it is still 1000 km to the north.
-\nIt is important to note that if you are beneath the aurora in the right place, you can enjoy beautiful auroral displays even during low geomagnetic activity (G = 2 or 3).";
+\nIt is important to note that if you are beneath the aurora in the right place, you can enjoy beautiful auroral displays even during low geomagnetic activity (Kp-index = 2 or 3).";
 
 "mustBeDarkTitle" = "It Must Be Dark";
 "mustBeDarkDescription_text" = "For optimal northern lights observation, venture out during the night. Move away from artificial city lights. The light of a full moon may reduce the apparent brightness of the aurora, but not its actual brightness.";
@@ -99,7 +99,7 @@
 "timeDescription_text" = "The best time for northern lights observation usually falls within an hour or two around midnight. These hours of auroral activity expand towards the evening and morning as the level of geomagnetic activity increases. Although the aurora may be visible in the evening and morning, it is usually less active and, therefore, less visually appealing.
 \nThe most favorable seasons for northern lights observation are around the spring and fall equinoxes.";
 //MARK: About
-"about_text_label" = "About MagnetStorm\n\nTrack magnetic storms in real time.\nGet reliable forecasts and notifications of geomagnetic events.\n\nWatch the probability, strength, and location of the northern lights.";
+"about_text_label" = "About MagnetStorm:\n\nTrack magnetic storms in real time.\nGet reliable forecasts and notifications of geomagnetic events.\n\nWatch the probability, strength, and location of the northern lights.";
 "source_text1" = "Sources:";
 "like_label" = "If you liked the app:";
 "share_button" = "Share the app";

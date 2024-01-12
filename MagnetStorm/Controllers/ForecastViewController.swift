@@ -223,7 +223,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             let currentDate = Date()
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "d MMMM" // Формат дня недели и даты
+            dateFormatter.dateFormat = "dd/MM" // Формат дня недели и даты
             let todayDate = dateFormatter.string(from: currentDate)
             
             let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)
@@ -232,7 +232,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
             if let tomorrowDate = tomorrowDate, let afterTomorrowDate = afterTomorrowDate {
                 let tomorrowString = dateFormatter.string(from: tomorrowDate)
                 let afterTomorrowString = dateFormatter.string(from: afterTomorrowDate)
-                dataLabel.text = "\(todayDate)   \(tomorrowString)   \(afterTomorrowString)"
+                dataLabel.text = "\(todayDate)             \(tomorrowString)            \(afterTomorrowString)"
             } else {
                 dataLabel.text = todayDate
             }
@@ -242,7 +242,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.addSubview(dataLabel)
         dataLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(10) // Отступ справа
+            make.leading.equalToSuperview().offset(100) // Отступ справа
             make.centerY.equalToSuperview() // Выравнивание по вертикали
         }
         
