@@ -242,7 +242,7 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.addSubview(dataLabel)
         dataLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(100) // Отступ справа
+            make.leading.equalToSuperview().offset(95) // Отступ справа
             make.centerY.equalToSuperview() // Выравнивание по вертикали
         }
         

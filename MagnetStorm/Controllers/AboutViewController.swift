@@ -94,6 +94,17 @@ final class AboutViewController: UIViewController {
         button.layer.cornerRadius = 10
         return button
     }()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .black
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -102,70 +113,93 @@ final class AboutViewController: UIViewController {
     
     private func setupConstraints() {
         view.backgroundColor = .black
-
-        view.addSubview(textLabel)
-        textLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            make.leading.trailing.equalToSuperview().inset(15)
+        
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        view.addSubview(source1Label)
+        
+        scrollView.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.edges.width.equalTo(scrollView)
+            make.height.equalToSuperview().priority(.low)
+            make.top.bottom.equalToSuperview() // Добавлено это ограничение
+        }
+        
+        contentView.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView).offset(0)
+            make.leading.trailing.equalToSuperview().inset(15)
+            make.height.greaterThanOrEqualTo(200)
+        }
+        
+        contentView.addSubview(source1Label)
         source1Label.snp.makeConstraints { make in
             make.top.equalTo(textLabel.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(source1Button)
+        
+        contentView.addSubview(source1Button)
         source1Button.snp.makeConstraints { make in
             make.top.equalTo(source1Label.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(source2Button)
+        
+        contentView.addSubview(source2Button)
         source2Button.snp.makeConstraints { make in
             make.top.equalTo(source1Button.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(likeLabel)
+        
+        contentView.addSubview(likeLabel)
         likeLabel.snp.makeConstraints { make in
             make.top.equalTo(source2Button.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(shareButton)
+        
+        contentView.addSubview(shareButton)
         shareButton.snp.makeConstraints { make in
             make.top.equalTo(likeLabel.snp.bottom).offset(0)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(rateButton)
+        
+        contentView.addSubview(rateButton)
         rateButton.snp.makeConstraints { make in
             make.top.equalTo(shareButton.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(buyButton)
+        
+        contentView.addSubview(buyButton)
         buyButton.snp.makeConstraints { make in
             make.top.equalTo(rateButton.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
-        view.addSubview(letterButton)
+        
+        contentView.addSubview(letterButton)
         letterButton.snp.makeConstraints { make in
             make.top.equalTo(buyButton.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-10)
+
         }
-        
         // tab bar background
-        view.addSubview(bottomMarginView)
+        contentView.addSubview(bottomMarginView)
+        bottomMarginView.layer.zPosition = 999
         bottomMarginView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.height.greaterThanOrEqualTo(0)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.bottomMargin).offset(-0)
+            make.top.equalTo(contentView.safeAreaLayoutGuide.snp.bottomMargin).offset(-0)
         }
     }
-
+    
     private func addTarget() {
         source1Button.addTarget(self, action: #selector(openNOAA1Link), for: .touchUpInside)
         source2Button.addTarget(self, action: #selector(openNOAA2Link), for: .touchUpInside)

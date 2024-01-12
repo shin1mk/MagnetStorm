@@ -173,6 +173,7 @@
 			children = (
 				1370973F2ACA1A9300EE4538 /* StormDescriptionTableViewCell.swift */,
 				136D1C592AD9A770001B96C5 /* AuroraDescriptionTableViewCell.swift */,
+				138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -281,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				1375D8CE2ACCCF690000BCE6 /* ForecastView.swift */,
-				138D6FB72AD349F200CE7AB8 /* ForecastTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

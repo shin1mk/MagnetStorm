@@ -48,7 +48,7 @@ final class ForecastTableViewCell: UITableViewCell {
         }
         contentView.addSubview(todayValueLabel)
         todayValueLabel.snp.makeConstraints { make in
-            make.left.equalTo(timeLabel.snp.right).offset(10)
+            make.left.equalTo(timeLabel.snp.right).offset(7)
             make.top.equalTo(contentView).offset(10)
             make.width.equalTo(100)
             make.height.equalTo(20)
