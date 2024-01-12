@@ -36,8 +36,8 @@ final class AboutViewController: UIViewController {
         button.setTitle("NOAA SWPC Magnet forecast", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -46,8 +46,8 @@ final class AboutViewController: UIViewController {
         button.setTitle("NOAA SWPC Aurora forecast", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -63,7 +63,8 @@ final class AboutViewController: UIViewController {
         button.setTitle("share_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -71,8 +72,8 @@ final class AboutViewController: UIViewController {
         let button = UIButton()
         button.setTitle("rate_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -80,8 +81,8 @@ final class AboutViewController: UIViewController {
         let button = UIButton()
         button.setTitle("support_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -89,8 +90,8 @@ final class AboutViewController: UIViewController {
         let button = UIButton()
         button.setTitle("letter_button".localized(), for: .normal)
         button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
