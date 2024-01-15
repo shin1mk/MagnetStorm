@@ -48,6 +48,7 @@
 		13AA21532AA5D130006DAB56 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AA21522AA5D130006DAB56 /* CustomFonts.swift */; };
 		13CB67C82AC77275001C6270 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13CB67CA2AC77275001C6270 /* InfoPlist.strings */; };
 		13CC9FE42AD2CDFE00DBF5E7 /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */; };
+		13DD0DC62B558F0B005B7F59 /* TidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DD0DC52B558F0B005B7F59 /* TidesViewController.swift */; };
 		13E3CC9C2AB301D600C14F39 /* Extension + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E3CC9B2AB301D600C14F39 /* Extension + String.swift */; };
 		13E3CC9F2AB302ED00C14F39 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13E3CCA12AB302ED00C14F39 /* Localizable.strings */; };
 		921C885F0D7ECE75770D50E5 /* Pods_MagnetStorm_MagnetStormUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B386282E1553463722EF87A1 /* Pods_MagnetStorm_MagnetStormUITests.framework */; };
@@ -120,6 +121,7 @@
 		13CB67CB2AC7727B001C6270 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		13CB67CC2AC7727B001C6270 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		13CC9FE32AD2CDFE00DBF5E7 /* ForecastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
+		13DD0DC52B558F0B005B7F59 /* TidesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TidesViewController.swift; sourceTree = "<group>"; };
 		13E3CC9B2AB301D600C14F39 /* Extension + String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + String.swift"; sourceTree = "<group>"; };
 		13E3CCA02AB302ED00C14F39 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		13E3CCA22AB3030C00C14F39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				1366A0DF2AD95B42000AD5CE /* AuroraDescriptionViewController.swift */,
 				13170B4E2B5046B200DFE057 /* MainTabBarController.swift */,
 				13127ABB2B507A460050551A /* AboutViewController.swift */,
+				13DD0DC52B558F0B005B7F59 /* TidesViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13DD0DC62B558F0B005B7F59 /* TidesViewController.swift in Sources */,
 				1326E7882ACA9ABB00504BF8 /* StormForecastManager.swift in Sources */,
 				1353372E2AACF9DF001261E5 /* GeomagneticActivityState.swift in Sources */,
 				13170B4F2B5046B200DFE057 /* MainTabBarController.swift in Sources */,
@@ -840,7 +844,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = code.MagnetStorm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -877,7 +881,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = code.MagnetStorm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

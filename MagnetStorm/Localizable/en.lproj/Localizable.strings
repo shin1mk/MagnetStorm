@@ -106,7 +106,9 @@
 "rate_button" = "⭐️ Rate app";
 "support_button" = "☕️ Support us";
 "letter_button" = "✉️ Write to us";
+"cache_button" = "🧹 Clean cache";
 //MARK: TabBar
-"storm_tabbar" = "Magnetic storms";
+"storm_tabbar" = "Magnetic Storms";
 "aurora_tabbar" = "Northern Lights";
-"about_tabbar" = "About app";
+"tides_tabbar" = "Tides/Currents";
+"about_tabbar" = "About App";

@@ -29,7 +29,11 @@ final class MainTabBarController: UITabBarController {
             generateVC(
                 viewController: AuroraViewController(),
                 title: "aurora_tabbar".localized(),
-                image: UIImage(systemName: "wind")),
+                image: UIImage(systemName: "wind")),            
+            generateVC(
+                viewController: TidesViewController(),
+                title: "tides_tabbar".localized(),
+                image: UIImage(systemName: "water.waves.and.arrow.down.trianglebadge.exclamationmark")),
             generateVC(
                 viewController: AboutViewController(),
                 title: "about_tabbar".localized(),

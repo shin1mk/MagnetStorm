@@ -80,7 +80,6 @@ final class StormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         auroraViewController.setupAuroraGIFBackground()
-//        setupAppLifecycleObservers()
         setupConstraints()
         setupGestures()
         setupMagnetGIFBackground()
@@ -312,22 +311,6 @@ extension StormViewController {
         forecastViewController.modalPresentationStyle = .popover
         present(forecastViewController, animated: true, completion: nil)
     }
-    // refresh button action
-//    @objc private func refreshButtonTapped() {
-//        print("refresh")
-//        guard !isLabelAnimating else { return }
-//        feedbackGenerator.selectionChanged() // Добавьте виброотклик
-//
-//        if let city = currentCity { // Use the captured city value
-//            self.animatePlanetaryLabelAppearance(withText: "planeraty_title".localized())
-//            self.animateLocationLabelAppearance(withText: city)
-//            self.startNetworkMonitoring()
-//            self.fetchStormValueUI()
-//            self.animateInfoButtonAppearance()
-//            self.animateForecastViewAppearance()
-//            self.forecastView.fetchStormForecastUI()
-//        }
-//    }
     // description button action
     @objc private func descriptionButtonTapped() {
         print("descriptionButtonTapped")

@@ -51,6 +51,16 @@ final class AboutViewController: UIViewController {
         button.layer.cornerRadius = 10
         return button
     }()
+    private let source3Button: UIButton = {
+        let button = UIButton()
+        button.setTitle("NOAA SWPC Tides and Currents", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextRegular(ofSize: 16)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
+        button.layer.cornerRadius = 10
+        return button
+    }()
     private let likeLabel: UILabel = {
         let label = UILabel()
         label.text = "like_label".localized()
@@ -95,12 +105,28 @@ final class AboutViewController: UIViewController {
         button.layer.cornerRadius = 10
         return button
     }()
+    private let clearCacheButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("cache_button".localized(), for: .normal)
+        button.titleLabel?.font = UIFont.SFUITextMedium(ofSize: 16)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray6
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    private let cacheLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.SFUITextRegular(ofSize: 12)
+        label.textAlignment = .left
+        label.text = ""
+        label.textColor = .systemGray2
+        return label
+    }()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .black
         return scrollView
     }()
-    
     private let contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -110,6 +136,7 @@ final class AboutViewController: UIViewController {
         super.viewDidLoad()
         setupConstraints()
         addTarget()
+        updateCacheLabel()
     }
     
     private func setupConstraints() {
@@ -124,7 +151,7 @@ final class AboutViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.width.equalTo(scrollView)
             make.height.equalToSuperview().priority(.low)
-            make.top.bottom.equalToSuperview() // Добавлено это ограничение
+            make.top.bottom.equalToSuperview()
         }
         
         contentView.addSubview(textLabel)
@@ -153,11 +180,18 @@ final class AboutViewController: UIViewController {
             make.top.equalTo(source1Button.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
+        }    
+        
+        contentView.addSubview(source3Button)
+        source3Button.snp.makeConstraints { make in
+            make.top.equalTo(source2Button.snp.bottom).offset(15)
+            make.leading.trailing.equalToSuperview().inset(15)
+            make.height.equalTo(40)
         }
         
         contentView.addSubview(likeLabel)
         likeLabel.snp.makeConstraints { make in
-            make.top.equalTo(source2Button.snp.bottom).offset(15)
+            make.top.equalTo(source3Button.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
         }
@@ -188,8 +222,19 @@ final class AboutViewController: UIViewController {
             make.top.equalTo(buyButton.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(15)
             make.height.equalTo(40)
+        }
+        contentView.addSubview(clearCacheButton)
+        clearCacheButton.snp.makeConstraints { make in
+            make.top.equalTo(letterButton.snp.bottom).offset(25)
+            make.leading.trailing.equalToSuperview().inset(15)
+            make.height.equalTo(40)
+        }
+        contentView.addSubview(cacheLabel)
+        cacheLabel.snp.makeConstraints { make in
+            make.top.equalTo(clearCacheButton.snp.bottom).offset(0)
+            make.leading.trailing.equalToSuperview().inset(15)
+            make.height.equalTo(40)
             make.bottom.equalToSuperview().offset(-10)
-
         }
         // tab bar background
         contentView.addSubview(bottomMarginView)
@@ -204,10 +249,12 @@ final class AboutViewController: UIViewController {
     private func addTarget() {
         source1Button.addTarget(self, action: #selector(openNOAA1Link), for: .touchUpInside)
         source2Button.addTarget(self, action: #selector(openNOAA2Link), for: .touchUpInside)
+        source3Button.addTarget(self, action: #selector(openNOAA3Link), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         rateButton.addTarget(self, action: #selector(rateButtonTapped), for: .touchUpInside)
         buyButton.addTarget(self, action: #selector(buyButtonTapped), for: .touchUpInside)
         letterButton.addTarget(self, action: #selector(letterButtonTapped), for: .touchUpInside)
+        clearCacheButton.addTarget(self, action: #selector(clearCacheButtonTapped), for: .touchUpInside)
     }
     
     @objc private func openNOAA1Link() {
@@ -218,6 +265,12 @@ final class AboutViewController: UIViewController {
     
     @objc private func openNOAA2Link() {
         if let url = URL(string: "https://www.swpc.noaa.gov/communities/aurora-dashboard-experimental") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @objc private func openNOAA3Link() {
+        if let url = URL(string: " https://tidesandcurrents.noaa.gov/map/") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
@@ -256,4 +309,61 @@ final class AboutViewController: UIViewController {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    // чистим кеш функция
+    @objc func clearCacheButtonTapped() {
+        // Get the caches directory URL
+        if let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+            do {
+                let cacheFiles = try FileManager.default.contentsOfDirectory(atPath: cachesURL.path)
+                
+                for file in cacheFiles {
+                    try FileManager.default.removeItem(at: cachesURL.appendingPathComponent(file))
+                }
+                print("Кеш очищен.")
+                
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                    DispatchQueue.main.async {
+                        self.updateCacheLabel()
+                    }
+                }
+            } catch {
+                print("Не удалось очистить кеш: \(error.localizedDescription)")
+            }
+        }
+    }
+    // обновляем лейбл кеша
+    func updateCacheLabel() {
+        if let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+            do {
+                // Get the size of the caches directory
+                let cacheSize = try FileManager.default.sizeOfDirectory(at: cachesURL)
+                
+                let formattedSize = ByteCountFormatter.string(fromByteCount: Int64(cacheSize), countStyle: .file)
+                
+                cacheLabel.text = cacheSize > 0 ? "Cache size: \(formattedSize)" : "Cache size: 0 Mb"
+            } catch {
+                cacheLabel.text = "Не удалось получить размер кеша"
+            }
+        }
+    }
+} // end
+//MARK: Clear Cache
+extension FileManager {
+    func sizeOfDirectory(at url: URL) throws -> UInt64 {
+        let resourceKeys: [URLResourceKey] = [.isRegularFileKey, .fileSizeKey]
+
+        let enumerator = self.enumerator(at: url, includingPropertiesForKeys: resourceKeys, options: [], errorHandler: nil)
+
+        var totalSize: UInt64 = 0
+
+        for case let fileURL as URL in enumerator! {
+            let resourceValues = try fileURL.resourceValues(forKeys: Set(resourceKeys))
+            if resourceValues.isRegularFile ?? false {
+                totalSize += UInt64(resourceValues.fileSize ?? 0)
+            }
+        }
+
+        return totalSize
+    }
 }
+
