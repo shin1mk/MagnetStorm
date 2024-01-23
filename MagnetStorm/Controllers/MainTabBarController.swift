@@ -9,10 +9,13 @@ import Foundation
 import UIKit
 
 final class MainTabBarController: UITabBarController {
+    private let tidesViewController = TidesViewController()
+
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         generateTabBar()
+        tidesViewController.loadTidesPage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
