@@ -48,7 +48,7 @@ struct MagnetStormWidgetEntryView: View {
                 .foregroundColor(.gray)
 
             Text(entry.kpValue)
-                .font(.custom("SFUITextBold", size: 100))
+                .font(.system(size: 110, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .widgetBackground(backgroundView: Color(.sRGB, red: 28/255, green: 28/255, blue: 30/255).opacity(0.9))
