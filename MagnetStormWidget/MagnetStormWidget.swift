@@ -25,7 +25,6 @@ struct MagnetStormWidget: Widget {
         .contentMarginsDisabled() // Применяем исправление для дополнительного отступа
     }
 }
-
 // MARK: - Widget Preview
 struct MagnetStormWidget_Previews: PreviewProvider {
     static var previews: some View {
@@ -34,27 +33,37 @@ struct MagnetStormWidget_Previews: PreviewProvider {
     }
 }
 // MARK: - Widget Entry View
-
-
 struct MagnetStormWidgetEntryView: View {
     var entry: MagnetStormWidgetEntry
     
     var body: some View {
         VStack {
-            Text("")
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
-            
+            Text(currentDayOfWeek())
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundColor(.red)
+                .padding(.top, 15)
+
+            Text("K-index")
+                .font(.system(size: 20, weight: .semibold))
+                .foregroundColor(.gray)
+
             Text(entry.kpValue)
-                .font(.custom("SFUITextBold", size: 150))
+                .font(.custom("SFUITextBold", size: 100))
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .widgetBackground(backgroundView: Color.clear) // Применяем исправление
+                .widgetBackground(backgroundView: Color(.sRGB, red: 28/255, green: 28/255, blue: 30/255).opacity(0.9))
+                .padding(.top, -30) // Уменьшаем отступ снизу
         }
         .padding()
     }
+    // calendar
+    func currentDayOfWeek() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE" // Формат для полного дня недели
+        dateFormatter.locale = Locale.current
+        return dateFormatter.string(from: Date())
+    }
 }
-
 // MARK: - Timeline Provider
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> MagnetStormWidgetEntry {
@@ -70,14 +79,12 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<MagnetStormWidgetEntry>) -> Void) {
         fetchStormValue { currentKpValue in
             let entry = MagnetStormWidgetEntry(date: Date(), kpValue: currentKpValue ?? "N/A")
-
+            
             let timeline = Timeline(entries: [entry], policy: .atEnd)
             completion(timeline)
         }
     }
 }
-
-
 extension View {
     func widgetBackground(backgroundView: some View) -> some View {
         if #available(iOSApplicationExtension 17.0, *) {
